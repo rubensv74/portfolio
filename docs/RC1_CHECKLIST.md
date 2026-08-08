@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Dejar una primera versión suficientemente sólida como para publicarla temporalmente, revisarla en navegador y decidir si puede convertirse en la versión que se enlazará desde LinkedIn.
+Dejar una primera versión suficientemente sólida como para revisarla en navegador y decidir si puede convertirse en la versión que se enlazará desde LinkedIn.
 
 ## Estado actual
 
@@ -14,6 +14,7 @@ Dejar una primera versión suficientemente sólida como para publicarla temporal
 - [x] CMMS 2.0 con recorrido ficticio basado en el proceso real trabajado.
 - [x] Power BI Studio con foco en estándares y reutilización.
 - [x] Lenguaje de “web en construcción” eliminado de la Home.
+- [x] Casos de estudio situados antes de “Sobre mí” para priorizar evidencia.
 
 ### Privacidad
 
@@ -22,16 +23,20 @@ Dejar una primera versión suficientemente sólida como para publicarla temporal
 - [x] No publicar capturas reales por defecto.
 - [x] No inventar métricas de impacto.
 - [x] No inventar funcionalidades para mejorar una recreación.
-- [ ] Revisión final manual de cada texto e imagen antes de hacer público el sitio.
+- [x] Primera revisión de privacidad completada antes de hacer público el repositorio.
+- [ ] Segunda revisión manual antes de enlazar el portfolio desde LinkedIn.
 
 ### Navegación y accesibilidad
 
 - [x] Navegación principal consistente.
+- [x] Navegación ordenada para priorizar los proyectos.
 - [x] Enlaces de retorno desde casos de estudio.
 - [x] Enlace para saltar directamente al contenido.
 - [x] Foco visible para navegación por teclado.
 - [x] Preferencia de movimiento reducido respetada.
-- [ ] Revisión real en navegador de escritorio.
+- [x] Primera revisión real de la Home en escritorio.
+- [x] Ajuste de jerarquía y densidad de la portada tras verla publicada.
+- [ ] Revisión completa de los tres casos en escritorio.
 - [ ] Revisión real en navegador móvil.
 
 ### Compartir desde LinkedIn
@@ -40,14 +45,16 @@ Dejar una primera versión suficientemente sólida como para publicarla temporal
 - [x] Dirección canónica preparada para GitHub Pages.
 - [x] Metadatos básicos para compartir enlaces.
 - [ ] Imagen social propia para la Home.
-- [ ] Comprobar la vista previa real del enlace una vez publicado.
+- [ ] Comprobar la vista previa real del enlace antes de incorporarlo a LinkedIn.
 
 ### Calidad técnica
 
 - [x] Validación automática del proyecto configurada.
-- [x] GitHub Pages previsto como destino.
-- [ ] Confirmar último build antes de publicar RC1.
-- [ ] Comprobar rutas y recursos en el despliegue real.
+- [x] GitHub Pages activado con GitHub Actions.
+- [x] Despliegue público operativo.
+- [x] Ruta base de GitHub Pages corregida.
+- [x] Hoja de estilos cargando correctamente en producción.
+- [ ] Comprobar todas las rutas y recursos después del pulido final.
 - [ ] Comprobar que no existen errores de consola en navegador.
 
 ## Elementos que no bloquean RC1
@@ -62,14 +69,16 @@ No son necesarios para la primera revisión pública controlada:
 - animaciones avanzadas;
 - nuevos casos de estudio.
 
-## Gate para publicación RC1
+## Gate para publicar el enlace en LinkedIn
 
-Antes de publicar temporalmente deben cumplirse estas condiciones:
+Antes de colocar la URL en LinkedIn deben cumplirse estas condiciones:
 
-1. build automático correcto;
+1. revisión visual completa en escritorio y móvil;
 2. revisión de privacidad final sin hallazgos;
 3. ninguna afirmación profesional que no podamos defender;
 4. ninguna funcionalidad inventada en las recreaciones;
-5. ningún dato real visible.
+5. ningún dato real visible;
+6. navegación y recursos sin errores;
+7. vista previa del enlace revisada.
 
-Después de publicar RC1 se realizará la revisión visual real en escritorio y móvil. Solo tras esa revisión se decidirá si la URL está preparada para incorporarse a LinkedIn.
+El sitio puede permanecer público mientras realizamos esta revisión, pero no se considerará versión final hasta superar este gate.
