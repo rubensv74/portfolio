@@ -11,15 +11,13 @@ const base = import.meta.env.BASE_URL;
       <a class="back-link" href={`${base}#proyectos`}>← Volver a proyectos</a>
       <p class="eyebrow">Caso de estudio · Analítica empresarial</p>
       <h1>Power BI Studio</h1>
-      <p class="case-intro">
-        Cómo pasar de crear dashboards aislados a construir un sistema común de estándares, componentes y criterios de calidad reutilizables.
-      </p>
+      <p class="case-intro">Cómo pasar de crear dashboards aislados a construir un sistema común de estándares, componentes y criterios de calidad reutilizables.</p>
       <div class="case-meta">
         <div><span>Mi papel</span><strong>Definición del sistema y estándares</strong></div>
         <div><span>Ámbitos</span><strong>Power BI · Diseño · Modelado · DAX</strong></div>
         <div><span>Enfoque</span><strong>Reutilización, gobierno y calidad</strong></div>
       </div>
-      <p class="privacy-note">Caso basado en conocimiento y activos propios. La versión pública utilizará datos sintéticos o públicos.</p>
+      <p class="privacy-note">Caso basado en activos propios. Todos los ejemplos públicos utilizan datos sintéticos creados expresamente para el portfolio.</p>
     </header>
 
     <section class="case-section">
@@ -45,38 +43,61 @@ const base = import.meta.env.BASE_URL;
       </div>
     </section>
 
+    <section class="case-section system-evidence">
+      <div class="visual-heading">
+        <div>
+          <p class="section-kicker">Evidencia visual</p>
+          <h2>De decisiones aisladas a un sistema común.</h2>
+        </div>
+        <span class="recreation-badge">Ejemplo ficticio</span>
+      </div>
+      <p class="case-copy">El ejemplo “Northstar Retail — Executive Performance” es completamente ficticio. Sirve para explicar la lógica de PBI Studio, no para presentar resultados de una empresa real.</p>
+
+      <div class="system-problem">
+        <article><small>Informe A</small><strong>Revenue KPI</strong><span class="kpi-a">€ 4.82M</span><p>Formato y semántica definidos localmente.</p></article>
+        <article><small>Informe B</small><strong>Revenue KPI</strong><span class="kpi-b">4,82 M€</span><p>Misma idea, otra presentación y otras reglas.</p></article>
+        <article><small>Informe C</small><strong>Revenue KPI</strong><span class="kpi-c">4.820.000</span><p>Una tercera interpretación vuelve a repetir decisiones.</p></article>
+      </div>
+
+      <div class="system-arrow">↓</div>
+
+      <div class="studio-system">
+        <article><span>01</span><h3>Foundations</h3><p>Lenguaje visual, espaciado, color, tipografía y design tokens compartidos.</p></article>
+        <article><span>02</span><h3>Semantic</h3><p>Contratos comunes para KPI, DAX y modelos semánticos.</p></article>
+        <article><span>03</span><h3>Archetypes & Templates</h3><p>Patrones reutilizables para no empezar cada informe desde una página en blanco.</p></article>
+        <article><span>04</span><h3>Visuals</h3><p>Componentes versionados que encapsulan decisiones repetibles.</p></article>
+        <article><span>05</span><h3>Quality & Release</h3><p>Validar primero; convertir en referencia estable después.</p></article>
+      </div>
+
+      <div class="system-arrow">↓</div>
+
+      <div class="kpi-showcase">
+        <div class="kpi-card-demo">
+          <div class="kpi-demo-head"><span>Northstar Retail</span><small>Executive Performance</small></div>
+          <p>Net Revenue</p>
+          <strong>€ 4.82M</strong>
+          <div class="kpi-comparison"><span>Target € 4.60M</span><b>+4.8%</b></div>
+          <div class="kpi-footer"><span class="status-good">On target</span><span>↗ vs previous</span></div>
+        </div>
+        <div class="kpi-explanation">
+          <p class="section-kicker">Primer visual de referencia</p>
+          <h3>KpiCardPro</h3>
+          <p>El valor del componente no está solo en su aspecto. Sirve para probar cómo una decisión de diseño y semántica puede convertirse en un activo documentado, validable y reutilizable.</p>
+          <div class="status-box"><strong>Estado real</strong><span>Build automático validado</span><span>Validación en Power BI Desktop pendiente</span></div>
+        </div>
+      </div>
+
+      <div class="system-flow"><span>Definir</span><i>→</i><span>Reutilizar</span><i>→</i><span>Validar</span><i>→</i><span>Versionar</span><i>→</i><span>Mejorar</span></div>
+    </section>
+
     <section class="case-section">
       <p class="section-kicker">Principios</p>
       <h2>El objetivo no es producir más gráficos. Es producir decisiones más consistentes.</h2>
       <div class="decision-list">
-        <article>
-          <span>01</span>
-          <div><h3>Coherencia antes que variedad</h3><p>Los informes empresariales necesitan un lenguaje visual reconocible, no una colección de estilos sin relación.</p></div>
-        </article>
-        <article>
-          <span>02</span>
-          <div><h3>Una única fuente de verdad</h3><p>Las definiciones importantes deben estar documentadas y versionadas para evitar versiones contradictorias.</p></div>
-        </article>
-        <article>
-          <span>03</span>
-          <div><h3>Reutilizar lo que funciona</h3><p>Una buena decisión deja de ser una solución puntual cuando puede convertirse en plantilla, componente o regla compartida.</p></div>
-        </article>
-        <article>
-          <span>04</span>
-          <div><h3>Validar antes de publicar</h3><p>Que algo funcione no basta. Debe existir evidencia suficiente antes de convertirlo en una referencia reutilizable.</p></div>
-        </article>
-      </div>
-    </section>
-
-    <section class="case-section">
-      <p class="section-kicker">Primer componente</p>
-      <h2>Un KPI propio como prueba del sistema de trabajo.</h2>
-      <div class="case-columns">
-        <p class="lead">El primer visual de referencia reúne valor actual, objetivo, comparación, tendencia y estado dentro de una misma pieza.</p>
-        <div>
-          <p>El interés no está solo en el visual. Sirve para probar cómo debe diseñarse, documentarse, validarse y evolucionar un componente reutilizable.</p>
-          <p>Ese mismo criterio puede aplicarse después a nuevos componentes, plantillas y modelos de dashboard.</p>
-        </div>
+        <article><span>01</span><div><h3>Coherencia antes que variedad</h3><p>Los informes empresariales necesitan un lenguaje visual reconocible, no una colección de estilos sin relación.</p></div></article>
+        <article><span>02</span><div><h3>Una única fuente de verdad</h3><p>Las definiciones importantes deben estar documentadas y versionadas para evitar versiones contradictorias.</p></div></article>
+        <article><span>03</span><div><h3>Reutilizar lo que funciona</h3><p>Una buena decisión deja de ser una solución puntual cuando puede convertirse en plantilla, componente o regla compartida.</p></div></article>
+        <article><span>04</span><div><h3>Validar antes de publicar</h3><p>Que algo funcione no basta. Debe existir evidencia suficiente antes de convertirlo en una referencia reutilizable.</p></div></article>
       </div>
     </section>
 
@@ -84,21 +105,19 @@ const base = import.meta.env.BASE_URL;
       <p class="section-kicker">Capacidades demostradas</p>
       <h2>Analítica, diseño y gobierno dentro de un mismo problema.</h2>
       <div class="tool-list">
-        <span>Power BI</span>
-        <span>Fabric</span>
-        <span>DAX</span>
-        <span>Modelos semánticos</span>
-        <span>Diseño de dashboards</span>
-        <span>Componentes visuales</span>
-        <span>GitHub</span>
+        <span>Power BI</span><span>Fabric</span><span>DAX</span><span>Modelos semánticos</span><span>Diseño de dashboards</span><span>Componentes visuales</span><span>GitHub</span>
       </div>
     </section>
 
     <section class="case-section next-step">
-      <p class="section-kicker">Estado</p>
-      <h2>Un sistema en construcción, con activos ya implementados y otros todavía en validación.</h2>
-      <p>El portfolio solo mostrará como definitivos los elementos que hayan superado sus pruebas. Para las demostraciones se utilizarán exclusivamente datos sintéticos o públicos.</p>
+      <p class="section-kicker">Qué demuestra este caso</p>
+      <h2>No solo construir informes: construir una forma mejor de construir informes.</h2>
+      <p>Power BI Studio complementa los otros casos porque muestra pensamiento de sistema, estandarización, reutilización y control de calidad. El portfolio solo presentará como definitivos los elementos que hayan superado sus pruebas reales.</p>
       <a class="button secondary" href={`${base}#proyectos`}>Volver a proyectos</a>
     </section>
   </article>
 </BaseLayout>
+
+<style>
+.visual-heading{display:flex;gap:1.5rem;align-items:flex-start;justify-content:space-between}.recreation-badge{white-space:nowrap;border:1px solid #cbd5e1;border-radius:999px;padding:.45rem .75rem;font-size:.75rem;font-weight:700;color:#475569;background:#f8fafc}.system-problem{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin:1.5rem 0}.system-problem article{padding:1rem;border:1px solid #e2e8f0;border-radius:14px;background:#fff}.system-problem small{display:block;color:#94a3b8;text-transform:uppercase;font-size:.65rem;letter-spacing:.06em}.system-problem strong{display:block;margin:.25rem 0 .7rem;color:#334155}.system-problem span[class^="kpi-"]{display:block;margin-bottom:.55rem;font-size:1.45rem;font-weight:800;color:#172a3d}.system-problem .kpi-b{font-family:Georgia,serif}.system-problem .kpi-c{font-size:1.2rem;color:#475569}.system-problem p{margin:0;color:#64748b;font-size:.78rem}.system-arrow{text-align:center;color:#94a3b8;font-size:1.6rem;margin:.4rem}.studio-system{display:grid;grid-template-columns:repeat(5,1fr);gap:.65rem}.studio-system article{padding:1rem;border-radius:14px;background:#172a3d;color:#dce6ee}.studio-system article>span{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:8px;background:#36b37e;color:#082419;font-weight:900;font-size:.68rem}.studio-system h3{margin:.65rem 0 .4rem;color:#fff;font-size:.88rem}.studio-system p{margin:0;font-size:.72rem;line-height:1.45;color:#c3d0dc}.kpi-showcase{display:grid;grid-template-columns:320px 1fr;gap:1.2rem;align-items:stretch;margin-top:.8rem}.kpi-card-demo{padding:1.15rem;border:1px solid #dbe3ea;border-radius:16px;background:#fff;box-shadow:0 15px 35px rgba(15,23,42,.08)}.kpi-demo-head{display:flex;justify-content:space-between;color:#94a3b8;font-size:.65rem}.kpi-card-demo>p{margin:1.2rem 0 .2rem;color:#64748b;font-size:.78rem}.kpi-card-demo>strong{display:block;font-size:2rem;color:#172a3d}.kpi-comparison,.kpi-footer{display:flex;justify-content:space-between;gap:.7rem}.kpi-comparison{margin-top:.8rem;padding-top:.8rem;border-top:1px solid #edf0f3;font-size:.75rem;color:#64748b}.kpi-comparison b{color:#166534}.kpi-footer{margin-top:1rem;font-size:.72rem;color:#64748b}.status-good{padding:.2rem .4rem;border-radius:999px;background:#dcfce7;color:#166534;font-weight:800}.kpi-explanation{padding:1rem 1.2rem;border-radius:16px;background:#f8fafc;border:1px solid #dbe3ea}.kpi-explanation h3{margin:.2rem 0 .6rem;color:#172a3d;font-size:1.15rem}.kpi-explanation>p:not(.section-kicker){color:#475569}.status-box{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}.status-box strong,.status-box span{padding:.42rem .58rem;border-radius:8px;font-size:.7rem}.status-box strong{background:#172a3d;color:#fff}.status-box span{background:#fff;border:1px solid #dbe3ea;color:#475569}.system-flow{display:flex;justify-content:center;align-items:center;gap:.55rem;flex-wrap:wrap;margin-top:1rem}.system-flow span{padding:.45rem .6rem;border:1px solid #dbe3ea;border-radius:8px;background:#fff;color:#475569;font-size:.74rem;font-weight:800}.system-flow i{font-style:normal;color:#94a3b8}@media(max-width:950px){.studio-system{grid-template-columns:1fr 1fr}.kpi-showcase{grid-template-columns:1fr}.system-problem{grid-template-columns:1fr}}@media(max-width:650px){.visual-heading{display:block}.recreation-badge{display:inline-block;margin-top:.5rem}.studio-system{grid-template-columns:1fr}.system-flow i{display:none}}
+</style>
