@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout
+  title="CMMS 2.0 — Caso de estudio | Rubén Seijo"
+  description="Caso de estudio sobre análisis funcional, mantenimiento, AMEF, RCM y diseño de experiencias para decisiones complejas."
+>
+  <article class="case-study">
+    <header class="case-hero">
+      <a class="back-link" href={`${base}#proyectos`}>← Volver a proyectos</a>
+      <p class="eyebrow">Caso de estudio · Asset Management</p>
+      <h1>CMMS 2.0</h1>
+      <p class="case-intro">
+        Cómo convertir un proceso técnico complejo de mantenimiento y fiabilidad en una experiencia comprensible, trazable y orientada a decisiones.
+      </p>
+      <div class="case-meta">
+        <div><span>Mi papel</span><strong>Análisis funcional y diseño de experiencia</strong></div>
+        <div><span>Ámbitos</span><strong>Mantenimiento · Criticidad · AMEF · RCM</strong></div>
+        <div><span>Enfoque</span><strong>Prototipado conectado y validación del proceso</strong></div>
+      </div>
+      <p class="privacy-note">Caso anonimizado. La versión pública se construirá con ejemplos y activos recreados.</p>
+    </header>
+
+    <section class="case-section">
+      <p class="section-kicker">El reto</p>
+      <h2>Una herramienta de mantenimiento no debería exigir que el usuario lleve todo el proceso en la cabeza.</h2>
+      <div class="case-columns">
+        <p class="lead">AMEF, RCM, criticidad y estrategia de mantenimiento implican muchas relaciones, criterios y decisiones.</p>
+        <div>
+          <p>Cuando el sistema se limita a reproducir esa complejidad mediante formularios y tablas, utilizarlo correctamente depende demasiado del conocimiento previo de cada persona.</p>
+          <p>El objetivo fue plantear una experiencia que explicara dónde está el usuario, qué debe decidir, qué información necesita y cómo esa decisión afecta al siguiente paso.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="section-kicker">Mi aportación</p>
+      <h2>Ordenar la lógica del negocio antes de pensar en la pantalla.</h2>
+      <div class="capability-grid">
+        <div><strong>01</strong><h3>Descomponer</h3><p>Separar el proceso en etapas, decisiones, entradas y resultados comprensibles.</p></div>
+        <div><strong>02</strong><h3>Conectar</h3><p>Relacionar criticidad, modos de fallo, consecuencias y estrategias de mantenimiento.</p></div>
+        <div><strong>03</strong><h3>Prototipar</h3><p>Crear experiencias navegables para descubrir lagunas y contradicciones antes de construir.</p></div>
+        <div><strong>04</strong><h3>Explicar</h3><p>Incorporar ayuda contextual para que la propia solución enseñe la lógica del proceso.</p></div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="section-kicker">El recorrido</p>
+      <h2>Un ejemplo realista debía poder atravesar el proceso completo.</h2>
+      <p class="lead">La experiencia se planteó alrededor de preguntas de negocio, no de pantallas aisladas:</p>
+      <div class="question-list">
+        <p>¿Qué puede fallar y por qué?</p>
+        <p>¿Qué consecuencias tendría ese fallo?</p>
+        <p>¿Qué nivel de riesgo representa?</p>
+        <p>¿Qué estrategia de mantenimiento está justificada?</p>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="section-kicker">Decisiones de diseño</p>
+      <h2>El objetivo no era digitalizar formularios. Era hacer visible el sistema de decisiones.</h2>
+      <div class="decision-list">
+        <article>
+          <span>01</span>
+          <div><h3>El proceso antes que la interfaz</h3><p>Primero se ordena la lógica del negocio. La pantalla aparece después como una forma de hacer esa lógica más clara.</p></div>
+        </article>
+        <article>
+          <span>02</span>
+          <div><h3>Decisiones con trazabilidad</h3><p>Las decisiones importantes necesitan conservar el contexto y la justificación que las hizo razonables.</p></div>
+        </article>
+        <article>
+          <span>03</span>
+          <div><h3>Orientación dentro de la experiencia</h3><p>La ayuda contextual explica qué ocurre en cada etapa y qué relación tiene con el resto del recorrido.</p></div>
+        </article>
+        <article>
+          <span>04</span>
+          <div><h3>Prototipar para descubrir</h3><p>Los prototipos se usan como herramienta de análisis: permiten encontrar huecos, dependencias y decisiones pendientes antes de construir.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="section-kicker">Resultado</p>
+      <h2>De una colección de conceptos especializados a un recorrido funcional conectado.</h2>
+      <div class="case-columns">
+        <p class="lead">El trabajo ha generado un marco visual y funcional para recorrer AMEF y RCM de forma conectada, acompañado por documentación y material didáctico.</p>
+        <div>
+          <p>La principal aportación del caso no es una pantalla concreta. Es demostrar cómo se puede transformar conocimiento técnico en una experiencia que ayude a pensar y decidir.</p>
+          <p>También muestra el valor de trabajar con prototipos antes de fijar una solución definitiva: se aprende más barato y se detectan problemas cuando todavía es sencillo corregirlos.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section next-step">
+      <p class="section-kicker">Siguiente evolución del caso</p>
+      <h2>El portfolio mostrará el recorrido completo con un ejemplo ficticio.</h2>
+      <p>Prepararemos un mapa sencillo del proceso y una secuencia visual que permita entender cómo una decisión conduce a la siguiente sin revelar información sensible.</p>
+      <a class="button secondary" href={`${base}#proyectos`}>Volver a proyectos</a>
+    </section>
+  </article>
+</BaseLayout>
