@@ -11,15 +11,13 @@ const base = import.meta.env.BASE_URL;
       <a class="back-link" href={`${base}#proyectos`}>← Volver a proyectos</a>
       <p class="eyebrow">Caso de estudio · Asset Management</p>
       <h1>CMMS 2.0</h1>
-      <p class="case-intro">
-        Cómo convertir un proceso técnico complejo de mantenimiento y fiabilidad en una experiencia comprensible, trazable y orientada a decisiones.
-      </p>
+      <p class="case-intro">Cómo convertir un proceso técnico complejo de mantenimiento y fiabilidad en una experiencia comprensible, trazable y orientada a decisiones.</p>
       <div class="case-meta">
         <div><span>Mi papel</span><strong>Análisis funcional y diseño de experiencia</strong></div>
         <div><span>Ámbitos</span><strong>Mantenimiento · Criticidad · AMEF · RCM</strong></div>
         <div><span>Enfoque</span><strong>Prototipado conectado y validación del proceso</strong></div>
       </div>
-      <p class="privacy-note">Caso anonimizado. La versión pública se construirá con ejemplos y activos recreados.</p>
+      <p class="privacy-note">Caso anonimizado. Todos los activos, instalaciones, nombres y datos del ejemplo público son ficticios.</p>
     </header>
 
     <section class="case-section">
@@ -57,26 +55,79 @@ const base = import.meta.env.BASE_URL;
       </div>
     </section>
 
+    <section class="case-section cmms-evidence">
+      <div class="visual-heading">
+        <div>
+          <p class="section-kicker">Evidencia visual</p>
+          <h2>De entender un fallo a convertir la decisión en un plan.</h2>
+        </div>
+        <span class="recreation-badge">Ejemplo ficticio</span>
+      </div>
+      <p class="case-copy">La siguiente secuencia resume el recorrido trabajado en el AMEF–RCM Experience Center. El ejemplo de la bomba P-204 y todos sus datos se han creado exclusivamente para el portfolio.</p>
+
+      <div class="asset-context">
+        <span>Planta Sierra Norte</span>
+        <strong>Bomba de agua de proceso P-204</strong>
+        <p>Función ficticia: mantener el caudal de agua de proceso dentro del rango requerido.</p>
+      </div>
+
+      <div class="journey">
+        <article>
+          <span class="step-number">01</span>
+          <small>Comprender el problema</small>
+          <h3>¿Qué puede salir mal?</h3>
+          <p><strong>Modo de fallo:</strong> pérdida progresiva de caudal.</p>
+          <p><strong>Posible causa:</strong> degradación del conjunto de bombeo.</p>
+          <div class="step-output">Salida → problema definido</div>
+        </article>
+        <div class="journey-arrow">→</div>
+        <article>
+          <span class="step-number">02</span>
+          <small>Evaluar el riesgo</small>
+          <h3>¿Por qué importa?</h3>
+          <p>Se valoran las consecuencias operativas y la necesidad de intervenir antes de que el fallo afecte al proceso.</p>
+          <div class="step-output">Salida → prioridad razonada</div>
+        </article>
+        <div class="journey-arrow">→</div>
+        <article>
+          <span class="step-number">03</span>
+          <small>Decisión RCM</small>
+          <h3>¿Qué estrategia tiene sentido?</h3>
+          <p>La decisión se toma a partir del modo de fallo, sus consecuencias y la posibilidad real de detectar degradación.</p>
+          <div class="step-output">Salida → estrategia justificada</div>
+        </article>
+        <div class="journey-arrow">→</div>
+        <article>
+          <span class="step-number">04</span>
+          <small>Convertir en plan</small>
+          <h3>¿Cómo se ejecuta?</h3>
+          <p>La estrategia se transforma en una tarea concreta, con información suficiente para poder planificarla y mantenerla.</p>
+          <div class="step-output">Salida → acción mantenible</div>
+        </article>
+        <div class="journey-arrow">→</div>
+        <article>
+          <span class="step-number">05</span>
+          <small>Gobernar y mejorar</small>
+          <h3>¿Sigue funcionando?</h3>
+          <p>La estrategia no queda congelada: debe poder revisarse cuando cambian los datos, la experiencia o las condiciones del activo.</p>
+          <div class="step-output">Salida → aprendizaje</div>
+        </article>
+      </div>
+
+      <div class="traceability-note">
+        <strong>La idea central</strong>
+        <p>Cada etapa conserva el razonamiento de la anterior. Así, una tarea de mantenimiento no aparece como una instrucción aislada: puede explicarse qué problema intenta controlar y por qué fue elegida.</p>
+      </div>
+    </section>
+
     <section class="case-section">
       <p class="section-kicker">Decisiones de diseño</p>
       <h2>El objetivo no era digitalizar formularios. Era hacer visible el sistema de decisiones.</h2>
       <div class="decision-list">
-        <article>
-          <span>01</span>
-          <div><h3>El proceso antes que la interfaz</h3><p>Primero se ordena la lógica del negocio. La pantalla aparece después como una forma de hacer esa lógica más clara.</p></div>
-        </article>
-        <article>
-          <span>02</span>
-          <div><h3>Decisiones con trazabilidad</h3><p>Las decisiones importantes necesitan conservar el contexto y la justificación que las hizo razonables.</p></div>
-        </article>
-        <article>
-          <span>03</span>
-          <div><h3>Orientación dentro de la experiencia</h3><p>La ayuda contextual explica qué ocurre en cada etapa y qué relación tiene con el resto del recorrido.</p></div>
-        </article>
-        <article>
-          <span>04</span>
-          <div><h3>Prototipar para descubrir</h3><p>Los prototipos se usan como herramienta de análisis: permiten encontrar huecos, dependencias y decisiones pendientes antes de construir.</p></div>
-        </article>
+        <article><span>01</span><div><h3>El proceso antes que la interfaz</h3><p>Primero se ordena la lógica del negocio. La pantalla aparece después como una forma de hacer esa lógica más clara.</p></div></article>
+        <article><span>02</span><div><h3>Decisiones con trazabilidad</h3><p>Las decisiones importantes necesitan conservar el contexto y la justificación que las hizo razonables.</p></div></article>
+        <article><span>03</span><div><h3>Orientación dentro de la experiencia</h3><p>La ayuda contextual explica qué ocurre en cada etapa y qué relación tiene con el resto del recorrido.</p></div></article>
+        <article><span>04</span><div><h3>Prototipar para descubrir</h3><p>Los prototipos se usan como herramienta de análisis: permiten encontrar huecos, dependencias y decisiones pendientes antes de construir.</p></div></article>
       </div>
     </section>
 
@@ -93,10 +144,14 @@ const base = import.meta.env.BASE_URL;
     </section>
 
     <section class="case-section next-step">
-      <p class="section-kicker">Siguiente evolución del caso</p>
-      <h2>El portfolio mostrará el recorrido completo con un ejemplo ficticio.</h2>
-      <p>Prepararemos un mapa sencillo del proceso y una secuencia visual que permita entender cómo una decisión conduce a la siguiente sin revelar información sensible.</p>
+      <p class="section-kicker">Qué demuestra este caso</p>
+      <h2>Analizar antes de construir.</h2>
+      <p>CMMS 2.0 complementa PULSE porque muestra otra parte del trabajo: descomponer conocimiento especializado, ordenar decisiones y utilizar prototipos para descubrir problemas antes de convertirlos en software.</p>
       <a class="button secondary" href={`${base}#proyectos`}>Volver a proyectos</a>
     </section>
   </article>
 </BaseLayout>
+
+<style>
+  .visual-heading{display:flex;gap:1.5rem;align-items:flex-start;justify-content:space-between}.recreation-badge{white-space:nowrap;border:1px solid #cbd5e1;border-radius:999px;padding:.45rem .75rem;font-size:.75rem;font-weight:700;color:#475569;background:#f8fafc}.asset-context{margin:1.5rem 0;padding:1.1rem 1.25rem;border:1px solid #dbe4ec;border-radius:16px;background:#f8fafc}.asset-context span{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:#64748b}.asset-context strong{display:block;margin:.2rem 0 .35rem;color:#172a3d;font-size:1.1rem}.asset-context p{margin:0;color:#64748b}.journey{display:grid;grid-template-columns:repeat(9,auto);align-items:stretch;gap:.45rem}.journey article{width:170px;padding:1rem;border:1px solid #dbe4ec;border-radius:14px;background:#fff;box-shadow:0 8px 22px rgba(15,23,42,.05)}.journey article small{display:block;margin:.65rem 0 .3rem;color:#64748b;font-size:.66rem;text-transform:uppercase;letter-spacing:.05em}.journey article h3{margin:0 0 .65rem;color:#172a3d;font-size:.95rem}.journey article p{margin:.35rem 0;color:#475569;font-size:.76rem;line-height:1.45}.step-number{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:9px;background:#172a3d;color:#fff;font-size:.72rem;font-weight:800}.step-output{margin-top:.8rem;padding-top:.65rem;border-top:1px solid #edf0f3;color:#166534;font-size:.68rem;font-weight:800}.journey-arrow{display:grid;place-items:center;color:#94a3b8;font-size:1.25rem}.traceability-note{display:grid;grid-template-columns:170px 1fr;gap:1rem;margin-top:1rem;padding:1rem 1.15rem;border-radius:14px;background:#172a3d;color:#dbe5ee}.traceability-note strong{color:#fff}.traceability-note p{margin:0;font-size:.84rem;line-height:1.55}@media(max-width:1050px){.journey{grid-template-columns:1fr}.journey article{width:auto}.journey-arrow{transform:rotate(90deg);height:20px}.traceability-note{grid-template-columns:1fr}}@media(max-width:700px){.visual-heading{display:block}.recreation-badge{display:inline-block;margin-top:.5rem}}
+</style>
