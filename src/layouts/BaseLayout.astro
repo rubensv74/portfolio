@@ -4,20 +4,36 @@ const {
   description = 'Portfolio profesional de Rubén Seijo: análisis funcional, diseño de soluciones y transformación digital.'
 } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
 ---
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#f6f6f3" />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Portfolio profesional · Rubén Seijo" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
     <title>{title}</title>
     <link rel="stylesheet" href={`${base}styles/global.css`} />
   </head>
   <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
     <header class="site-header">
-      <a class="brand" href={base}>Rubén Seijo</a>
+      <a class="brand" href={base} aria-label="Ir a la página de inicio">Rubén Seijo</a>
       <nav aria-label="Navegación principal">
         <a href={`${base}#sobre-mi`}>Sobre mí</a>
         <a href={`${base}#proyectos`}>Proyectos</a>
@@ -25,7 +41,7 @@ const base = import.meta.env.BASE_URL;
         <a href={`${base}#contacto`}>Contacto</a>
       </nav>
     </header>
-    <main>
+    <main id="contenido">
       <slot />
     </main>
     <footer class="site-footer">
