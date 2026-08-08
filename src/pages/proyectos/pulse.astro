@@ -19,7 +19,7 @@ const base = import.meta.env.BASE_URL;
         <div><span>Ámbitos</span><strong>Procesos · Datos · Automatización · UX</strong></div>
         <div><span>Enfoque</span><strong>Construcción incremental asistida por IA</strong></div>
       </div>
-      <p class="privacy-note">Caso anonimizado. La versión pública utilizará información y capturas recreadas para proteger datos sensibles.</p>
+      <p class="privacy-note">Caso anonimizado. Todo el material visual público utiliza nombres, cifras y registros ficticios.</p>
     </header>
 
     <section class="case-section">
@@ -59,6 +59,89 @@ const base = import.meta.env.BASE_URL;
       </div>
     </section>
 
+    <section class="case-section visual-evidence">
+      <div class="visual-heading">
+        <div>
+          <p class="section-kicker">Evidencia visual</p>
+          <h2>Del resumen a la revisión del detalle.</h2>
+        </div>
+        <span class="recreation-badge">Recreación · datos ficticios</span>
+      </div>
+      <p class="case-copy visual-copy">Esta composición no es una captura de producción. Recrea, con información inventada, el patrón funcional trabajado en PULSE: indicadores, distribución del trabajo pendiente, selección por disciplina y listado de punches para revisión.</p>
+
+      <div class="pulse-frame" aria-label="Recreación ficticia de un espacio de revisión PULSE">
+        <div class="pulse-topbar">
+          <div>
+            <span class="pulse-product">PULSE</span>
+            <strong>Punch Review</strong>
+          </div>
+          <span>Northline Expansion · Area 04</span>
+        </div>
+
+        <div class="pulse-body">
+          <aside class="pulse-sidebar" aria-hidden="true">
+            <span class="nav-dot active"></span>
+            <span class="nav-dot"></span>
+            <span class="nav-dot"></span>
+            <span class="nav-dot"></span>
+          </aside>
+
+          <div class="pulse-workspace">
+            <div class="mock-kpis">
+              <article><span>Open punches</span><strong>186</strong><small>Current review scope</small></article>
+              <article><span>Cleared</span><strong>74</strong><small>Awaiting closure</small></article>
+              <article><span>Categories</span><strong>8</strong><small>In current scope</small></article>
+              <article><span>Disciplines</span><strong>6</strong><small>With open items</small></article>
+            </div>
+
+            <div class="mock-analysis">
+              <section class="mock-panel category-panel">
+                <div class="panel-heading"><div><small>Open punches</small><strong>By category</strong></div><span>186 total</span></div>
+                <div class="category-visual">
+                  <div class="mock-pie" aria-hidden="true"></div>
+                  <div class="mock-legend">
+                    <span><i class="swatch s1"></i>Construction <b>58</b></span>
+                    <span><i class="swatch s2"></i>Quality <b>46</b></span>
+                    <span><i class="swatch s3"></i>Completion <b>39</b></span>
+                    <span><i class="swatch s4"></i>Other <b>43</b></span>
+                  </div>
+                </div>
+              </section>
+
+              <section class="mock-panel discipline-panel">
+                <div class="panel-heading"><div><small>Open punches</small><strong>By discipline</strong></div><span class="selected-filter">Mechanical selected</span></div>
+                <div class="bars">
+                  <div class="bar-row selected"><span>Mechanical</span><div><i style="--w:88%"></i></div><b>52</b></div>
+                  <div class="bar-row"><span>Electrical</span><div><i style="--w:71%"></i></div><b>42</b></div>
+                  <div class="bar-row"><span>Piping</span><div><i style="--w:58%"></i></div><b>34</b></div>
+                  <div class="bar-row"><span>Instrument.</span><div><i style="--w:42%"></i></div><b>25</b></div>
+                  <div class="bar-row"><span>Civil</span><div><i style="--w:32%"></i></div><b>19</b></div>
+                  <div class="bar-row"><span>Other</span><div><i style="--w:24%"></i></div><b>14</b></div>
+                </div>
+              </section>
+            </div>
+
+            <section class="mock-panel table-panel">
+              <div class="panel-heading table-heading">
+                <div><small>Review list</small><strong>Open punches · Mechanical</strong></div>
+                <div class="table-actions"><span>52 records</span><button type="button" tabindex="-1">Review</button></div>
+              </div>
+              <div class="mock-table" role="table" aria-label="Ejemplo ficticio de punches abiertos">
+                <div class="mock-row mock-head" role="row"><span>ID</span><span>Description</span><span>Category</span><span>Responsible</span><span>Status</span></div>
+                <div class="mock-row" role="row"><span>P-1042</span><span>Support alignment requires field verification</span><span>Construction</span><span>Orion Works</span><span><em>Open</em></span></div>
+                <div class="mock-row selected-row" role="row"><span>P-1087</span><span>Equipment access clearance to be confirmed</span><span>Completion</span><span>Delta Services</span><span><em>Open</em></span></div>
+                <div class="mock-row" role="row"><span>P-1113</span><span>Final identification label pending installation</span><span>Quality</span><span>Atlas Field Co.</span><span><em>Open</em></span></div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-strip" aria-label="Flujo funcional representado">
+        <span>1 · Ver situación</span><i>→</i><span>2 · Detectar concentración</span><i>→</i><span>3 · Seleccionar disciplina</span><i>→</i><span>4 · Revisar detalle</span>
+      </div>
+    </section>
+
     <section class="case-section">
       <p class="section-kicker">Decisiones de diseño</p>
       <h2>Los gráficos debían servir para trabajar, no para decorar.</h2>
@@ -69,7 +152,7 @@ const base = import.meta.env.BASE_URL;
         </article>
         <article>
           <span>02</span>
-          <div><h3>Hacer interactiva la información</h3><p>Seleccionar una categoría o disciplina no solo cambia un gráfico: también ayuda a acotar el conjunto de incidencias que se está revisando.</p></div>
+          <div><h3>Hacer útil la selección</h3><p>La disciplina seleccionada sirve para reducir el conjunto de incidencias que debe revisar el usuario y mantener visible el contexto de la sesión.</p></div>
         </article>
         <article>
           <span>03</span>
@@ -109,9 +192,13 @@ const base = import.meta.env.BASE_URL;
 
     <section class="case-section next-step">
       <p class="section-kicker">Siguiente evolución del caso</p>
-      <h2>La versión final incorporará material visual recreado y seguro.</h2>
-      <p>Prepararemos una vista general, un flujo de revisión, una pantalla con datos ficticios y una comparación entre distintas iteraciones para enseñar no solo el resultado, sino también cómo evolucionó la solución.</p>
+      <h2>Enseñar también cómo cambió la solución.</h2>
+      <p>La siguiente pieza visual comparará una aproximación anterior con la versión más madura para explicar decisiones de jerarquía, densidad, interacción y claridad. El objetivo será mostrar el razonamiento que hay detrás del resultado, no acumular capturas.</p>
       <a class="button secondary" href={`${base}#proyectos`}>Volver a proyectos</a>
     </section>
   </article>
 </BaseLayout>
+
+<style>
+  .visual-heading{display:flex;gap:1.5rem;align-items:flex-start;justify-content:space-between}.visual-heading h2{margin-bottom:.5rem}.recreation-badge{white-space:nowrap;border:1px solid #cbd5e1;border-radius:999px;padding:.45rem .75rem;font-size:.75rem;font-weight:700;color:#475569;background:#f8fafc}.visual-copy{max-width:820px;margin-bottom:1.5rem}.pulse-frame{overflow:hidden;border:1px solid #d8e0e8;border-radius:20px;background:#edf2f6;box-shadow:0 28px 70px rgba(15,23,42,.12)}.pulse-topbar{display:flex;justify-content:space-between;align-items:center;padding:.85rem 1rem;background:#142436;color:#cbd5e1;font-size:.72rem}.pulse-topbar>div{display:flex;align-items:center;gap:.85rem}.pulse-topbar strong{font-size:.8rem;color:#fff}.pulse-product{padding:.28rem .45rem;border-radius:5px;background:#36b37e;color:#071913;font-weight:900;letter-spacing:.08em}.pulse-body{display:grid;grid-template-columns:44px 1fr;min-height:550px}.pulse-sidebar{display:flex;flex-direction:column;align-items:center;gap:1rem;padding:1.1rem .5rem;background:#1c3045}.nav-dot{display:block;width:19px;height:19px;border-radius:6px;background:#496076}.nav-dot.active{background:#36b37e}.pulse-workspace{padding:1rem;min-width:0}.mock-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem}.mock-kpis article,.mock-panel{border:1px solid #dfe6ed;border-radius:12px;background:#fff;box-shadow:0 3px 10px rgba(15,23,42,.04)}.mock-kpis article{padding:.8rem}.mock-kpis span,.panel-heading small{display:block;color:#64748b;font-size:.64rem;text-transform:uppercase;letter-spacing:.05em}.mock-kpis strong{display:block;margin:.25rem 0;font-size:1.35rem;color:#172a3d}.mock-kpis small{color:#94a3b8;font-size:.62rem}.mock-analysis{display:grid;grid-template-columns:.85fr 1.15fr;gap:.7rem;margin-top:.7rem}.mock-panel{padding:.85rem}.panel-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:.6rem}.panel-heading strong{display:block;color:#172a3d;font-size:.82rem}.panel-heading>span,.table-actions span{font-size:.62rem;color:#64748b}.category-visual{display:grid;grid-template-columns:130px 1fr;align-items:center;gap:1rem;margin-top:.65rem}.mock-pie{width:112px;aspect-ratio:1;border-radius:50%;background:conic-gradient(#2f80ed 0 31%,#36b37e 31% 56%,#f2b84b 56% 77%,#8b5cf6 77% 100%);box-shadow:inset 0 0 0 18px #fff}.mock-legend{display:grid;gap:.48rem}.mock-legend span{display:grid;grid-template-columns:9px 1fr auto;gap:.4rem;align-items:center;font-size:.66rem;color:#475569}.mock-legend b{color:#172a3d}.swatch{width:7px;height:7px;border-radius:2px}.s1{background:#2f80ed}.s2{background:#36b37e}.s3{background:#f2b84b}.s4{background:#8b5cf6}.selected-filter{padding:.25rem .42rem;border-radius:999px;background:#dcfce7;color:#166534!important;font-weight:700}.bars{display:grid;gap:.48rem;margin-top:.65rem}.bar-row{display:grid;grid-template-columns:72px 1fr 20px;align-items:center;gap:.5rem;font-size:.62rem;color:#64748b;padding:.2rem .3rem;border-radius:6px}.bar-row>div{height:7px;border-radius:999px;background:#edf2f7;overflow:hidden}.bar-row i{display:block;width:var(--w);height:100%;border-radius:999px;background:#7393b3}.bar-row b{font-size:.62rem;color:#334155}.bar-row.selected{background:#eefbf5;color:#166534;font-weight:700}.bar-row.selected i{background:#36b37e}.table-panel{margin-top:.7rem;padding-bottom:.4rem}.table-heading{align-items:center}.table-actions{display:flex;align-items:center;gap:.5rem}.table-actions button{border:0;border-radius:6px;padding:.35rem .55rem;background:#172a3d;color:#fff;font-size:.6rem}.mock-table{margin-top:.6rem;border-top:1px solid #e5e7eb}.mock-row{display:grid;grid-template-columns:65px minmax(210px,2fr) 1fr 1fr 60px;gap:.5rem;padding:.55rem .35rem;border-bottom:1px solid #edf0f3;font-size:.61rem;color:#475569}.mock-head{font-weight:800;color:#64748b;background:#f8fafc;text-transform:uppercase;font-size:.56rem}.mock-row em{font-style:normal;padding:.18rem .35rem;border-radius:999px;background:#fff1f2;color:#be123c;font-weight:700}.selected-row{background:#f0fdf8}.flow-strip{display:flex;align-items:center;justify-content:center;gap:.65rem;flex-wrap:wrap;margin-top:1rem;color:#475569;font-size:.76rem;font-weight:700}.flow-strip span{padding:.5rem .65rem;border:1px solid #dbe3ea;border-radius:8px;background:#fff}.flow-strip i{font-style:normal;color:#94a3b8}@media(max-width:800px){.visual-heading{display:block}.recreation-badge{display:inline-block;margin-top:.5rem}.mock-kpis{grid-template-columns:repeat(2,1fr)}.mock-analysis{grid-template-columns:1fr}.category-visual{grid-template-columns:100px 1fr}.mock-pie{width:90px}.mock-row{grid-template-columns:55px minmax(180px,2fr) 1fr}.mock-row span:nth-child(4),.mock-row span:nth-child(5){display:none}}@media(max-width:520px){.pulse-body{grid-template-columns:1fr}.pulse-sidebar{display:none}.pulse-topbar>span{display:none}.mock-kpis{grid-template-columns:1fr 1fr}.pulse-workspace{padding:.6rem}.flow-strip i{display:none}}
+</style>
