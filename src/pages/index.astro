@@ -2,60 +2,90 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 const base = import.meta.env.BASE_URL;
 ---
-<BaseLayout>
+<BaseLayout
+  title="Rubén Seijo — Análisis funcional y diseño de soluciones"
+  description="Portfolio profesional de Rubén Seijo: análisis funcional, transformación digital, datos, automatización y diseño de soluciones."
+>
   <section class="hero">
-    <p class="eyebrow">Análisis funcional · Diseño de soluciones · Transformación digital</p>
-    <h1>Conecto problemas reales de negocio con soluciones digitales que se pueden usar, medir y mejorar.</h1>
+    <p class="eyebrow">Analista funcional · Diseño de soluciones · Transformación digital</p>
+    <h1>Convierto problemas complejos de negocio en soluciones digitales claras, útiles y capaces de evolucionar.</h1>
     <p class="hero-copy">
-      Este portfolio recoge una selección de proyectos y casos de estudio centrados en procesos, datos,
-      automatización, experiencia de usuario e inteligencia artificial aplicada.
+      Trabajo entre negocio y tecnología: entiendo procesos, ordeno necesidades, diseño soluciones y ayudo a convertirlas en productos que las personas puedan utilizar de verdad.
     </p>
     <div class="hero-actions">
-      <a class="button primary" href={`${base}#proyectos`}>Ver proyectos</a>
+      <a class="button primary" href={`${base}#proyectos`}>Ver casos de estudio</a>
       <a class="button secondary" href={`${base}#sobre-mi`}>Conocer mi perfil</a>
+    </div>
+    <div class="hero-proof" aria-label="Áreas principales de experiencia">
+      <span>Procesos</span>
+      <span>Datos</span>
+      <span>Automatización</span>
+      <span>Experiencia de usuario</span>
+      <span>IA aplicada</span>
     </div>
   </section>
 
   <section id="sobre-mi" class="section">
     <p class="section-kicker">Sobre mí</p>
-    <h2>Trabajo en el espacio que existe entre el negocio y la tecnología.</h2>
-    <p class="lead">
-      Mi trabajo consiste en entender un problema, ordenar sus necesidades, convertirlas en una solución clara
-      y acompañar su evolución hasta que resulte útil para las personas que deben utilizarla.
-    </p>
-    <p>
-      Mi experiencia combina análisis funcional, procesos industriales, datos, automatización y diseño de producto.
-      La tecnología es una herramienta dentro de ese proceso, no el punto de partida.
-    </p>
+    <h2>No parto de la herramienta. Parto del problema que hay que resolver.</h2>
+    <div class="case-columns">
+      <p class="lead">
+        Mi perfil combina conocimiento del negocio, análisis funcional y capacidad para trabajar con tecnología suficiente como para llevar una idea desde el problema inicial hasta una solución concreta.
+      </p>
+      <div>
+        <p>
+          Me interesa especialmente el punto donde suelen fallar muchos proyectos: traducir correctamente lo que necesita el negocio, decidir qué merece construirse y conseguir que procesos, datos y experiencia de usuario funcionen como una sola solución.
+        </p>
+        <p>
+          Mi experiencia se ha desarrollado principalmente alrededor de entornos industriales, gestión de activos, analítica, automatización y productos internos de empresa.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section value-section">
+    <p class="section-kicker">Qué aporto</p>
+    <h2>Tres capacidades que aparecen una y otra vez en mi trabajo.</h2>
+    <div class="capability-grid">
+      <div><strong>01</strong><h3>Entender sistemas complejos</h3><p>Procesos, reglas, datos, personas y restricciones antes de proponer una solución.</p></div>
+      <div><strong>02</strong><h3>Convertir análisis en producto</h3><p>Pasar de requisitos dispersos a flujos, pantallas, decisiones y comportamientos comprensibles.</p></div>
+      <div><strong>03</strong><h3>Construir conocimiento reutilizable</h3><p>Documentar decisiones, estándares y aprendizajes para no resolver el mismo problema desde cero cada vez.</p></div>
+    </div>
   </section>
 
   <section id="proyectos" class="section">
-    <p class="section-kicker">Proyectos seleccionados</p>
-    <h2>Tres casos que muestran facetas diferentes de mi trabajo.</h2>
+    <p class="section-kicker">Casos de estudio</p>
+    <h2>Tres proyectos. Tres formas distintas de resolver complejidad.</h2>
+    <p class="lead projects-intro">No están seleccionados por la tecnología utilizada, sino por lo que demuestran.</p>
+
     <div class="project-grid">
       <article class="project-card featured">
-        <p class="project-type">Diseño de soluciones</p>
+        <p class="project-type">Operaciones · Datos · Producto</p>
         <h3>PULSE</h3>
         <p>
-          Plataforma orientada a mejorar la gestión y revisión de información en proyectos industriales,
-          combinando análisis funcional, datos, automatización y una experiencia de trabajo más clara.
+          Cómo transformar grandes volúmenes de información operativa en una experiencia que permita entender la situación, filtrar lo importante y llegar al detalle sin perder el contexto.
         </p>
+        <p class="project-proof"><strong>Demuestra:</strong> análisis funcional, diseño de solución, datos, automatización y evolución incremental.</p>
         <a class="project-link" href={`${base}proyectos/pulse/`}>Ver caso de estudio →</a>
       </article>
+
       <article class="project-card">
-        <p class="project-type">Asset Management</p>
+        <p class="project-type">Asset Management · Fiabilidad</p>
         <h3>CMMS 2.0</h3>
         <p>
-          Análisis y diseño alrededor de mantenimiento, criticidad, AMEF y RCM, con foco en hacer comprensible un proceso de decisión complejo.
+          Cómo convertir AMEF, RCM, criticidad y estrategia de mantenimiento en un recorrido conectado que haga visible por qué se toma cada decisión.
         </p>
+        <p class="project-proof"><strong>Demuestra:</strong> análisis de procesos complejos, trazabilidad, prototipado y diseño de experiencias de decisión.</p>
         <a class="project-link" href={`${base}proyectos/cmms-2-0/`}>Ver caso de estudio →</a>
       </article>
+
       <article class="project-card">
-        <p class="project-type">Analítica empresarial</p>
+        <p class="project-type">Analítica · Estándares · Reutilización</p>
         <h3>Power BI Studio</h3>
         <p>
-          Sistema de estándares, componentes y criterios de calidad para crear dashboards más consistentes, reutilizables y fáciles de mantener.
+          Cómo pasar de crear informes aislados a construir una base común de estándares, componentes, arquetipos y controles de calidad reutilizables.
         </p>
+        <p class="project-proof"><strong>Demuestra:</strong> pensamiento de sistema, gobierno, analítica, diseño y construcción de activos reutilizables.</p>
         <a class="project-link" href={`${base}proyectos/power-bi-studio/`}>Ver caso de estudio →</a>
       </article>
     </div>
@@ -65,18 +95,23 @@ const base = import.meta.env.BASE_URL;
     <p class="section-kicker">Cómo trabajo</p>
     <h2>Primero entender. Después decidir. Finalmente construir.</h2>
     <div class="steps">
-      <div><strong>01</strong><span>Entender el problema y el contexto real.</span></div>
-      <div><strong>02</strong><span>Ordenar necesidades, restricciones y decisiones.</span></div>
-      <div><strong>03</strong><span>Diseñar una solución que pueda evolucionar.</span></div>
-      <div><strong>04</strong><span>Validar por etapas y aprender con cada avance.</span></div>
+      <div><strong>01</strong><span>Entender el problema, las personas y el contexto real.</span></div>
+      <div><strong>02</strong><span>Ordenar necesidades, restricciones y decisiones pendientes.</span></div>
+      <div><strong>03</strong><span>Diseñar una solución que pueda validarse y evolucionar.</span></div>
+      <div><strong>04</strong><span>Construir por etapas, comprobar lo aprendido y documentarlo.</span></div>
     </div>
   </section>
 
   <section id="contacto" class="section contact">
     <p class="section-kicker">Contacto</p>
-    <h2>¿Quieres conocer mejor mi trabajo?</h2>
+    <h2>Si buscas a alguien que pueda moverse entre negocio y tecnología, aquí puedes ver cómo trabajo.</h2>
     <p>
-      La versión pública incluirá acceso a LinkedIn, GitHub y al currículum cuando hayan pasado la revisión final de privacidad.
+      Este portfolio seguirá creciendo con nuevos casos y aprendizajes. Los enlaces públicos a LinkedIn, GitHub y currículum se incorporarán cuando completemos la revisión final de privacidad y publicación.
     </p>
+    <a class="button primary" href={`${base}#proyectos`}>Explorar los casos</a>
   </section>
 </BaseLayout>
+
+<style>
+  .hero-proof{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}.hero-proof span{padding:.4rem .65rem;border:1px solid #dbe3ea;border-radius:999px;background:#fff;color:#475569;font-size:.78rem;font-weight:700}.projects-intro{max-width:760px}.project-proof{margin-top:1rem;padding-top:1rem;border-top:1px solid #e5e7eb;color:#475569;font-size:.86rem;line-height:1.55}.project-proof strong{color:#172a3d}
+</style>
