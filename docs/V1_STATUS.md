@@ -4,7 +4,7 @@ Este documento sirve como tablero sencillo del portfolio. La idea es poder abrir
 
 ## Estado general
 
-**Fase actual:** construcción de contenido y primera experiencia navegable.
+**Fase actual:** contenido base completo y preparación de material visual.
 
 **Publicación:** todavía no.
 
@@ -23,14 +23,17 @@ El repositorio debe seguir privado hasta completar la revisión de privacidad y 
 - [x] Sección Cómo trabajo.
 - [x] Caso de estudio PULSE navegable.
 - [x] Caso de estudio CMMS 2.0 navegable.
+- [x] Caso de estudio Power BI Studio navegable.
+- [x] Tercer caso de la V1 seleccionado.
 - [x] Adaptación básica para móvil y ordenador.
+- [x] Comprobación automática de que la web puede construirse.
 
 ## En curso
 
 - [ ] Mejorar la narrativa de la Home.
 - [ ] Preparar material visual seguro para PULSE.
 - [ ] Preparar material visual seguro para CMMS 2.0.
-- [ ] Elegir y preparar el tercer caso de estudio.
+- [ ] Preparar material visual seguro para Power BI Studio.
 - [ ] Completar la sección de contacto.
 - [ ] Preparar una versión pública del currículum.
 
