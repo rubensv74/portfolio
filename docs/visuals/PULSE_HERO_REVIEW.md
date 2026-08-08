@@ -1,49 +1,72 @@
-# Revisión — Primer concepto visual de PULSE
+# Revisión — Pieza visual principal de PULSE
 
 ## Estado
 
-**Concepto útil, no aprobado todavía como pieza final.**
+**Dirección corregida y adoptada para la versión pública.**
 
-La primera recreación confirma que el enfoque funciona: una pieza visual puede explicar el alcance del proyecto mucho mejor que una captura aislada.
+La primera exploración confirmó que una pieza visual podía explicar el alcance de PULSE mejor que una captura aislada, pero también reveló un riesgo importante: una recreación puede proteger perfectamente la privacidad y seguir siendo incorrecta si inventa funcionalidades.
 
-## Lo que funciona
+La versión actual corrige ese problema y establece un criterio más estricto para todo el portfolio.
 
-- Presenta PULSE como un producto y no como una simple pantalla.
-- Hace visible el papel de análisis funcional y diseño de solución.
-- Combina problema, solución, procesos y aprendizaje.
-- La estructura visual permite una lectura rápida.
-- El estilo general encaja con una solución empresarial.
+## Lo que se conserva
 
-## Lo que debe corregirse antes de publicar
+- Presentar PULSE como una solución y no como una simple pantalla.
+- Hacer visible el papel de análisis funcional y diseño de solución.
+- Utilizar el Punch Review como evidencia concreta del trabajo.
+- Explicar visualmente la relación entre resumen, selección y detalle.
+- Mantener una lectura rápida y un estilo coherente con una solución empresarial.
 
-### 1. No inventar resultados
+## Correcciones aplicadas
 
-La primera exploración visual incluye porcentajes de mejora a modo de ejemplo. No deben aparecer en el portfolio salvo que exista evidencia verificable que los respalde.
+### 1. Sin resultados inventados
 
-En la pieza final se sustituirán por resultados cualitativos demostrables o por métricas reales que puedan publicarse de forma segura.
+No aparecen porcentajes de mejora ni métricas de impacto que no puedan demostrarse.
 
-### 2. Evitar ampliar el alcance sin evidencia
+Las cifras utilizadas dentro de la recreación son exclusivamente datos ficticios del escenario visual y no se presentan como resultados del proyecto.
 
-La pieza exploratoria muestra algunos elementos genéricos propios de plataformas de gestión de proyectos. La versión final debe ceñirse a capacidades que realmente podamos defender a partir del trabajo realizado en PULSE.
+### 2. Sin funcionalidades ajenas a PULSE
 
-### 3. Dar protagonismo al caso de revisión operativa
+Se elimina cualquier elemento genérico de gestión de proyectos que no esté respaldado por el trabajo real.
 
-El Punch Review Workspace es una evidencia más concreta y diferenciadora que un dashboard genérico. La pieza final debe utilizarlo como ejemplo principal para explicar la relación entre resumen, selección y detalle.
+En particular, no se utilizan mapas, representaciones geográficas ni capacidades deducidas por analogía con otras plataformas industriales.
 
-### 4. Reducir texto dentro de la imagen
+### 3. Punch Review como núcleo del relato
 
-La página web ya contará la historia. La imagen debe demostrar y complementar, no repetir todo el contenido.
+La pieza se centra en un patrón funcional defendible:
 
-## Dirección para la siguiente versión
+- indicadores de situación;
+- distribución de punches abiertos por categoría;
+- análisis y selección por disciplina;
+- listado de punches abiertos;
+- contexto visible entre la selección y el detalle revisado.
 
-La siguiente pieza principal se centrará en una recreación segura del espacio de revisión:
+La composición está diseñada para que se entienda el flujo **situación → concentración → selección → detalle** sin necesidad de conocer previamente PULSE.
 
-- cabecera sencilla;
-- indicadores;
-- mapa o distribución del trabajo pendiente;
-- gráfico interactivo por disciplina;
-- tabla de incidencias ficticias;
-- selección visible que conecte gráfico y tabla;
-- pequeña anotación que explique el flujo resumen → selección → detalle.
+### 4. Privacidad y fidelidad se validan por separado
 
-El objetivo será que un reclutador entienda en pocos segundos que la pantalla está diseñada para ayudar a revisar y decidir, no simplemente para mostrar datos.
+A partir de esta revisión, toda pieza visual debe superar dos gates:
+
+- **Gate de privacidad:** ningún dato sensible o real llega a la versión pública.
+- **Gate de fidelidad funcional:** ninguna capacidad que PULSE no tenga se representa como parte del producto.
+
+Los dos gates son obligatorios. Superar uno no compensa fallar el otro.
+
+## Implementación en el portfolio
+
+La página pública de PULSE incorpora ahora una recreación construida directamente dentro del caso de estudio. Está identificada expresamente como **“Recreación · datos ficticios”**.
+
+La pieza incluye:
+
+- cuatro KPIs ficticios;
+- distribución ficticia por categoría;
+- distribución ficticia por disciplina con una selección visible;
+- una tabla ficticia de punches abiertos coherente con esa selección;
+- un pequeño flujo explicativo bajo la interfaz.
+
+Nombres de proyecto, empresas, identificadores, descripciones y cifras son inventados.
+
+## Siguiente pieza
+
+La siguiente evidencia visual será una comparación de evolución.
+
+No debe limitarse a un “antes/después” estético. Debe explicar qué decisiones cambiaron entre iteraciones y por qué: jerarquía visual, densidad de información, relación entre resumen y detalle, interacción y claridad durante una revisión.
