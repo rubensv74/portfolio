@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout
+  title="Power BI Studio — Caso de estudio | Rubén Seijo"
+  description="Caso de estudio sobre analítica empresarial, estándares, componentes reutilizables y diseño de dashboards con Power BI."
+>
+  <article class="case-study">
+    <header class="case-hero">
+      <a class="back-link" href={`${base}#proyectos`}>← Volver a proyectos</a>
+      <p class="eyebrow">Caso de estudio · Analítica empresarial</p>
+      <h1>Power BI Studio</h1>
+      <p class="case-intro">
+        Cómo pasar de crear dashboards aislados a construir un sistema común de estándares, componentes y criterios de calidad reutilizables.
+      </p>
+      <div class="case-meta">
+        <div><span>Mi papel</span><strong>Definición del sistema y estándares</strong></div>
+        <div><span>Ámbitos</span><strong>Power BI · Diseño · Modelado · DAX</strong></div>
+        <div><span>Enfoque</span><strong>Reutilización, gobierno y calidad</strong></div>
+      </div>
+      <p class="privacy-note">Caso basado en conocimiento y activos propios. La versión pública utilizará datos sintéticos o públicos.</p>
+    </header>
+
+    <section class="case-section">
+      <p class="section-kicker">El reto</p>
+      <h2>Un buen dashboard no debería depender de volver a tomar las mismas decisiones cada vez.</h2>
+      <div class="case-columns">
+        <p class="lead">Cuando cada informe se diseña de forma aislada, la calidad depende demasiado de decisiones locales y del conocimiento de quien lo construye.</p>
+        <div>
+          <p>Aparecen estilos distintos, indicadores definidos de forma desigual, componentes duplicados y buenas prácticas que no se reutilizan.</p>
+          <p>Power BI Studio nace para convertir esas decisiones repetidas en una base común que pueda evolucionar con el tiempo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="section-kicker">La propuesta</p>
+      <h2>Convertir buenas decisiones en activos reutilizables.</h2>
+      <div class="capability-grid">
+        <div><strong>01</strong><h3>Estándares</h3><p>Criterios compartidos para diseño, indicadores, DAX y modelos de datos.</p></div>
+        <div><strong>02</strong><h3>Arquetipos</h3><p>Modelos de dashboard que ayudan a elegir una estructura adecuada según el problema.</p></div>
+        <div><strong>03</strong><h3>Componentes</h3><p>Elementos visuales reutilizables para evitar reconstruir las mismas piezas una y otra vez.</p></div>
+        <div><strong>04</strong><h3>Calidad</h3><p>Controles que permiten validar una pieza antes de convertirla en referencia para otros proyectos.</p></div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="section-kicker">Principios</p>
+      <h2>El objetivo no es producir más gráficos. Es producir decisiones más consistentes.</h2>
+      <div class="decision-list">
+        <article>
+          <span>01</span>
+          <div><h3>Coherencia antes que variedad</h3><p>Los informes empresariales necesitan un lenguaje visual reconocible, no una colección de estilos sin relación.</p></div>
+        </article>
+        <article>
+          <span>02</span>
+          <div><h3>Una única fuente de verdad</h3><p>Las definiciones importantes deben estar documentadas y versionadas para evitar versiones contradictorias.</p></div>
+        </article>
+        <article>
+          <span>03</span>
+          <div><h3>Reutilizar lo que funciona</h3><p>Una buena decisión deja de ser una solución puntual cuando puede convertirse en plantilla, componente o regla compartida.</p></div>
+        </article>
+        <article>
+          <span>04</span>
+          <div><h3>Validar antes de publicar</h3><p>Que algo funcione no basta. Debe existir evidencia suficiente antes de convertirlo en una referencia reutilizable.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="section-kicker">Primer componente</p>
+      <h2>Un KPI propio como prueba del sistema de trabajo.</h2>
+      <div class="case-columns">
+        <p class="lead">El primer visual de referencia reúne valor actual, objetivo, comparación, tendencia y estado dentro de una misma pieza.</p>
+        <div>
+          <p>El interés no está solo en el visual. Sirve para probar cómo debe diseñarse, documentarse, validarse y evolucionar un componente reutilizable.</p>
+          <p>Ese mismo criterio puede aplicarse después a nuevos componentes, plantillas y modelos de dashboard.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="section-kicker">Capacidades demostradas</p>
+      <h2>Analítica, diseño y gobierno dentro de un mismo problema.</h2>
+      <div class="tool-list">
+        <span>Power BI</span>
+        <span>Fabric</span>
+        <span>DAX</span>
+        <span>Modelos semánticos</span>
+        <span>Diseño de dashboards</span>
+        <span>Componentes visuales</span>
+        <span>GitHub</span>
+      </div>
+    </section>
+
+    <section class="case-section next-step">
+      <p class="section-kicker">Estado</p>
+      <h2>Un sistema en construcción, con activos ya implementados y otros todavía en validación.</h2>
+      <p>El portfolio solo mostrará como definitivos los elementos que hayan superado sus pruebas. Para las demostraciones se utilizarán exclusivamente datos sintéticos o públicos.</p>
+      <a class="button secondary" href={`${base}#proyectos`}>Volver a proyectos</a>
+    </section>
+  </article>
+</BaseLayout>
