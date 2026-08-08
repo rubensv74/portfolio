@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout>
+  <section class="hero">
+    <p class="eyebrow">Análisis funcional · Diseño de soluciones · Transformación digital</p>
+    <h1>Conecto problemas reales de negocio con soluciones digitales que se pueden usar, medir y mejorar.</h1>
+    <p class="hero-copy">
+      Este portfolio recoge una selección de proyectos y casos de estudio centrados en procesos, datos,
+      automatización, experiencia de usuario e inteligencia artificial aplicada.
+    </p>
+    <div class="hero-actions">
+      <a class="button primary" href={`${base}#proyectos`}>Ver proyectos</a>
+      <a class="button secondary" href={`${base}#sobre-mi`}>Conocer mi perfil</a>
+    </div>
+  </section>
+
+  <section id="sobre-mi" class="section">
+    <p class="section-kicker">Sobre mí</p>
+    <h2>Trabajo en el espacio que existe entre el negocio y la tecnología.</h2>
+    <p class="lead">
+      Mi trabajo consiste en entender un problema, ordenar sus necesidades, convertirlas en una solución clara
+      y acompañar su evolución hasta que resulte útil para las personas que deben utilizarla.
+    </p>
+    <p>
+      Mi experiencia combina análisis funcional, procesos industriales, datos, automatización y diseño de producto.
+      La tecnología es una herramienta dentro de ese proceso, no el punto de partida.
+    </p>
+  </section>
+
+  <section id="proyectos" class="section">
+    <p class="section-kicker">Proyectos seleccionados</p>
+    <h2>Casos de estudio, no una lista de herramientas.</h2>
+    <div class="project-grid">
+      <article class="project-card featured">
+        <p class="project-type">Caso principal</p>
+        <h3>PULSE</h3>
+        <p>
+          Plataforma orientada a mejorar la gestión y revisión de información en proyectos industriales,
+          combinando análisis funcional, datos, automatización y una experiencia de trabajo más clara.
+        </p>
+        <span class="status">Caso de estudio en preparación</span>
+      </article>
+      <article class="project-card">
+        <p class="project-type">Asset Management</p>
+        <h3>CMMS 2.0</h3>
+        <p>
+          Trabajo de análisis y diseño alrededor de mantenimiento, criticidad, AMEF, RCM y experiencia de usuario.
+        </p>
+        <span class="status">Próximamente</span>
+      </article>
+      <article class="project-card">
+        <p class="project-type">Tercer caso</p>
+        <h3>En selección</h3>
+        <p>
+          La V1 incorporará un tercer proyecto que muestre una faceta distinta y complemente los dos casos principales.
+        </p>
+        <span class="status">Pendiente de selección</span>
+      </article>
+    </div>
+  </section>
+
+  <section id="metodo" class="section">
+    <p class="section-kicker">Cómo trabajo</p>
+    <h2>Primero entender. Después decidir. Finalmente construir.</h2>
+    <div class="steps">
+      <div><strong>01</strong><span>Entender el problema y el contexto real.</span></div>
+      <div><strong>02</strong><span>Ordenar necesidades, restricciones y decisiones.</span></div>
+      <div><strong>03</strong><span>Diseñar una solución que pueda evolucionar.</span></div>
+      <div><strong>04</strong><span>Validar por etapas y aprender con cada avance.</span></div>
+    </div>
+  </section>
+
+  <section id="contacto" class="section contact">
+    <p class="section-kicker">Contacto</p>
+    <h2>¿Quieres conocer mejor mi trabajo?</h2>
+    <p>
+      La versión pública incluirá acceso a LinkedIn, GitHub y al currículum cuando hayan pasado la revisión final de privacidad.
+    </p>
+  </section>
+</BaseLayout>
