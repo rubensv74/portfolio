@@ -5,6 +5,14 @@ const {
 } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+const path = Astro.url.pathname;
+const nextCase = path.includes('/proyectos/pulse/')
+  ? { label: 'Siguiente caso', title: 'CMMS 2.0', href: `${base}proyectos/cmms-2-0/` }
+  : path.includes('/proyectos/cmms-2-0/')
+    ? { label: 'Siguiente caso', title: 'Power BI Studio', href: `${base}proyectos/power-bi-studio/` }
+    : path.includes('/proyectos/power-bi-studio/')
+      ? { label: 'Volver al inicio', title: 'Ver los tres casos', href: `${base}#proyectos` }
+      : null;
 ---
 <!doctype html>
 <html lang="es">
@@ -43,6 +51,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
     </header>
     <main id="contenido">
       <slot />
+      {nextCase && (
+        <aside class="case-trail" aria-label="Continuar explorando el portfolio">
+          <span>{nextCase.label}</span>
+          <a href={nextCase.href}>{nextCase.title} <i aria-hidden="true">→</i></a>
+        </aside>
+      )}
     </main>
     <footer class="site-footer">
       <p>Portfolio profesional · Rubén Seijo</p>
