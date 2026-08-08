@@ -6,15 +6,35 @@ El portfolio será público. Por tanto, todo contenido debe revisarse pensando n
 
 ## Regla principal
 
-Si existe duda sobre si una información puede publicarse, no se publica tal cual.
+**Todo dato visible en el portfolio público será ficticio.**
 
-Se resume, se anonimiza o se recrea con datos ficticios.
+Esta regla se aplica incluso cuando un dato real pudiera parecer inocuo. El portfolio mostrará problemas, decisiones, métodos y soluciones, pero no reutilizará información operativa real.
+
+También serán ficticios los nombres de proyectos utilizados dentro de ejemplos, pantallas, tablas, gráficos, diagramas y demostraciones. Los nombres de los casos de estudio del portfolio podrán mantenerse únicamente cuando sean nombres propios de productos o iniciativas que hayamos decidido presentar públicamente y no revelen información confidencial.
+
+## Qué debe ser ficticio
+
+Se crearán expresamente para el portfolio:
+
+- nombres de proyectos mostrados dentro de las soluciones;
+- empresas, clientes, contratistas y proveedores;
+- personas y responsables;
+- ubicaciones;
+- códigos e identificadores;
+- correos y usuarios;
+- fechas operativas;
+- cantidades, estados y volúmenes de trabajo;
+- valores económicos;
+- datos de tablas y gráficos;
+- textos descriptivos que puedan proceder de registros reales;
+- ejemplos de incidencias, tareas, riesgos, activos u órdenes;
+- cualquier otro dato utilizado para poblar una recreación.
 
 ## Información que no debe aparecer
 
 No publicar:
 
-- nombres de clientes o empresas cuando no exista permiso claro;
+- nombres reales de clientes, empresas, proyectos internos, contratistas o proveedores;
 - datos personales;
 - correos electrónicos internos;
 - nombres de compañeros asociados a información de trabajo;
@@ -22,7 +42,7 @@ No publicar:
 - direcciones internas de servidores o servicios;
 - cadenas de conexión;
 - capturas con información confidencial;
-- datos reales de negocio que no sean públicos;
+- datos reales de negocio;
 - documentos internos completos;
 - código que contenga información sensible;
 - detalles de seguridad que puedan facilitar un acceso no autorizado.
@@ -31,11 +51,7 @@ No publicar:
 
 Podrán utilizarse como casos de estudio siempre que se cuenten de forma segura.
 
-Siempre que sea necesario se aplicará una o varias de estas medidas:
-
-### Anonimizar
-
-Sustituir nombres de empresa, proyecto, cliente, personas, ubicaciones o proveedores por términos genéricos.
+Podemos explicar el contexto, el problema, nuestro papel, las decisiones y el aprendizaje. Para demostrar visualmente la solución se utilizarán recreaciones construidas específicamente para el portfolio.
 
 ### Simplificar
 
@@ -43,66 +59,57 @@ Explicar el problema y la solución sin revelar detalles internos que no aportan
 
 ### Recrear
 
-Crear nuevas capturas, diagramas o prototipos que representen la idea sin copiar información real.
+Crear nuevas pantallas, diagramas o prototipos que representen la idea sin copiar información operativa real.
 
 ### Usar datos ficticios
 
-Cualquier conjunto de datos utilizado para enseñar pantallas, informes o ejemplos deberá ser ficticio cuando los datos originales no sean públicos.
+Todos los conjuntos de datos utilizados para enseñar pantallas, informes, tablas, gráficos o ejemplos serán ficticios.
+
+No basta con cambiar un nombre dentro de una captura real. Cuando una pantalla contenga información de trabajo, la opción preferida será recrearla.
 
 ## Capturas de pantalla
 
-Antes de publicar una captura se revisará, como mínimo:
+Las capturas reales de aplicaciones profesionales **no se utilizarán como material público por defecto**.
 
-- nombres de personas;
-- correos;
-- nombres de empresa o cliente;
-- nombres de proyectos internos;
-- valores económicos;
-- identificadores;
-- rutas de archivos;
-- URLs;
-- información visible en menús, cabeceras y pies de página;
-- notificaciones o elementos del sistema operativo que puedan haberse capturado accidentalmente.
+Si excepcionalmente se considerase una captura real, deberá revisarse expresamente antes de incorporarla. En cualquier caso, nunca podrá mostrar datos operativos reales.
 
-Cuando haya demasiados elementos que ocultar, será preferible recrear la pantalla.
+La vía preferida será una recreación segura con información creada para el portfolio.
 
 ## Métricas y resultados
 
-No se inventarán cifras para hacer más atractivo un caso de estudio.
+Los datos ficticios pueden utilizarse para explicar cómo funciona una pantalla, pero nunca para fingir resultados del proyecto.
 
-Solo se publicarán métricas reales cuando sean seguras, demostrables y puedan divulgarse.
+No se inventarán porcentajes de mejora, ahorro, reducción de errores, retorno económico u otras métricas de impacto.
 
-En caso contrario se utilizarán expresiones descriptivas, por ejemplo:
-
-> Se redujo el trabajo manual necesario para preparar la revisión.
-
-En lugar de atribuir un porcentaje sin evidencia suficiente.
+Solo se publicarán resultados cuantitativos cuando exista evidencia verificable y sea seguro divulgarlos. En caso contrario se describirá el resultado de forma cualitativa.
 
 ## Arquitectura y detalles técnicos
 
 Los diagramas públicos deben enseñar la idea de la solución, no convertirse en un mapa detallado de sistemas internos.
 
+Los nombres de servidores, bases de datos, entornos, flujos, rutas y sistemas internos se sustituirán por denominaciones ficticias o genéricas.
+
 Cuando un detalle técnico no sea necesario para demostrar una capacidad profesional, se omitirá.
 
 ## Uso de inteligencia artificial
 
-No se introducirán en herramientas de IA datos confidenciales únicamente con el propósito de crear contenido para el portfolio.
+No se introducirán datos confidenciales en herramientas de IA con el propósito de crear contenido para el portfolio.
 
-El material público se preparará a partir de información segura, anonimizada o recreada.
+Las recreaciones se construirán utilizando únicamente información segura y datos ficticios creados expresamente para este proyecto.
 
 ## Revisión obligatoria antes de publicar un proyecto
 
 Cada caso de estudio deberá superar estas preguntas:
 
-1. ¿Contiene información que pertenece a una empresa o a un cliente?
-2. ¿Aparecen personas identificables?
-3. ¿Hay datos reales que deberían permanecer privados?
-4. ¿Una captura muestra más información de la necesaria?
-5. ¿Estamos revelando detalles internos sin necesidad?
-6. ¿Podemos demostrar lo mismo mediante un ejemplo ficticio?
-7. ¿Las afirmaciones sobre resultados son verificables?
+1. ¿Todos los datos visibles han sido creados expresamente para el portfolio?
+2. ¿Todos los nombres de proyectos mostrados en ejemplos son ficticios?
+3. ¿Aparece alguna empresa, cliente, contratista, proveedor o persona real?
+4. ¿Se ha reutilizado accidentalmente algún identificador, texto o cifra de producción?
+5. ¿Una imagen revela detalles internos innecesarios?
+6. ¿Las métricas presentadas como resultados son verificables y publicables?
+7. ¿Podemos demostrar la misma capacidad con menos información?
 
-Si alguna respuesta plantea dudas, el contenido se modifica antes de publicarse.
+Si alguna respuesta plantea dudas, el contenido no se publica.
 
 ## Principio final
 
