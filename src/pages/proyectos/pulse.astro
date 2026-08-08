@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout
+  title="PULSE — Caso de estudio | Rubén Seijo"
+  description="Caso de estudio sobre análisis funcional, diseño de soluciones, datos, automatización y evolución incremental en un entorno industrial."
+>
+  <article class="case-study">
+    <header class="case-hero">
+      <a class="back-link" href={`${base}#proyectos`}>← Volver a proyectos</a>
+      <p class="eyebrow">Caso de estudio · Plataforma industrial</p>
+      <h1>PULSE</h1>
+      <p class="case-intro">
+        Cómo transformar grandes volúmenes de información operativa en una experiencia más clara para revisar, comprender y tomar decisiones.
+      </p>
+      <div class="case-meta">
+        <div><span>Mi papel</span><strong>Análisis funcional y diseño de solución</strong></div>
+        <div><span>Ámbitos</span><strong>Procesos · Datos · Automatización · UX</strong></div>
+        <div><span>Enfoque</span><strong>Construcción incremental asistida por IA</strong></div>
+      </div>
+      <p class="privacy-note">Caso anonimizado. La versión pública utilizará información y capturas recreadas para proteger datos sensibles.</p>
+    </header>
+
+    <section class="case-section">
+      <p class="section-kicker">El reto</p>
+      <h2>El problema no era tener pocos datos. Era conseguir que ayudaran a decidir.</h2>
+      <div class="case-columns">
+        <p class="lead">
+          En entornos industriales complejos, el seguimiento puede depender de tablas extensas, distintas disciplinas, revisiones periódicas y procesos manuales.
+        </p>
+        <div>
+          <p>Cuando la información está repartida y cuesta pasar del resumen al detalle, las reuniones terminan dedicando demasiado tiempo a localizar datos y demasiado poco a interpretar qué ocurre.</p>
+          <p>El objetivo de PULSE es acercar esas dos capas: entender rápidamente la situación general y llegar al detalle que explica el problema sin perder el contexto.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="section-kicker">Mi aportación</p>
+      <h2>Traducir necesidades operativas en una solución que pudiera crecer sin perder claridad.</h2>
+      <div class="capability-grid">
+        <div><strong>01</strong><h3>Entender</h3><p>Analizar necesidades, flujos de trabajo, restricciones y preguntas que la solución debía responder.</p></div>
+        <div><strong>02</strong><h3>Diseñar</h3><p>Definir pantallas, comportamiento, navegación y relación entre indicadores, filtros y detalle.</p></div>
+        <div><strong>03</strong><h3>Conectar</h3><p>Coordinar la experiencia de usuario con consultas, estructuras de datos y automatizaciones.</p></div>
+        <div><strong>04</strong><h3>Evolucionar</h3><p>Validar por partes, corregir decisiones y documentar el aprendizaje para reutilizarlo después.</p></div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="section-kicker">Ejemplo de problema</p>
+      <h2>Revisar incidencias durante una reunión sin convertir la pantalla en otra hoja de cálculo.</h2>
+      <p class="lead">Una de las áreas trabajadas debía ayudar a responder, de forma inmediata, cuatro preguntas:</p>
+      <div class="question-list">
+        <p>¿Cuál es la situación general?</p>
+        <p>¿Dónde se concentra el trabajo pendiente?</p>
+        <p>¿Qué disciplina o responsable requiere atención?</p>
+        <p>¿Puedo pasar del indicador al detalle sin perder el contexto?</p>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="section-kicker">Decisiones de diseño</p>
+      <h2>Los gráficos debían servir para trabajar, no para decorar.</h2>
+      <div class="decision-list">
+        <article>
+          <span>01</span>
+          <div><h3>Unir resumen y detalle</h3><p>Indicadores, distribuciones y listado detallado comparten el mismo contexto para evitar saltos innecesarios entre pantallas.</p></div>
+        </article>
+        <article>
+          <span>02</span>
+          <div><h3>Hacer interactiva la información</h3><p>Seleccionar una categoría o disciplina no solo cambia un gráfico: también ayuda a acotar el conjunto de incidencias que se está revisando.</p></div>
+        </article>
+        <article>
+          <span>03</span>
+          <div><h3>Construir por piezas</h3><p>Cada zona de la pantalla tiene una responsabilidad clara y se valida antes de añadir la siguiente, reduciendo el coste de corregir errores.</p></div>
+        </article>
+        <article>
+          <span>04</span>
+          <div><h3>Convertir el aprendizaje en método</h3><p>Las decisiones, problemas y validaciones se documentan para no depender de memoria informal y para poder reutilizar el método en otros desarrollos.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="section-kicker">Tecnología al servicio del problema</p>
+      <h2>Las herramientas importan, pero aparecen después de entender la necesidad.</h2>
+      <div class="tool-list">
+        <span>Power Apps</span>
+        <span>Power Automate</span>
+        <span>SQL Server</span>
+        <span>GitHub</span>
+        <span>IA aplicada al desarrollo</span>
+      </div>
+      <p class="case-copy">La tecnología se utiliza para construir la experiencia, automatizar tareas, organizar y consultar información, mantener trazabilidad y acelerar análisis, documentación y prototipado.</p>
+    </section>
+
+    <section class="case-section">
+      <p class="section-kicker">Resultado y aprendizaje</p>
+      <h2>Una solución mejor no nace terminada: mejora cuando se prueba, se cuestiona y se corrige.</h2>
+      <div class="case-columns">
+        <p class="lead">PULSE ha evolucionado hacia una experiencia más integrada, acercando la visión general y el detalle dentro del mismo flujo de trabajo.</p>
+        <div>
+          <p>El proyecto ha reforzado una idea central de mi forma de trabajar: el diseño funcional, los datos y la experiencia de usuario no deben tratarse como problemas separados.</p>
+          <p>También ha servido para convertir la construcción incremental asistida por IA en un método documentado: dividir, validar, congelar decisiones importantes y mantener el conocimiento junto al proyecto.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section next-step">
+      <p class="section-kicker">Siguiente evolución del caso</p>
+      <h2>La versión final incorporará material visual recreado y seguro.</h2>
+      <p>Prepararemos una vista general, un flujo de revisión, una pantalla con datos ficticios y una comparación entre distintas iteraciones para enseñar no solo el resultado, sino también cómo evolucionó la solución.</p>
+      <a class="button secondary" href={`${base}#proyectos`}>Volver a proyectos</a>
+    </section>
+  </article>
+</BaseLayout>
