@@ -50,6 +50,8 @@ Explicar qué estaba ocurriendo antes de la solución.
 
 Dar solo la información necesaria para entender por qué el problema importaba.
 
+Si el caso procede de un entorno profesional, el contexto debe generalizarse cuando un nombre, hito, código, fecha, estructura o término interno no sea necesario para demostrar la capacidad profesional.
+
 ### Mi papel
 
 Diferenciar con claridad qué hizo Rubén, qué se hizo en colaboración y qué dependía de otras personas o equipos.
@@ -87,13 +89,26 @@ Por ejemplo:
 
 No es necesario explicar herramientas conocidas si no ayudan a comprender el caso.
 
-## Imágenes y diagramas
+## Imágenes, recreaciones y diagramas
 
 Cada elemento visual debe responder a una pregunta.
 
 Una captura de pantalla no debe incluirse simplemente porque sea bonita. Debe ayudar a explicar una función, una decisión o una evolución.
 
-Cuando una imagen real no pueda publicarse, se recreará una versión segura con datos ficticios.
+Las capturas reales de aplicaciones profesionales no se publicarán. Servirán, como máximo, como referencia privada para construir una recreación segura.
+
+Una recreación pública debe utilizar:
+
+- nombres ficticios;
+- códigos ficticios;
+- hitos ficticios cuando procedan del entorno corporativo;
+- fechas y cifras sintéticas;
+- documentos y archivos ficticios;
+- indicadores y textos inventados;
+- terminología generalizada cuando la original revele procesos internos;
+- una estructura visual simplificada cuando copiar fielmente la pantalla real aporte riesgo sin valor profesional.
+
+No basta con sustituir un nombre o una cifra dentro de una estructura real.
 
 ## Extensión
 
@@ -119,11 +134,15 @@ La narrativa debe mostrar una combinación de:
 
 ## Regla de revisión
 
-Antes de publicar cualquier texto hay que comprobar:
+Antes de publicar cualquier texto o visual hay que comprobar:
 
 1. ¿Lo entendería alguien ajeno al proyecto?
 2. ¿Explica el valor antes que la herramienta?
 3. ¿Es cierto y demostrable?
 4. ¿Está claro cuál fue mi papel?
-5. ¿Hay información que no debería hacerse pública?
-6. ¿Podría decirse de forma más sencilla?
+5. ¿Todos los datos, nombres, códigos, hitos y documentos de ejemplo son ficticios?
+6. ¿Se ha generalizado la terminología interna que no aporta valor?
+7. ¿La estructura publicada revela más del entorno real de lo necesario?
+8. ¿Hay información que no debería hacerse pública?
+9. ¿Podría decirse o demostrarse con menos detalle?
+10. ¿Podría decirse de forma más sencilla?
