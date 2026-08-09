@@ -33,6 +33,8 @@ Incluir únicamente el contexto necesario para comprender el caso.
 
 Evitar datos internos, nombres de clientes o detalles que no sean necesarios.
 
+Si el proyecto procede de un entorno profesional, generalizar nombres de áreas, procesos, estados, hitos y estructuras cuando conservar la terminología real no aporte valor profesional.
+
 ## Mi papel
 
 Explicar con precisión las responsabilidades asumidas.
@@ -96,6 +98,8 @@ Incluir únicamente tecnologías relevantes y explicar su función dentro del pr
 
 Evitar una lista de logotipos sin contexto.
 
+No publicar nombres de servidores, bases de datos, esquemas, tablas, procedimientos, rutas, endpoints o servicios internos. Utilizar nombres genéricos o ficticios cuando sea necesario explicar la arquitectura.
+
 ## Evolución
 
 Mostrar cómo cambió la solución con el tiempo.
@@ -134,7 +138,26 @@ Posibles elementos:
 - flujo de usuario;
 - cronología del proyecto.
 
-Todo material visual debe superar previamente la revisión de privacidad.
+Las capturas reales de aplicaciones profesionales no se publicarán.
+
+Las recreaciones deben construirse desde cero y, cuando deriven de un entorno profesional, utilizar nombres, proyectos, hitos, códigos, fechas, cifras, documentos, controles, indicadores y textos ficticios. También deberán simplificar terminología y estructuras que puedan revelar el funcionamiento interno real.
+
+## Gate de privacidad obligatorio
+
+Antes de publicar el caso confirmar:
+
+- [ ] No contiene nombres reales de proyectos, clientes, empresas, proveedores o personas.
+- [ ] No contiene datos, cifras, fechas o registros de producción.
+- [ ] Los hitos y eventos del ejemplo son ficticios cuando proceden de un proceso profesional.
+- [ ] Los códigos, documentos, indicadores y reglas de ejemplo son ficticios.
+- [ ] No se han copiado nombres de tablas, procedimientos, rutas, servicios o estructuras técnicas internas.
+- [ ] La terminología interna se ha sustituido por términos genéricos o ficticios cuando no es necesaria.
+- [ ] Las recreaciones no reproducen fielmente una pantalla real si esa fidelidad aporta riesgo sin valor.
+- [ ] La combinación de los elementos ficticios no permite identificar un proyecto real.
+- [ ] Las métricas de impacto, si existen, son reales, verificables y publicables.
+- [ ] El mismo valor profesional no puede demostrarse con menos detalle.
+
+Si alguna casilla no puede confirmarse, el caso no se publica.
 
 ## Capacidades demostradas
 
