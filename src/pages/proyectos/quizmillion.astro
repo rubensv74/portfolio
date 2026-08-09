@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout
+  title="QuizMillion — Caso de estudio | Rubén Seijo"
+  description="Caso de estudio de QuizMillion, aplicación Android de preguntas tipo concurso con multijugador y sincronización en tiempo real mediante Firebase."
+>
+  <article class="case-study">
+    <header class="case-hero">
+      <a class="back-link" href={`${base}#proyectos`}>← Volver a proyectos</a>
+      <p class="eyebrow">Caso de estudio · Desarrollo de Aplicaciones Multiplataforma</p>
+      <h1>QuizMillion</h1>
+      <p class="case-intro">Una aplicación Android de preguntas tipo concurso que combina juego individual, multijugador y sincronización en tiempo real.</p>
+      <div class="case-meta">
+        <div><span>Contexto</span><strong>Proyecto final DAM · Trabajo en equipo</strong></div>
+        <div><span>Plataforma</span><strong>Android</strong></div>
+        <div><span>Tecnologías</span><strong>Java · Firebase · Firestore · Storage</strong></div>
+      </div>
+      <p class="privacy-note">Proyecto académico desarrollado en equipo por Elena Gualix Vidal, Iván Pascual García y Rubén Francisco Seijo Vilaboy.</p>
+    </header>
+
+    <section class="case-section">
+      <p class="section-kicker">El reto</p>
+      <h2>Hacer que varios jugadores compartan una partida sin perder la consistencia del estado.</h2>
+      <div class="case-columns">
+        <p class="lead">QuizMillion debía ir más allá de una aplicación de preguntas local: las salas, los jugadores y el estado de la partida tenían que mantenerse sincronizados.</p>
+        <div>
+          <p>El proyecto integra registro e inicio de sesión, gestión de perfil, modo solitario y multijugador, puntuaciones, configuración, preguntas, comodines, fallos, cronómetro y resultados.</p>
+          <p>El desafío central del multijugador fue coordinar cambios simultáneos y evitar estados incoherentes cuando varios usuarios interactúan con una misma sala.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="section-kicker">Arquitectura</p>
+      <h2>Firebase como base de los servicios compartidos.</h2>
+      <div class="capability-grid">
+        <div><strong>01</strong><h3>Authentication</h3><p>Registro, acceso y gestión de identidad de los usuarios.</p></div>
+        <div><strong>02</strong><h3>Firestore</h3><p>Estado de salas, jugadores, preguntas y datos sincronizados.</p></div>
+        <div><strong>03</strong><h3>Storage</h3><p>Almacenamiento de imágenes de preguntas, premios y perfiles.</p></div>
+        <div><strong>04</strong><h3>Android</h3><p>Aplicación cliente y experiencia completa de juego.</p></div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="section-kicker">Multijugador</p>
+      <h2>Un flujo sencillo para el jugador apoyado por sincronización en tiempo real.</h2>
+      <div class="steps">
+        <div><strong>01</strong><span>El host crea una sala pública o privada.</span></div>
+        <div><strong>02</strong><span>Los jugadores acceden mediante código o salas públicas.</span></div>
+        <div><strong>03</strong><span>La sala de espera mantiene a los jugadores sincronizados.</span></div>
+        <div><strong>04</strong><span>El host inicia cuando se cumplen las condiciones de partida.</span></div>
+      </div>
+      <p class="lead">Firestore actúa como fuente de verdad, con listeners para reflejar cambios automáticamente y transacciones para operaciones críticas.</p>
+    </section>
+
+    <section class="case-section">
+      <p class="section-kicker">Lógica de partida</p>
+      <h2>No basta con sincronizar datos: hay que controlar cuándo puede ocurrir cada acción.</h2>
+      <div class="decision-list">
+        <article><span>01</span><div><h3>Estado centralizado</h3><p>Firestore centraliza el estado de la sala para que todos los clientes trabajen sobre una referencia común.</p></div></article>
+        <article><span>02</span><div><h3>Validaciones</h3><p>Se comprueba quién es el host, el número mínimo de jugadores y el estado de la partida antes de permitir acciones.</p></div></article>
+        <article><span>03</span><div><h3>Transiciones controladas</h3><p>El flujo pasa por espera, inicio y partida, limitando las acciones disponibles en cada estado.</p></div></article>
+        <article><span>04</span><div><h3>Operaciones asíncronas</h3><p>Listeners, callbacks y transacciones ayudan a mantener consistencia durante las operaciones concurrentes.</p></div></article>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="section-kicker">Retos técnicos</p>
+      <h2>Los problemas más interesantes aparecieron donde varios estados debían convivir.</h2>
+      <div class="capability-grid">
+        <div><strong>01</strong><h3>Sincronización</h3><p>Listeners de Firestore para reflejar automáticamente cambios de salas y jugadores.</p></div>
+        <div><strong>02</strong><h3>Concurrencia</h3><p>Transacciones para proteger la consistencia en operaciones críticas.</p></div>
+        <div><strong>03</strong><h3>Presencia</h3><p>Control de actividad para detectar usuarios inactivos y evitar salas fantasma.</p></div>
+        <div><strong>04</strong><h3>Estados de UI</h3><p>Control de pulsaciones, comodines y acciones mediante estados y flags.</p></div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="section-kicker">Más allá del multijugador</p>
+      <h2>El proyecto integró distintas capacidades del ciclo DAM en una sola aplicación.</h2>
+      <div class="case-columns">
+        <p class="lead">También se trabajó con audio, imágenes, almacenamiento y generación de documentos.</p>
+        <div>
+          <p>La solución incorpora un MusicService para gestionar música y efectos, Glide y Firebase Storage para imágenes, y PdfDocument junto con Canvas para exportar récords del usuario a PDF.</p>
+          <p>Ese alcance convierte QuizMillion en un buen ejemplo de integración: interfaz, lógica, servicios cloud, persistencia, multimedia y concurrencia forman parte del mismo producto.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section next-step">
+      <p class="section-kicker">Qué demuestra este caso</p>
+      <h2>Construir un producto completo obliga a conectar muchas piezas.</h2>
+      <p>QuizMillion aporta al portfolio una dimensión diferente: desarrollo Android, integración de servicios cloud y resolución de problemas de sincronización y estado en una experiencia multijugador.</p>
+      <a class="button secondary" href={`${base}#proyectos`}>Volver a proyectos</a>
+    </section>
+  </article>
+</BaseLayout>
