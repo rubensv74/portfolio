@@ -26,7 +26,9 @@ Cuando esa información se reparte entre tablas extensas, pantallas aisladas y p
 
 PULSE se ha ido desarrollando como una plataforma modular alrededor de diferentes necesidades de gestión de proyectos.
 
-Para el portfolio, el caso se presentará de forma anonimizada y con información recreada. No se publicarán datos reales, nombres de clientes, detalles internos ni capturas que puedan contener información sensible.
+Para el portfolio, el caso se presentará de forma anonimizada y recreada. No se publicarán datos reales, nombres de clientes, detalles internos ni capturas procedentes del entorno profesional.
+
+Toda recreación pública utilizará nombres de proyectos, empresas, responsables, códigos, fechas, cifras, documentos y registros ficticios. Los hitos, etiquetas, categorías, estados o términos internos se sustituirán o generalizarán cuando puedan revelar cómo funciona el entorno corporativo. Las pantallas públicas no reproducirán fielmente una interfaz real cuando esa fidelidad no sea necesaria para demostrar la capacidad profesional.
 
 ## Mi papel
 
@@ -161,6 +163,8 @@ Antes de publicar este caso se deberán crear versiones seguras de:
 - una pantalla recreada con datos ficticios;
 - una comparación entre una primera versión y una versión evolucionada;
 - un esquema de cómo se conectan resumen, filtros y detalle.
+
+Todo el material deberá superar el gate de privacidad del repositorio antes de publicarse.
 
 ## Capacidades demostradas
 
