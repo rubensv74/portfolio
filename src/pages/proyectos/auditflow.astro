@@ -2,10 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 const base = import.meta.env.BASE_URL;
 const audits = [
-  { project: 'Northstar Alpha', milestone: 'Mechanical Completion + 3 months', plan: 'Apr-2026', status: 'Done' },
-  { project: 'Bluehaven Delta', milestone: 'P&IDs IFD + 3 months', plan: 'May-2026', status: 'Done' },
-  { project: 'Orion Coast', milestone: 'Mechanical Completion + 9 months', plan: 'Jun-2026', status: 'In progress' },
-  { project: 'Summit Ridge', milestone: 'Provisional Acceptance - 2 months', plan: 'Jul-2026', status: 'To do' },
+  { project: 'Northstar Alpha', milestone: 'Operational Readiness Review + 3 months', plan: 'Apr-2026', status: 'Done' },
+  { project: 'Bluehaven Delta', milestone: 'Engineering Baseline Review + 3 months', plan: 'May-2026', status: 'Done' },
+  { project: 'Orion Coast', milestone: 'Operational Readiness Review + 9 months', plan: 'Jun-2026', status: 'In progress' },
+  { project: 'Summit Ridge', milestone: 'Final Transition Gate - 2 months', plan: 'Jul-2026', status: 'To do' },
 ];
 const kpis = [
   { code: 'AF-162-01', label: 'Systems with complete hierarchy', value: 96, state: 'ok' },
@@ -29,94 +29,18 @@ const kpis = [
         <div><span>Ámbitos</span><strong>Procesos · Auditoría · System Completion · Datos</strong></div>
         <div><span>Resultado</span><strong>Herramienta utilizada habitualmente como apoyo al proceso</strong></div>
       </div>
-      <p class="privacy-note"><strong>Confidencialidad:</strong> el caso público es una recreación. Todos los nombres de proyectos, códigos, fechas, cifras, documentos y registros mostrados a continuación son ficticios y no reproducen información corporativa real.</p>
+      <p class="privacy-note"><strong>Confidencialidad:</strong> el caso público es una recreación. Todos los nombres de proyectos, hitos, códigos, fechas, cifras, documentos y registros mostrados a continuación son ficticios y no reproducen información corporativa real.</p>
     </header>
 
-    <section class="case-section">
-      <p class="section-kicker">El problema</p>
-      <h2>La auditoría no era solo una reunión: era un proceso repartido entre calendarios, documentos y datos.</h2>
-      <div class="case-columns">
-        <p>Las auditorías internas permiten comprobar el grado de implantación de procedimientos del área de Handover. Para prepararlas había que coordinar proyectos, hitos, fechas, reuniones, documentación y evidencias.</p>
-        <p>Parte de las preguntas planteadas durante la auditoría podía responderse objetivamente mediante información existente en la base de datos de System Completion. Sin una solución integrada, esa evidencia quedaba separada del propio proceso de auditoría.</p>
-      </div>
-    </section>
-
-    <section class="case-section">
-      <p class="section-kicker">La decisión</p>
-      <h2>No construir un calendario de auditorías. Construir el contexto completo de cada auditoría.</h2>
-      <div class="capability-grid">
-        <div><strong>01</strong><h3>Planificar</h3><p>Definir proyecto, hito y ventana temporal de auditoría.</p></div>
-        <div><strong>02</strong><h3>Coordinar</h3><p>Programar sesiones y mantener el estado de cada auditoría visible.</p></div>
-        <div><strong>03</strong><h3>Documentar</h3><p>Conservar informes y evidencias asociados a cada sesión.</p></div>
-        <div><strong>04</strong><h3>Responder con datos</h3><p>Usar indicadores de System Completion como evidencia para parte de las cuestiones auditadas.</p></div>
-      </div>
-    </section>
-
-    <section class="case-section">
-      <p class="section-kicker">Recreación funcional</p>
-      <h2>Un mismo flujo para saber qué toca, qué ocurrió y qué evidencia existe.</h2>
-      <div class="audit-demo" aria-label="Recreación ficticia de AuditFlow">
-        <div class="demo-topbar"><strong>AuditFlow</strong><span>Portfolio demo · datos sintéticos</span></div>
-        <div class="demo-grid">
-          <aside class="demo-nav"><b>Home</b><span>Audits</span><span>KPIs</span><span>Timeline</span></aside>
-          <div class="demo-main">
-            <div class="status-row"><span class="todo">To Do</span><span class="progress">In Progress</span><span class="done">Done</span></div>
-            <div class="audit-table">
-              {audits.map((audit) => (
-                <div class="audit-row">
-                  <strong>{audit.project}</strong><span>{audit.milestone}</span><span>{audit.plan}</span><em class:list={{done:audit.status==='Done', progress:audit.status==='In progress', todo:audit.status==='To do'}}>{audit.status}</em>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      <p class="demo-note">La interfaz anterior es una recreación construida para el portfolio. No es una captura de la aplicación utilizada en el entorno profesional.</p>
-    </section>
-
-    <section class="case-section">
-      <p class="section-kicker">La capa diferencial</p>
-      <h2>La auditoría puede contrastar preguntas con evidencia procedente de System Completion.</h2>
-      <p>La parte más importante de AuditFlow no es el calendario. Es el dashboard que permite consultar indicadores del proyecto relacionados con criterios auditables y utilizar datos existentes como apoyo a la conversación.</p>
-      <div class="kpi-demo">
-        {kpis.map((kpi) => (
-          <article class:list={['kpi-card', kpi.state]}>
-            <small>{kpi.code}</small><h3>{kpi.label}</h3><strong>{kpi.value}%</strong><div class="meter"><i style={`width:${kpi.value}%`}></i></div>
-          </article>
-        ))}
-      </div>
-      <p class="demo-note">Indicadores, códigos y porcentajes completamente ficticios creados únicamente para explicar el concepto funcional.</p>
-    </section>
-
-    <section class="case-section">
-      <p class="section-kicker">Trazabilidad</p>
-      <h2>El proyecto conserva su propia historia de auditorías.</h2>
-      <div class="timeline-demo">
-        <div><i></i><strong>Mechanical Completion − 6 meses</strong><span>Planificada: ene. 2026 · Completada: feb. 2026</span><small>Informe: AF-NORTHSTAR-001.pdf</small></div>
-        <div><i></i><strong>Mechanical Completion + 3 meses</strong><span>Planificada: may. 2026 · Completada: may. 2026</span><small>Informe: AF-NORTHSTAR-002.pdf</small></div>
-        <div><i class="pending"></i><strong>Mechanical Completion + 9 meses</strong><span>Planificada: nov. 2026</span><small>Auditoría pendiente</small></div>
-      </div>
-    </section>
-
-    <section class="case-section">
-      <p class="section-kicker">Qué demuestra</p>
-      <h2>Una solución pequeña puede tener mucho valor cuando resuelve bien un proceso concreto.</h2>
-      <div class="decision-list">
-        <article><span>01</span><div><h3>Partir del proceso real</h3><p>La solución nace de entender cómo se planifican y ejecutan las auditorías, no de buscar un uso para una herramienta.</p></div></article>
-        <article><span>02</span><div><h3>Conectar información dispersa</h3><p>Fechas, reuniones, informes, evidencias e indicadores quedan asociados al mismo contexto.</p></div></article>
-        <article><span>03</span><div><h3>Usar datos como evidencia</h3><p>Los indicadores no decoran la pantalla: ayudan a responder preguntas concretas durante la auditoría.</p></div></article>
-        <article><span>04</span><div><h3>Adopción orgánica</h3><p>La herramienta fue creada como iniciativa propia y terminó utilizándose habitualmente como apoyo al proceso.</p></div></article>
-      </div>
-    </section>
-
-    <section class="case-section">
-      <p class="section-kicker">Tecnología</p>
-      <h2>La tecnología queda al servicio del flujo.</h2>
-      <div class="tool-list"><span>Microsoft Power Apps</span><span>Power Automate</span><span>Microsoft Teams</span><span>SQL / System Completion data</span><span>Documentación y adjuntos</span></div>
-    </section>
+    <section class="case-section"><p class="section-kicker">El problema</p><h2>La auditoría no era solo una reunión: era un proceso repartido entre calendarios, documentos y datos.</h2><div class="case-columns"><p>Las auditorías internas permiten comprobar el grado de implantación de procedimientos del área de Handover. Para prepararlas había que coordinar proyectos, hitos, fechas, reuniones, documentación y evidencias.</p><p>Parte de las preguntas planteadas durante la auditoría podía responderse objetivamente mediante información existente en la base de datos de System Completion. Sin una solución integrada, esa evidencia quedaba separada del propio proceso de auditoría.</p></div></section>
+    <section class="case-section"><p class="section-kicker">La decisión</p><h2>No construir un calendario de auditorías. Construir el contexto completo de cada auditoría.</h2><div class="capability-grid"><div><strong>01</strong><h3>Planificar</h3><p>Definir proyecto, hito y ventana temporal de auditoría.</p></div><div><strong>02</strong><h3>Coordinar</h3><p>Programar sesiones y mantener el estado de cada auditoría visible.</p></div><div><strong>03</strong><h3>Documentar</h3><p>Conservar informes y evidencias asociados a cada sesión.</p></div><div><strong>04</strong><h3>Responder con datos</h3><p>Usar indicadores de System Completion como evidencia para parte de las cuestiones auditadas.</p></div></div></section>
+    <section class="case-section"><p class="section-kicker">Recreación funcional</p><h2>Un mismo flujo para saber qué toca, qué ocurrió y qué evidencia existe.</h2><div class="audit-demo" aria-label="Recreación ficticia de AuditFlow"><div class="demo-topbar"><strong>AuditFlow</strong><span>Portfolio demo · datos sintéticos</span></div><div class="demo-grid"><aside class="demo-nav"><b>Home</b><span>Audits</span><span>KPIs</span><span>Timeline</span></aside><div class="demo-main"><div class="status-row"><span class="todo">To Do</span><span class="progress">In Progress</span><span class="done">Done</span></div><div class="audit-table">{audits.map((audit) => (<div class="audit-row"><strong>{audit.project}</strong><span>{audit.milestone}</span><span>{audit.plan}</span><em class:list={{done:audit.status==='Done', progress:audit.status==='In progress', todo:audit.status==='To do'}}>{audit.status}</em></div>))}</div></div></div></div><p class="demo-note">La interfaz anterior es una recreación construida para el portfolio. No es una captura de la aplicación utilizada en el entorno profesional.</p></section>
+    <section class="case-section"><p class="section-kicker">La capa diferencial</p><h2>La auditoría puede contrastar preguntas con evidencia procedente de System Completion.</h2><p>La parte más importante de AuditFlow no es el calendario. Es el dashboard que permite consultar indicadores del proyecto relacionados con criterios auditables y utilizar datos existentes como apoyo a la conversación.</p><div class="kpi-demo">{kpis.map((kpi) => (<article class:list={['kpi-card', kpi.state]}><small>{kpi.code}</small><h3>{kpi.label}</h3><strong>{kpi.value}%</strong><div class="meter"><i style={`width:${kpi.value}%`}></i></div></article>))}</div><p class="demo-note">Indicadores, códigos y porcentajes completamente ficticios creados únicamente para explicar el concepto funcional.</p></section>
+    <section class="case-section"><p class="section-kicker">Trazabilidad</p><h2>El proyecto conserva su propia historia de auditorías.</h2><div class="timeline-demo"><div><i></i><strong>Foundation Readiness Gate − 6 meses</strong><span>Planificada: ene. 2026 · Completada: feb. 2026</span><small>Informe: AF-NORTHSTAR-001.pdf</small></div><div><i></i><strong>Operational Readiness Review + 3 meses</strong><span>Planificada: may. 2026 · Completada: may. 2026</span><small>Informe: AF-NORTHSTAR-002.pdf</small></div><div><i class="pending"></i><strong>Operational Readiness Review + 9 meses</strong><span>Planificada: nov. 2026</span><small>Auditoría pendiente</small></div></div></section>
+    <section class="case-section"><p class="section-kicker">Qué demuestra</p><h2>Una solución pequeña puede tener mucho valor cuando resuelve bien un proceso concreto.</h2><div class="decision-list"><article><span>01</span><div><h3>Partir del proceso real</h3><p>La solución nace de entender cómo se planifican y ejecutan las auditorías, no de buscar un uso para una herramienta.</p></div></article><article><span>02</span><div><h3>Conectar información dispersa</h3><p>Fechas, reuniones, informes, evidencias e indicadores quedan asociados al mismo contexto.</p></div></article><article><span>03</span><div><h3>Usar datos como evidencia</h3><p>Los indicadores no decoran la pantalla: ayudan a responder preguntas concretas durante la auditoría.</p></div></article><article><span>04</span><div><h3>Adopción orgánica</h3><p>La herramienta fue creada como iniciativa propia y terminó utilizándose habitualmente como apoyo al proceso.</p></div></article></div></section>
+    <section class="case-section"><p class="section-kicker">Tecnología</p><h2>La tecnología queda al servicio del flujo.</h2><div class="tool-list"><span>Microsoft Power Apps</span><span>Power Automate</span><span>Microsoft Teams</span><span>SQL / System Completion data</span><span>Documentación y adjuntos</span></div></section>
   </article>
 </BaseLayout>
-
 <style>
 .audit-demo{margin-top:34px;border:1px solid #cbd8e7;border-radius:18px;background:#fff;overflow:hidden;box-shadow:0 14px 34px rgba(15,23,42,.07)}.demo-topbar{display:flex;justify-content:space-between;padding:18px 22px;background:#dceaf5;color:#10213a}.demo-topbar span{font-size:.82rem;color:#526071}.demo-grid{display:grid;grid-template-columns:120px 1fr}.demo-nav{padding:20px 14px;border-right:1px solid #e1e7ef;display:flex;flex-direction:column;gap:18px;font-size:.86rem}.demo-nav b{color:#1d4ed8}.demo-main{padding:20px}.status-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}.status-row span{padding:10px;text-align:center;border-radius:8px;font-weight:800}.todo{background:#fff0b8;color:#795b00}.progress{background:#d9eaff;color:#18549b}.done{background:#d9f0d3;color:#22651b}.audit-table{border-top:1px solid #e3e8ef}.audit-row{display:grid;grid-template-columns:1.15fr 1.5fr .65fr .65fr;gap:12px;align-items:center;padding:15px 6px;border-bottom:1px solid #e3e8ef;font-size:.84rem}.audit-row em{font-style:normal;font-weight:800;text-align:center;padding:6px 8px;border-radius:999px}.audit-row em.done{background:#d9f0d3;color:#22651b}.audit-row em.progress{background:#d9eaff;color:#18549b}.audit-row em.todo{background:#fff0b8;color:#795b00}.demo-note{margin-top:14px!important;color:#64748b;font-size:.82rem}.kpi-demo{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:32px}.kpi-card{background:#fff;border:1px solid #d9e2ec;border-left:5px solid #22a55b;border-radius:14px;padding:20px}.kpi-card.warn{border-left-color:#f59e0b}.kpi-card.risk{border-left-color:#ef5a49}.kpi-card small{color:#1d4ed8;font-weight:800}.kpi-card h3{font-size:1rem;min-height:52px}.kpi-card>strong{font-size:1.8rem}.meter{height:7px;background:#e8edf2;border-radius:999px;margin-top:12px;overflow:hidden}.meter i{display:block;height:100%;background:#22a55b}.kpi-card.warn .meter i{background:#f59e0b}.kpi-card.risk .meter i{background:#ef5a49}.timeline-demo{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px;position:relative}.timeline-demo:before{content:"";position:absolute;top:15px;left:8%;right:8%;height:2px;background:#cbd5e1}.timeline-demo>div{position:relative;padding-top:38px;background:#fff;border:1px solid #d9e2ec;border-radius:14px;padding:48px 18px 20px}.timeline-demo i{position:absolute;width:18px;height:18px;border-radius:50%;background:#22a55b;top:6px;left:50%;transform:translateX(-50%);box-shadow:0 0 0 5px #e7f7ec}.timeline-demo i.pending{background:#f97316;box-shadow:0 0 0 5px #fff0e8}.timeline-demo strong,.timeline-demo span,.timeline-demo small{display:block}.timeline-demo span{margin-top:10px;color:#526071;font-size:.86rem}.timeline-demo small{margin-top:14px;color:#1d4ed8}@media(max-width:800px){.demo-grid{grid-template-columns:1fr}.demo-nav{display:none}.audit-row{grid-template-columns:1fr 1fr}.audit-row span:nth-of-type(2){display:none}.kpi-demo,.timeline-demo{grid-template-columns:1fr}.timeline-demo:before{display:none}}@media(max-width:560px){.demo-topbar{align-items:flex-start;flex-direction:column;gap:3px}.status-row{grid-template-columns:1fr}.audit-row{grid-template-columns:1fr}.audit-row span{display:block!important}.kpi-card h3{min-height:auto}}
 </style>
