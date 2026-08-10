@@ -3,6 +3,13 @@ name: Publicar portfolio
 on:
   push:
     branches: [main]
+    paths:
+      - "src/**"
+      - "content/**"
+      - "public/**"
+      - "package.json"
+      - "astro.config.mjs"
+      - ".github/workflows/deploy-pages.yml"
   workflow_dispatch:
 
 permissions:
