@@ -8,15 +8,17 @@ const origin = Astro.site ?? Astro.url.origin;
 const canonical = new URL(Astro.url.pathname, origin);
 const socialImage = new URL(`${base}portfolio-social.jpg`, origin);
 const path = Astro.url.pathname;
-const nextCase = path.includes('/proyectos/pulse/')
-  ? { label: 'Siguiente caso', title: 'AuditFlow', href: `${base}proyectos/auditflow/` }
-  : path.includes('/proyectos/auditflow/')
-    ? { label: 'Siguiente caso', title: 'CMMS 2.0', href: `${base}proyectos/cmms-2-0/` }
-    : path.includes('/proyectos/cmms-2-0/')
-      ? { label: 'Siguiente caso', title: 'Power BI Studio', href: `${base}proyectos/power-bi-studio/` }
-      : path.includes('/proyectos/power-bi-studio/')
-        ? { label: 'Volver al inicio', title: 'Ver los cuatro casos', href: `${base}#proyectos` }
-        : null;
+const nextCase = path.includes('/proyectos/assetplan/')
+  ? { label: 'Siguiente caso', title: 'PULSE', href: `${base}proyectos/pulse/` }
+  : path.includes('/proyectos/pulse/')
+    ? { label: 'Siguiente caso', title: 'AuditFlow', href: `${base}proyectos/auditflow/` }
+    : path.includes('/proyectos/auditflow/')
+      ? { label: 'Siguiente caso', title: 'CMMS 2.0', href: `${base}proyectos/cmms-2-0/` }
+      : path.includes('/proyectos/cmms-2-0/')
+        ? { label: 'Siguiente caso', title: 'Power BI Studio', href: `${base}proyectos/power-bi-studio/` }
+        : path.includes('/proyectos/power-bi-studio/')
+          ? { label: 'Volver al inicio', title: 'Ver los cinco casos', href: `${base}#proyectos` }
+          : null;
 ---
 <!doctype html>
 <html lang="es">
