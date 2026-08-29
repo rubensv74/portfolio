@@ -1,0 +1,189 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout
+  title="AssetPlan — Caso de estudio | Rubén Seijo"
+  description="Caso de estudio sobre descubrimiento de producto, análisis funcional, gestión de activos, datos, automatización y diseño de soluciones."
+>
+  <article class="case-study assetplan-case">
+    <header class="case-hero">
+      <a class="back-link" href={`${base}#proyectos`}>← Volver a proyectos</a>
+      <p class="eyebrow">Caso de estudio · Asset Management · Producto</p>
+      <h1>AssetPlan</h1>
+      <p class="case-intro">Cómo una petición para combinar información procedente de distintas fuentes reveló una oportunidad mayor: convertir datos dispersos en una herramienta para entender, planificar y gobernar la preservación de activos.</p>
+      <div class="case-meta">
+        <div><span>Mi papel</span><strong>Análisis funcional y diseño de producto</strong></div>
+        <div><span>Ámbitos</span><strong>Asset Management · Datos · Automatización · UX</strong></div>
+        <div><span>Enfoque</span><strong>Descubrimiento y evolución incremental</strong></div>
+      </div>
+      <p class="privacy-note">Caso anonimizado. Los nombres, cifras, registros y elementos visuales públicos han sido modificados o recreados para no exponer información corporativa.</p>
+    </header>
+
+    <section class="case-section">
+      <p class="section-kicker">El origen</p>
+      <h2>El encargo inicial parecía un problema de integración de información.</h2>
+      <div class="case-columns">
+        <p class="lead">La necesidad de partida era sencilla de expresar: facilitar el análisis conjunto de información que estaba repartida entre distintas fuentes corporativas.</p>
+        <div>
+          <p>La primera pregunta era cómo reunir y presentar esa información de forma útil. Pero al trabajar con los datos apareció una segunda pregunta mucho más importante: ¿qué decisiones podrían tomarse si toda esa información se entendiera como parte del contexto de un mismo activo?</p>
+          <p>Ese cambio de perspectiva fue el punto de partida de AssetPlan.</p>
+        </div>
+      </div>
+      <div class="origin-card" aria-label="Evolución del encargo inicial">
+        <span>Petición inicial</span>
+        <strong>Combinar información procedente de distintas fuentes.</strong>
+        <i aria-hidden="true">→</i>
+        <span>Oportunidad descubierta</span>
+        <strong>Convertir esa información en contexto para planificar y gobernar la preservación.</strong>
+      </div>
+    </section>
+
+    <section class="case-section discovery-section">
+      <p class="section-kicker">El descubrimiento</p>
+      <h2>Los datos no solo podían compararse. Podían explicar el activo.</h2>
+      <p class="lead">Al relacionar fuentes, documentación y estructura de activos, el problema dejó de ser “ver datos juntos” y pasó a ser “construir el contexto necesario para decidir”.</p>
+      <div class="discovery-grid">
+        <article><span>01</span><h3>Contexto</h3><p>Entender qué activo se está analizando y qué información relevante existe alrededor de él.</p></article>
+        <article><span>02</span><h3>Disponibilidad</h3><p>Hacer visible qué documentación y datos están disponibles y qué información falta.</p></article>
+        <article><span>03</span><h3>Reglas</h3><p>Relacionar el activo con criterios y reglas de preservación que puedan ser revisados y reutilizados.</p></article>
+        <article><span>04</span><h3>Decisión</h3><p>Transformar información dispersa en una base comprensible para planificar, ejecutar y verificar.</p></article>
+      </div>
+    </section>
+
+    <section class="case-section vision-section">
+      <p class="section-kicker">La visión</p>
+      <h2>De combinar información a construir una capa de inteligencia para la preservación de activos.</h2>
+      <p class="case-copy">La solución se estructura como un recorrido conectado. Cada capa añade contexto y reduce la distancia entre el dato de origen y la decisión operativa.</p>
+      <div class="value-chain" aria-label="Recorrido funcional de AssetPlan">
+        <div><span>01</span><strong>Fuentes</strong><small>Datos y documentos</small></div>
+        <i>→</i>
+        <div><span>02</span><strong>Activo</strong><small>Contexto común</small></div>
+        <i>→</i>
+        <div><span>03</span><strong>Reglas</strong><small>Criterios de preservación</small></div>
+        <i>→</i>
+        <div><span>04</span><strong>Plan</strong><small>Qué debe hacerse</small></div>
+        <i>→</i>
+        <div><span>05</span><strong>Ejecución</strong><small>Trabajo y seguimiento</small></div>
+        <i>→</i>
+        <div><span>06</span><strong>Evidencia</strong><small>Estado y trazabilidad</small></div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="section-kicker">Mi aportación</p>
+      <h2>Convertir una oportunidad detectada en una estructura de producto que pudiera crecer sin perder coherencia.</h2>
+      <div class="capability-grid">
+        <div><strong>01</strong><h3>Descubrir</h3><p>Identificar posibilidades que no formaban parte del encargo inicial y formular una visión de producto más amplia.</p></div>
+        <div><strong>02</strong><h3>Estructurar</h3><p>Ordenar activos, documentos, reglas, estados y procesos dentro de un modelo funcional comprensible.</p></div>
+        <div><strong>03</strong><h3>Diseñar</h3><p>Definir navegación, pantallas, componentes y recorridos centrados en las preguntas que debe resolver el usuario.</p></div>
+        <div><strong>04</strong><h3>Evolucionar</h3><p>Construir por etapas, validar cada área y convertir decisiones repetidas en patrones y estándares reutilizables.</p></div>
+      </div>
+    </section>
+
+    <section class="case-section product-section">
+      <p class="section-kicker">Qué es AssetPlan</p>
+      <h2>Un producto para conectar información, reglas y trabajo de preservación alrededor del activo.</h2>
+      <div class="product-grid">
+        <article><span>Understand</span><h3>Entender</h3><p>Reunir el contexto relevante del activo sin obligar al usuario a reconstruirlo manualmente.</p></article>
+        <article><span>Define</span><h3>Definir</h3><p>Establecer reglas, criterios y plantillas que conviertan conocimiento técnico en una base reutilizable.</p></article>
+        <article><span>Plan</span><h3>Planificar</h3><p>Transformar reglas y contexto en acciones de preservación organizadas y revisables.</p></article>
+        <article><span>Execute</span><h3>Ejecutar</h3><p>Dar al usuario un espacio de trabajo para revisar, completar y seguir el trabajo previsto.</p></article>
+        <article><span>Verify</span><h3>Verificar</h3><p>Hacer visible qué está completo, qué requiere atención y qué evidencia existe.</p></article>
+        <article><span>Improve</span><h3>Mejorar</h3><p>Convertir lo aprendido durante el uso en mejores reglas, plantillas y decisiones posteriores.</p></article>
+      </div>
+    </section>
+
+    <section class="case-section visual-evidence">
+      <div class="visual-heading">
+        <div><p class="section-kicker">Evidencia visual</p><h2>Una experiencia diseñada para mantener el contexto mientras se pasa de la visión general al trabajo concreto.</h2></div>
+        <span class="recreation-badge">Recreación · datos ficticios</span>
+      </div>
+      <p class="case-copy">La siguiente composición no reproduce una pantalla corporativa. Recrea con nombres y registros inventados varios patrones funcionales del producto: contexto del proyecto, estado de preservación, reglas y revisión del detalle.</p>
+
+      <div class="assetplan-frame" aria-label="Recreación ficticia de un espacio de trabajo AssetPlan">
+        <div class="ap-topbar">
+          <div class="ap-brand"><span>AP</span><strong>AssetPlan</strong></div>
+          <div class="ap-context"><small>Project</small><strong>Northline Expansion</strong><span>PLN-204</span></div>
+          <button type="button" tabindex="-1">Project overview</button>
+        </div>
+        <div class="ap-body">
+          <aside class="ap-sidebar" aria-hidden="true">
+            <strong>Workspace</strong>
+            <span class="active">Overview</span><span>Assets</span><span>Rules</span><span>Planning</span><span>Workspace</span><span>Library</span>
+          </aside>
+          <div class="ap-workspace">
+            <div class="ap-heading"><div><small>Preservation workspace</small><strong>Area 04 · Mechanical equipment</strong></div><span>Last review · 28 Aug</span></div>
+            <div class="ap-kpis">
+              <article><span>Assets in scope</span><strong>248</strong><small>Current project</small></article>
+              <article><span>Rules assigned</span><strong>231</strong><small>93% coverage</small></article>
+              <article><span>Needs review</span><strong>17</strong><small>Missing or incomplete</small></article>
+              <article><span>Ready to plan</span><strong>196</strong><small>Validated context</small></article>
+            </div>
+            <div class="ap-panels">
+              <section class="ap-panel">
+                <div class="panel-title"><div><small>Coverage</small><strong>Preservation status</strong></div><span>248 assets</span></div>
+                <div class="status-stack" aria-hidden="true"><i class="s-ready"></i><i class="s-review"></i><i class="s-missing"></i></div>
+                <div class="status-legend"><span><i class="dot ready"></i>Ready <b>196</b></span><span><i class="dot review"></i>Review <b>35</b></span><span><i class="dot missing"></i>Missing <b>17</b></span></div>
+              </section>
+              <section class="ap-panel">
+                <div class="panel-title"><div><small>Rules</small><strong>Current selection</strong></div><span class="rule-badge">Mechanical</span></div>
+                <div class="rule-list"><p><span>Rotating equipment</span><b>84</b></p><p><span>Static equipment</span><b>61</b></p><p><span>Valves</span><b>52</b></p><p><span>Other assets</span><b>34</b></p></div>
+              </section>
+            </div>
+            <section class="ap-panel ap-table-panel">
+              <div class="panel-title"><div><small>Review queue</small><strong>Assets requiring attention</strong></div><button type="button" tabindex="-1">Open workspace</button></div>
+              <div class="ap-table" role="table" aria-label="Ejemplo ficticio de activos pendientes de revisión">
+                <div class="ap-row ap-head" role="row"><span>Asset</span><span>Type</span><span>Rule</span><span>Document</span><span>Status</span></div>
+                <div class="ap-row" role="row"><span>P-204-PU-014</span><span>Pump</span><span>ROT-03</span><span>Available</span><span><em>Ready</em></span></div>
+                <div class="ap-row selected" role="row"><span>P-204-VL-087</span><span>Valve</span><span>—</span><span>Available</span><span><em>Review</em></span></div>
+                <div class="ap-row" role="row"><span>P-204-HE-021</span><span>Heat exchanger</span><span>STA-02</span><span>Missing</span><span><em>Review</em></span></div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div class="flow-strip" aria-label="Flujo funcional representado"><span>1 · Entender contexto</span><i>→</i><span>2 · Detectar huecos</span><i>→</i><span>3 · Revisar reglas</span><i>→</i><span>4 · Preparar el trabajo</span></div>
+    </section>
+
+    <section class="case-section evolution-section">
+      <p class="section-kicker">Evolución</p>
+      <h2>La evolución importante no fue añadir pantallas. Fue ampliar progresivamente el problema que el producto era capaz de resolver.</h2>
+      <div class="evolution-track">
+        <article><span>01</span><p>Encargo inicial</p><h3>Combinar información</h3><strong>Hacer visibles datos que estaban separados.</strong></article>
+        <article><span>02</span><p>Descubrimiento</p><h3>Reconstruir contexto</h3><strong>Entender qué significan esos datos alrededor del activo.</strong></article>
+        <article><span>03</span><p>Modelo funcional</p><h3>Conectar reglas y activos</h3><strong>Convertir conocimiento técnico en una estructura revisable.</strong></article>
+        <article><span>04</span><p>Producto</p><h3>AssetPlan</h3><strong>Integrar contexto, planificación, trabajo y evidencia.</strong></article>
+      </div>
+    </section>
+
+    <section class="case-section learning-section">
+      <p class="section-kicker">Qué demuestra</p>
+      <h2>El valor no estuvo únicamente en construir la solución pedida, sino en identificar qué solución merecía realmente construirse.</h2>
+      <div class="learning-grid">
+        <p class="lead">AssetPlan resume una forma de trabajar que intento repetir: entender primero el problema real, separar la necesidad de la herramienta y diseñar una solución que pueda evolucionar sin perder su lógica.</p>
+        <div class="tool-list" aria-label="Ámbitos y herramientas relacionadas"><span>Análisis funcional</span><span>Diseño de producto</span><span>Power Platform</span><span>SQL Server</span><span>Integración de datos</span><span>Automatización</span><span>UX/UI</span><span>IA aplicada al desarrollo</span></div>
+      </div>
+    </section>
+
+    <section class="case-section next-step">
+      <p class="section-kicker">Continuar</p>
+      <h2>AssetPlan es el caso que mejor representa cómo conecto negocio, datos y producto.</h2>
+      <a class="button secondary" href={`${base}#proyectos`}>Ver todos los casos</a>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .origin-card{margin-top:34px;display:grid;grid-template-columns:130px 1fr 42px 150px 1.2fr;gap:18px;align-items:center;padding:24px;border:1px solid #b9cbea;border-radius:18px;background:linear-gradient(135deg,#fff 0%,#f4f8ff 100%);box-shadow:0 12px 28px rgba(15,23,42,.045)}
+  .origin-card span,.discovery-grid span,.product-grid span,.evolution-track span{font-size:.72rem;font-weight:850;letter-spacing:.1em;text-transform:uppercase;color:#1d4ed8}.origin-card strong{font-size:1.06rem;line-height:1.4}.origin-card i{font-style:normal;font-size:1.5rem;color:#2563eb;text-align:center}
+  .discovery-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:34px}.discovery-grid article,.product-grid article{padding:22px;border:1px solid #d7e0ea;border-radius:16px;background:#fff;box-shadow:0 8px 22px rgba(15,23,42,.04)}.discovery-grid h3,.product-grid h3{margin-top:22px}.discovery-grid p,.product-grid p{margin-bottom:0;color:#526071}
+  .value-chain{margin-top:34px;display:grid;grid-template-columns:repeat(11,auto);align-items:stretch;gap:9px}.value-chain>div{min-width:0;padding:20px 14px;border:1px solid #d2dfef;border-radius:14px;background:#fff;display:flex;flex-direction:column;gap:5px}.value-chain>div span{font-size:.7rem;font-weight:850;color:#2563eb}.value-chain>div strong{font-size:1rem}.value-chain>div small{font-size:.76rem;color:#64748b;line-height:1.3}.value-chain>i{align-self:center;font-style:normal;color:#7c9ac7}
+  .product-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:34px}
+  .visual-heading{display:flex;justify-content:space-between;gap:28px;align-items:flex-start}.recreation-badge{flex:0 0 auto;padding:7px 10px;border:1px solid #b8c9df;border-radius:999px;background:#f8fbff;color:#31557f;font-size:.72rem;font-weight:800}
+  .assetplan-frame{margin-top:34px;border:1px solid #aebfd5;border-radius:18px;overflow:hidden;background:#edf3f8;box-shadow:0 24px 60px rgba(15,23,42,.12)}.ap-topbar{height:60px;background:#fff;border-bottom:1px solid #d9e2ec;display:grid;grid-template-columns:220px 1fr auto;align-items:center;padding:0 18px;gap:18px}.ap-brand{display:flex;align-items:center;gap:10px}.ap-brand>span{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:#10243b;color:white;font-weight:850}.ap-brand strong{font-size:.95rem;color:#13243d}.ap-context{display:flex;align-items:baseline;gap:10px}.ap-context small{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:#64748b;font-weight:750}.ap-context strong{font-size:.9rem}.ap-context>span{padding:3px 7px;border-radius:999px;background:#eef4fb;color:#416181;font-size:.68rem;font-weight:750}.ap-topbar button,.ap-table-panel button{border:1px solid #a9bdd5;border-radius:9px;background:#fff;padding:8px 10px;font-weight:750;color:#214263}.ap-body{display:grid;grid-template-columns:160px 1fr;min-height:565px}.ap-sidebar{background:#10243b;color:#dce8f4;padding:18px 12px;display:flex;flex-direction:column;gap:5px}.ap-sidebar strong{font-size:.68rem;text-transform:uppercase;letter-spacing:.09em;color:#93adc7;padding:3px 10px 10px}.ap-sidebar span{padding:9px 10px;border-radius:8px;font-size:.8rem}.ap-sidebar .active{background:#1f3d5d;color:#fff;font-weight:750}.ap-workspace{padding:20px}.ap-heading{display:flex;justify-content:space-between;gap:20px;align-items:flex-end}.ap-heading>div{display:flex;flex-direction:column}.ap-heading small,.panel-title small{font-size:.68rem;color:#64748b;text-transform:uppercase;letter-spacing:.07em;font-weight:750}.ap-heading strong{font-size:1.15rem;color:#14273d}.ap-heading>span{font-size:.72rem;color:#64748b}.ap-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}.ap-kpis article{background:#fff;border:1px solid #d7e0ea;border-radius:12px;padding:14px}.ap-kpis span{display:block;font-size:.7rem;color:#64748b}.ap-kpis strong{display:block;font-size:1.6rem;line-height:1.2;margin:7px 0 4px;color:#13243d}.ap-kpis small{font-size:.68rem;color:#8090a1}.ap-panels{display:grid;grid-template-columns:1.1fr .9fr;gap:10px;margin-top:10px}.ap-panel{background:#fff;border:1px solid #d7e0ea;border-radius:12px;padding:14px}.panel-title{display:flex;justify-content:space-between;gap:18px;align-items:center}.panel-title>div{display:flex;flex-direction:column}.panel-title strong{font-size:.83rem}.panel-title>span{font-size:.67rem;color:#64748b}.status-stack{height:18px;border-radius:999px;overflow:hidden;display:flex;margin:18px 0 12px;background:#e7edf4}.status-stack i{display:block;height:100%}.status-stack .s-ready{width:79%;background:#315b85}.status-stack .s-review{width:14%;background:#9eb7d1}.status-stack .s-missing{width:7%;background:#dbe4ed}.status-legend{display:flex;gap:18px;flex-wrap:wrap}.status-legend span{display:flex;align-items:center;gap:6px;font-size:.7rem;color:#526071}.status-legend b{color:#14273d}.dot{width:7px;height:7px;border-radius:50%;display:inline-block}.dot.ready{background:#315b85}.dot.review{background:#9eb7d1}.dot.missing{background:#dbe4ed;border:1px solid #9aa9b7}.rule-badge{padding:4px 8px!important;background:#eef4fb;border-radius:999px;color:#31557f!important;font-weight:750}.rule-list{margin-top:10px}.rule-list p{display:flex;justify-content:space-between;margin:0;padding:8px 0;border-top:1px solid #edf1f5;font-size:.73rem}.rule-list p:first-child{border-top:0}.rule-list b{color:#294c70}.ap-table-panel{margin-top:10px}.ap-table{margin-top:11px;border-top:1px solid #e1e8ef}.ap-row{display:grid;grid-template-columns:1.2fr .8fr .65fr .8fr .65fr;gap:8px;padding:9px 6px;border-bottom:1px solid #edf1f5;font-size:.68rem;color:#405165}.ap-row.ap-head{font-weight:750;color:#657789;background:#f8fafc}.ap-row.selected{background:#f2f6fb}.ap-row em{font-style:normal;font-weight:750;color:#274e75}.flow-strip{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:16px;color:#47627f;font-size:.76rem;font-weight:750}.flow-strip i{font-style:normal;color:#93aac2}
+  .evolution-track{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;margin-top:34px;background:#d7e0ea;border:1px solid #d7e0ea}.evolution-track article{background:#fff;padding:22px;min-height:230px}.evolution-track p{margin:22px 0 3px;font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:#64748b;font-weight:750}.evolution-track h3{margin:0 0 18px}.evolution-track strong{font-size:.88rem;line-height:1.45;color:#4f6072}
+  .learning-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start;margin-top:30px}.learning-grid .tool-list{margin-top:0}
+  @media(max-width:900px){.origin-card{grid-template-columns:1fr}.origin-card i{text-align:left;transform:rotate(90deg);width:24px}.discovery-grid,.product-grid,.evolution-track{grid-template-columns:repeat(2,minmax(0,1fr))}.value-chain{grid-template-columns:1fr}.value-chain>i{transform:rotate(90deg)}.ap-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.ap-panels{grid-template-columns:1fr}.learning-grid{grid-template-columns:1fr;gap:22px}}
+  @media(max-width:680px){.visual-heading{flex-direction:column;gap:10px}.recreation-badge{align-self:flex-start}.discovery-grid,.product-grid,.evolution-track{grid-template-columns:1fr}.assetplan-frame{overflow-x:auto}.ap-topbar,.ap-body{min-width:760px}.flow-strip{justify-content:flex-start}.origin-card{padding:18px}.value-chain>div{padding:16px}.evolution-track article{min-height:auto}}
+</style>
