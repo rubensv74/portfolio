@@ -1,0 +1,2584 @@
+Screens:
+  scr_AP_Assets:
+    Properties:
+      Fill: =ColorValue("#F6F9FC")
+      LoadingSpinnerColor: =ColorValue("#18C9D2")
+      OnVisible: |
+        =Select(btnAPAS_LoadProjectData_1)
+    Children:
+      - conAPAS_Root_1:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            BorderColor: =RGBA(0,0,0,0)
+            DropShadow: =DropShadow.None
+            Fill: =ColorValue("#F6F9FC")
+            Height: =App.Height
+            LayoutDirection: =LayoutDirection.Horizontal
+            Width: =App.Width
+          Children:
+            - conAPAS_SidebarSlot_1:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =ColorValue("#071F3D")
+                  FillPortions: =0
+                  Height: =Parent.Height
+                  LayoutDirection: =LayoutDirection.Vertical
+                  Width: =If(gblAP_SidebarCollapsed,72,196)
+                Children:
+                  - cmpAPAS_Sidebar:
+                      Control: CanvasComponent
+                      ComponentName: cmp_AssetPlanSidebarPro
+                      Properties:
+                        ActiveKey: =gblAP_ActiveView
+                        AppVersion: =gblAP_AppVersion
+                        CollapsedGroups: =gblAP_SidebarCollapsedGroups
+                        EnvironmentLabel: =gblAP_EnvironmentLabel
+                        Fill: =ColorValue("#071F3D")
+                        Height: =App.Height
+                        IsCollapsed: =gblAP_SidebarCollapsed
+                        NeedsAttentionCount: =Coalesce(gblAP_NeedsAttentionCount, 0)
+                        OnNavigate: |-
+                          =
+                          Switch(
+                              Lower(Text(p_key)),
+
+                              "dashboard",
+                                  Navigate(
+                                      scr_AP_PreservationDashboard,
+                                      ScreenTransition.None
+                                  ),
+
+                              "preservationplans",
+                                  Navigate(
+                                      scr_AP_PreservationPlans,
+                                      ScreenTransition.None
+                                  ),
+
+                              "preservationrules",
+                                  Navigate(
+                                      scr_AP_PreservationRules,
+                                      ScreenTransition.None
+                                  ),
+
+
+                              "documentumtemplate",
+                                  Navigate(
+                                      scr_AP_DocumentumTemplate,
+                                      ScreenTransition.None
+                                  ),
+
+
+
+
+                              "documentintake",
+                                  Navigate(
+                                      scr_AP_DocumentumTemplate,
+                                      ScreenTransition.None
+                                  ),
+
+                              "inspections",
+                                  Notify(
+                                      "Inspections todavía no está conectado.",
+                                      NotificationType.Information
+                                  ),
+
+                              "assets",
+                                  Notify(
+                                      "Assets todavía no está conectado.",
+                                      NotificationType.Information
+                                  ),
+
+                              "templatelibrary",
+                                  Notify(
+                                      "Template Library todavía no está conectado.",
+                                      NotificationType.Information
+                                  ),
+
+                              "usersroles",
+                                  Notify(
+                                      "Users & Roles todavía no está conectado.",
+                                      NotificationType.Information
+                                  ),
+
+                              "superadmin",
+                                  Notify(
+                                      "SuperAdmin todavía no está conectado.",
+                                      NotificationType.Information
+                                  ),
+
+                              Notify(
+                                  "Destino de navegación desconocido: " & Text(p_key),
+                                  NotificationType.Warning
+                              )
+                          )
+                        OnOpenCredits: |
+                          =Set(gblAP_ShowCredits, true)
+                        OnToggleCollapse: |-
+                          =
+                          Set(
+                              gblAP_SidebarCollapsed,
+                              !gblAP_SidebarCollapsed
+                          )
+                        OnToggleGroup: |-
+                          =
+                          With(
+                              {
+                                  token:
+                                      "|" &
+                                      Upper(Trim(Text(p_groupKey))) &
+                                      "|"
+                              },
+                              Set(
+                                  gblAP_SidebarCollapsedGroups,
+                                  If(
+                                      token in Upper(
+                                          Coalesce(
+                                              gblAP_SidebarCollapsedGroups,
+                                              ""
+                                          )
+                                      ),
+                                      Substitute(
+                                          Upper(
+                                              Coalesce(
+                                                  gblAP_SidebarCollapsedGroups,
+                                                  ""
+                                              )
+                                          ),
+                                          token,
+                                          ""
+                                      ),
+                                      Coalesce(
+                                          gblAP_SidebarCollapsedGroups,
+                                          ""
+                                      ) & token
+                                  )
+                              )
+                          )
+                        ShowBrandPanel: =false
+                        ShowSuperAdmin: =true
+                        Width: |-
+                          =
+
+                          If(
+                              gblAP_SidebarCollapsed,
+                              72,
+                              280
+                          )
+            - conAPAS_Workspace_1:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =ColorValue("#F6F9FC")
+                  Height: =Parent.Height
+                  LayoutDirection: =LayoutDirection.Vertical
+                  Width: =Parent.Width
+                Children:
+                  - cmpAPAS_GlobalTopBar_PI01:
+                      Control: CanvasComponent
+                      ComponentName: cmp_AP_GlobalTopBarPro
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        EnvironmentText: =""
+                        Height: =48
+                        IsProjectEnabled: =gblAP_BootStatus = "READY" && !varAPAS_IsBusy && !varAPAS_DossierBusy
+                        IsProjectLoading: =varAPAS_IsBusy
+                        OnProjectChange: |-
+                          =Set(gblAP_SelectedProjectCode, cmpAPAS_GlobalTopBar_PI01.PendingProjectCode);
+                          Set(gblAP_SelectedProjectName, cmpAPAS_GlobalTopBar_PI01.PendingProjectName);
+                          Set(gblAP_SelectedProjectId, cmpAPAS_GlobalTopBar_PI01.PendingProjectId);
+                          Select(btnAPAS_LoadProjectData_1)
+                        ProjectLabel: ="Project"
+                        ProjectMode: ="SELECTOR"
+                        Projects: =colAP_Projects
+                        SelectedProjectCode: =Coalesce(gblAP_SelectedProjectCode,"")
+                        SelectedProjectId: =Coalesce(gblAP_SelectedProjectId,"")
+                        SelectedProjectName: =Coalesce(gblAP_SelectedProjectName,"")
+                        ShowProjectContext: =true
+                        ShowUserIdentity: =true
+                        UserDisplayName: =User().FullName
+                        UserRoleText: =""
+                        Width: =Parent.Width
+                  - conAPAS_Body:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =RGBA(0,0,0,0)
+                        DropShadow: =DropShadow.None
+                        Fill: =ColorValue("#F6F9FC")
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =10
+                        PaddingBottom: =16
+                        PaddingLeft: =20
+                        PaddingRight: =20
+                        PaddingTop: =14
+                        Width: =Parent.Width
+                      Children:
+                        - cmpAPAS_PageHeader:
+                            Control: CanvasComponent
+                            ComponentName: cmp_AP_PageHeaderPro
+                            Properties:
+                              Height: =80
+                              IconKey: ="AssetsIdentity"
+                              ShowIcon: =true
+                              Subtitle: ="Live ALEP equipment inventory"
+                              Title: ="Assets"
+                              Width: =Parent.Width
+                        - conAPAS_CandidateBanner_1:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =If(Upper(Coalesce(varAPAS_SummaryReadState,"UNAVAILABLE"))="READY",ColorValue("#B9E8D5"),ColorValue("#F0D9A7"))
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.None
+                              Fill: =If(Upper(Coalesce(varAPAS_SummaryReadState,"UNAVAILABLE"))="READY",RGBA(31,169,113,0.05),RGBA(242,169,59,0.08))
+                              FillPortions: =0
+                              Height: =32
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =10
+                              PaddingLeft: =12
+                              PaddingRight: =12
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Width: =Parent.Width
+                            Children:
+                              - lblAPAS_CandidateBanner_1:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Color: =If(Upper(Coalesce(varAPAS_SummaryReadState,"UNAVAILABLE"))="READY",ColorValue("#28715A"),ColorValue("#9A6200"))
+                                    Fill: =Color.Transparent
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =22
+                                    Size: =8
+                                    Text: =If(IsBlank(Trim(Coalesce(gblAP_SelectedProjectCode,""))),"SELECT A PROJECT TO LOAD ASSETS",If(CountRows(colAPAS_AssetsView)=0,"NO ALEP CURRENT EQUIPMENT IS AVAILABLE IN THIS PROJECT CONTEXT",If(Upper(Coalesce(varAPAS_SummaryReadState,"UNAVAILABLE"))="READY","ALEP CURRENT · PRODUCTIVE RECONCILIATION SNAPSHOT · "&Upper(Coalesce(varAPAS_FreshnessStatus,"UNAVAILABLE")),"ALEP CURRENT · RECONCILIATION "&Upper(Coalesce(varAPAS_FreshnessStatus,"UNAVAILABLE"))&" · HCS/PRESERVATION FIELDS UNAVAILABLE")))
+                                    Width: =Parent.Width
+                                    Wrap: =false
+                        - cmpAPAS_Kpis_1:
+                            Control: CanvasComponent
+                            ComponentName: cmp_AP_KpiStripPro
+                            Properties:
+                              Height: =82
+                              Metrics: |-
+                                =Table(
+                                    {Order:10,Key:"TOTAL",Title:"Assets",ValueText:If(IsBlank(Trim(Coalesce(gblAP_SelectedProjectCode,""))),"—",Text(CountRows(colAPAS_AssetsView))),SupportingText:"Assets in the current project",IconKey:"KPI_ASSETS_IN_SCOPE",IconUri:Coalesce(LookUp(colAPIconCatalog,Key="KPI_ASSETS_IN_SCOPE" && IsApproved,IconUri),LookUp(colAPIconCatalog,Key="DOMAIN_ASSET" && IsApproved,IconUri),""),Tone:"INFO",State:If(IsBlank(Trim(Coalesce(gblAP_SelectedProjectCode,""))),"UNAVAILABLE","READY"),IsInteractive:false},
+                                    {Order:20,Key:"EQUIPMENT_TYPES",Title:"Equipment Types",ValueText:Text(CountRows(Distinct(Filter(colAPAS_AssetsView,!IsBlank(Trim(Coalesce(EquipmentType,"")))),EquipmentType))),SupportingText:"Source equipment types in ALEP",IconKey:"DOMAIN_ASSET",IconUri:Coalesce(LookUp(colAPIconCatalog,Key="DOMAIN_ASSET" && IsApproved,IconUri),""),Tone:"SUCCESS",State:"READY",IsInteractive:false},
+                                    {Order:30,Key:"FAMILIES",Title:"Families",ValueText:Text(CountRows(Filter(colAPAS_FamilyTree,FamilyKey<>"ALL_ENGINEERED_EQUIPMENT"))),SupportingText:"Families available in scope",IconKey:"DOMAIN_ASSET",IconUri:Coalesce(LookUp(colAPIconCatalog,Key="DOMAIN_ASSET" && IsApproved,IconUri),""),Tone:"INFO",State:"READY",IsInteractive:false},
+                                    {Order:40,Key:"UNRESOLVED",Title:"Unresolved Types",ValueText:Text(CountRows(Distinct(Filter(colAPAS_AssetsView,Upper(Coalesce(FamilyResolutionState,""))="UNRESOLVED"),EquipmentType))),SupportingText:"Types without family resolution",IconKey:"KPI_EXCEPTIONS",IconUri:Coalesce(LookUp(colAPIconCatalog,Key="KPI_EXCEPTIONS" && IsApproved,IconUri),""),Tone:"WARNING",State:"READY",IsInteractive:false}
+                                )
+                              OnMetricSelect: =Set(varAPAS_LastEvent,"KPI:"&p_key)
+                              Width: =Parent.Width
+                        - conAPAS_FilterToolbar_1:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              BorderColor: =RGBA(0,0,0,0)
+                              DropShadow: =DropShadow.None
+                              Fill: =Color.Transparent
+                              FillPortions: =0
+                              Height: =50
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =8
+                              Width: =Parent.Width
+                            Children:
+                              - conAPAS_SearchHost_1:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    BorderColor: =ColorValue("#D9E3EF")
+                                    BorderThickness: =1
+                                    DropShadow: =DropShadow.None
+                                    Fill: =Color.White
+                                    Height: =44
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                    Width: =330
+                                  Children:
+                                    - imgAPAS_Search_1:
+                                        Control: Image@2.2.3
+                                        Properties:
+                                          BorderColor: =RGBA(0,0,0,0)
+                                          BorderStyle: =BorderStyle.None
+                                          Height: =20
+                                          Image: ='ap-search'
+                                          Width: =20
+                                          X: =12
+                                          Y: =12
+                                    - txtAPAS_Search_1:
+                                        Control: Classic/TextInput@2.3.2
+                                        Properties:
+                                          BorderColor: =RGBA(0,0,0,0)
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =0
+                                          Color: =ColorValue("#12304D")
+                                          Default: =varAPAS_SearchText
+                                          DisabledBorderColor: =RGBA(0,0,0,0)
+                                          DisabledColor: =ColorValue("#7F95AA")
+                                          DisabledFill: =ColorValue("#F8FAFC")
+                                          DisplayMode: =If(varAPAS_IsBusy || varAPAS_DossierBusy,DisplayMode.Disabled,DisplayMode.Edit)
+                                          Fill: =Color.Transparent
+                                          Font: =Font.'Segoe UI'
+                                          Height: =36
+                                          HintText: ="Search tags, equipment types, commodities or descriptions..."
+                                          HoverBorderColor: =RGBA(0,0,0,0)
+                                          HoverFill: =Color.Transparent
+                                          OnChange: =Set(varAPAS_SearchText,Self.Text)
+                                          PaddingLeft: =4
+                                          Size: =9
+                                          Width: |
+                                            =Parent.Width - 20
+                                          X: =20
+                                          Y: =4
+                              - conAPAS_FilterEquipmentType_1:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Fill: =Color.Transparent
+                                    Height: =46
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    Width: =154
+                                  Children:
+                                    - lblAPAS_FilterEquipmentType_1:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          Color: =ColorValue("#5E738C")
+                                          Fill: =Color.Transparent
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =12
+                                          Size: =7
+                                          Text: ="EQUIPMENT TYPE"
+                                          Width: =Parent.Width
+                                          Wrap: =false
+                                    - ddAPAS_FilterEquipmentType_1:
+                                        Control: ModernDropdown@1.0.2
+                                        Properties:
+                                          AccessibleLabel: ="Filter Assets by Equipment Type"
+                                          Appearance: =Appearance.Outline
+                                          Default: =First(Blank())
+                                          DisplayMode: =If(varAPAS_IsBusy || varAPAS_DossierBusy,DisplayMode.Disabled,DisplayMode.Edit)
+                                          Height: =34
+                                          ItemDisplayText: =ThisItem.Value
+                                          Items: =Sort(Distinct(Filter(colAPAS_AssetsView,!IsBlank(Trim(EquipmentType))),EquipmentType),Value,SortOrder.Ascending)
+                                          OnChange: |-
+                                            =Reset(ddAPAS_FilterCommodity_1);
+                                            Set(
+                                                varAPAS_LastEvent,
+                                                "FILTER_EQUIPMENT_TYPE:" & Coalesce(Self.Selected.Value,"ALL")
+                                            )
+                                          Width: =Parent.Width
+                              - conAPAS_FilterCommodity_1:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Fill: =Color.Transparent
+                                    Height: =46
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    Width: =140
+                                  Children:
+                                    - lblAPAS_FilterCommodity_1:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          Color: =ColorValue("#5E738C")
+                                          Fill: =Color.Transparent
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =12
+                                          Size: =7
+                                          Text: ="COMMODITY"
+                                          Width: =Parent.Width
+                                          Wrap: =false
+                                    - ddAPAS_FilterCommodity_1:
+                                        Control: ModernDropdown@1.0.2
+                                        Properties:
+                                          AccessibleLabel: ="Filter Assets by Commodity Code"
+                                          Appearance: =Appearance.Outline
+                                          Default: =First(Blank())
+                                          DisplayMode: =If(varAPAS_IsBusy || varAPAS_DossierBusy,DisplayMode.Disabled,DisplayMode.Edit)
+                                          Height: =34
+                                          ItemDisplayText: =ThisItem.Value
+                                          Items: |-
+                                            =Sort(
+                                                Distinct(
+                                                    Filter(
+                                                        colAPAS_AssetsView,
+                                                        !IsBlank(Trim(CommodityCode)) &&
+                                                        (
+                                                            IsBlank(ddAPAS_FilterEquipmentType_1.Selected.Value) ||
+                                                            EquipmentType = ddAPAS_FilterEquipmentType_1.Selected.Value
+                                                        )
+                                                    ),
+                                                    CommodityCode
+                                                ),
+                                                Value,
+                                                SortOrder.Ascending
+                                            )
+                                          OnChange: =Set(varAPAS_LastEvent,"FILTER_COMMODITY:"&Coalesce(Self.Selected.Value,"ALL"))
+                                          Width: =Parent.Width
+                              - conAPAS_FilterReconStatus_1:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Fill: =Color.Transparent
+                                    Height: =46
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    Visible: =false
+                                    Width: =168
+                                  Children:
+                                    - lblAPAS_FilterReconStatus_1:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          Color: =ColorValue("#5E738C")
+                                          Fill: =Color.Transparent
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =12
+                                          Size: =7
+                                          Text: ="RECONCILIATION"
+                                          Width: =Parent.Width
+                                          Wrap: =false
+                                    - ddAPAS_FilterReconStatus_1:
+                                        Control: ModernDropdown@1.0.2
+                                        Properties:
+                                          AccessibleLabel: ="Filter Assets by Reconciliation Status"
+                                          Appearance: =Appearance.Outline
+                                          Default: =First(Blank())
+                                          DisplayMode: =If(varAPAS_IsBusy || varAPAS_DossierBusy,DisplayMode.Disabled,DisplayMode.Edit)
+                                          Height: =34
+                                          ItemDisplayText: =ThisItem.Value
+                                          Items: =Sort(Distinct(Filter(colAPAS_AssetsView,!IsBlank(Trim(ReconciliationStatus))),ReconciliationStatus),Value,SortOrder.Ascending)
+                                          OnChange: =Set(varAPAS_LastEvent,"FILTER_RECON:"&Coalesce(Self.Selected.Value,"ALL"))
+                                          Width: =Parent.Width
+                              - conAPAS_FilterHcsState_1:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Fill: =Color.Transparent
+                                    Height: =46
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    Visible: =false
+                                    Width: =132
+                                  Children:
+                                    - lblAPAS_FilterHcsState_1:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          Color: =ColorValue("#5E738C")
+                                          Fill: =Color.Transparent
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =12
+                                          Size: =7
+                                          Text: ="HCS STATE"
+                                          Width: =Parent.Width
+                                          Wrap: =false
+                                    - ddAPAS_FilterHcsState_1:
+                                        Control: ModernDropdown@1.0.2
+                                        Properties:
+                                          AccessibleLabel: ="Filter Assets by HCS State"
+                                          Appearance: =Appearance.Outline
+                                          Default: =First(Blank())
+                                          DisplayMode: =If(varAPAS_IsBusy || varAPAS_DossierBusy,DisplayMode.Disabled,DisplayMode.Edit)
+                                          Height: =34
+                                          ItemDisplayText: =ThisItem.Value
+                                          Items: =Sort(Distinct(Filter(colAPAS_AssetsView,!IsBlank(Trim(HcsResolutionStatus))),HcsResolutionStatus),Value,SortOrder.Ascending)
+                                          OnChange: =Set(varAPAS_LastEvent,"FILTER_HCS:"&Coalesce(Self.Selected.Value,"ALL"))
+                                          Width: =Parent.Width
+                              - btnAPAS_ClearFilters_1:
+                                  Control: ModernButton@1.0.0
+                                  Properties:
+                                    Appearance: =ButtonAppearance.Transparent
+                                    BasePaletteColor: =ColorValue("#082B6F")
+                                    DisplayMode: |-
+                                      =If(
+                                          !varAPAS_IsBusy &&
+                                          !varAPAS_DossierBusy &&
+                                          (
+                                              !IsBlank(Trim(varAPAS_SearchText)) ||
+                                              !IsBlank(ddAPAS_FilterEquipmentType_1.Selected.Value) ||
+                                              !IsBlank(ddAPAS_FilterReconStatus_1.Selected.Value) ||
+                                              !IsBlank(ddAPAS_FilterHcsState_1.Selected.Value) ||
+                                              !IsBlank(ddAPAS_FilterCommodity_1.Selected.Value)
+                                          ),
+                                          DisplayMode.Edit,
+                                          DisplayMode.Disabled
+                                      )
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =36
+                                    OnSelect: |-
+                                      =Set(varAPAS_SearchText,"");
+                                      Reset(txtAPAS_Search_1);
+                                      Reset(ddAPAS_FilterEquipmentType_1);
+                                      Reset(ddAPAS_FilterReconStatus_1);
+                                      Reset(ddAPAS_FilterHcsState_1);
+                                      Reset(ddAPAS_FilterCommodity_1);
+                                      Set(varAPAS_LastEvent,"CLEAR_FILTERS")
+                                    Text: ="Clear filters"
+                                    Width: =92
+                        - conAPAS_MasterDetail_1:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =Color.Transparent
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                              Width: =Parent.Width
+                            Children:
+                              - conAPAS_ScopeTree:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderColor: =ColorValue("#D9E3EF")
+                                    BorderThickness: =1
+                                    DropShadow: =DropShadow.None
+                                    Fill: =Color.White
+                                    FillPortions: =3
+                                    Height: =Parent.Height
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    PaddingBottom: =8
+                                    PaddingLeft: =8
+                                    PaddingRight: =8
+                                    PaddingTop: =8
+                                    Width: =Parent.Width
+                                  Children:
+                                    - lblAPAS_ScopeTreeTitle:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          Color: =ColorValue("#0B3558")
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =28
+                                          Size: =12
+                                          Text: ="Equipment scope"
+                                          Width: =Parent.Width
+                                    - lblAPAS_ScopeTreeMeta:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          Color: =ColorValue("#6B7F93")
+                                          Font: =Font.'Segoe UI'
+                                          Height: =24
+                                          Size: =9
+                                          Text: =Text(CountRows(Filter(colAPAS_FamilyTree,FamilyKey<>"ALL_ENGINEERED_EQUIPMENT")))&" families · "&Text(CountRows(colAPAS_AssetsView))&" assets"
+                                          Width: =Parent.Width
+                                    - lblAPAS_ScopeTreeColumns:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          Color: =ColorValue("#7F95AA")
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          Size: =8
+                                          Text: ="NAME"
+                                          Width: =Parent.Width
+                                          Wrap: =false
+                                    - lblAPAS_ScopeTreeTypesHeader:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          Align: =Align.Right
+                                          Color: =ColorValue("#7F95AA")
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          Size: =8
+                                          Text: ="TYPES"
+                                          Width: =45
+                                          Wrap: =false
+                                          X: =Parent.Width-105
+                                    - lblAPAS_ScopeTreeAssetsHeader:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          Align: =Align.Right
+                                          Color: =ColorValue("#7F95AA")
+                                          Font: =Font.'Segoe UI'
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          Size: =8
+                                          Text: ="ASSETS"
+                                          Width: =55
+                                          Wrap: =false
+                                          X: =Parent.Width-58
+                                    - galAPAS_ScopeTree:
+                                        Control: Gallery@2.15.0
+                                        Variant: Vertical
+                                        Properties:
+                                          AccessibleLabel: ="Equipment scope tree"
+                                          BorderColor: =ColorValue("#E2EAF2")
+                                          Fill: =Color.White
+                                          Height: =Parent.Height-Self.Y-8
+                                          Items: |-
+                                            =With(
+                                                {
+                                                    treeRows:colAPAS_FamilyTree,
+                                                    expandedKeys:"|"&Upper(Coalesce(varAPAS_ExpandedFamilyKeys,""))&"|"
+                                                },
+                                                SortByColumns(
+                                                    Filter(
+                                                        treeRows As node,
+                                                        node.FamilyKey="ALL_ENGINEERED_EQUIPMENT" ||
+                                                        (
+                                                            IsBlank(node.FamilyParentKey) &&
+                                                            Find("|ALL_ENGINEERED_EQUIPMENT|",expandedKeys)>0
+                                                        ) ||
+                                                        With(
+                                                            {p1:LookUp(treeRows,Upper(Trim(Text(FamilyKey)))=Upper(Trim(Text(node.FamilyParentKey))))},
+                                                            With(
+                                                                {p2:LookUp(treeRows,Upper(Trim(Text(FamilyKey)))=Upper(Trim(Text(p1.FamilyParentKey))))},
+                                                                With(
+                                                                    {p3:LookUp(treeRows,Upper(Trim(Text(FamilyKey)))=Upper(Trim(Text(p2.FamilyParentKey))))},
+                                                                    With(
+                                                                        {p4:LookUp(treeRows,Upper(Trim(Text(FamilyKey)))=Upper(Trim(Text(p3.FamilyParentKey))))},
+                                                                        Find("|"&Upper(Trim(Text(node.FamilyParentKey)))&"|",expandedKeys)>0 &&
+                                                                        (IsBlank(p1.FamilyParentKey) || Find("|"&Upper(Trim(Text(p1.FamilyParentKey)))&"|",expandedKeys)>0) &&
+                                                                        (IsBlank(p2.FamilyParentKey) || Find("|"&Upper(Trim(Text(p2.FamilyParentKey)))&"|",expandedKeys)>0) &&
+                                                                        (IsBlank(p3.FamilyParentKey) || Find("|"&Upper(Trim(Text(p3.FamilyParentKey)))&"|",expandedKeys)>0) &&
+                                                                        (IsBlank(p4.FamilyParentKey) || Find("|"&Upper(Trim(Text(p4.FamilyParentKey)))&"|",expandedKeys)>0)
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                    ),
+                                                    "FamilyHierarchySortPath",
+                                                    SortOrder.Ascending
+                                                )
+                                            )
+                                          TemplateFill: =If(ThisItem.FamilyKey=varAPAS_SelectedFamilyKey,ColorValue("#E9F8FA"),Color.White)
+                                          TemplatePadding: =0
+                                          TemplateSize: =30
+                                          Width: =Parent.Width
+                                        Children:
+                                          - btnAPAS_ScopeExpand:
+                                              Control: Classic/Button@2.2.0
+                                              Properties:
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =0
+                                                Color: =ColorValue("#137C8A")
+                                                Fill: =RGBA(0,0,0,0)
+                                                Height: =24
+                                                HoverFill: =RGBA(24,201,210,0.10)
+                                                OnSelect: |-
+                                                  =With(
+                                                      {
+                                                          k:Upper(Text(ThisItem.FamilyKey)),
+                                                          current:Coalesce(varAPAS_ExpandedFamilyKeys,"")
+                                                      },
+                                                      If(
+                                                          Find("|"&k&"|","|"&Upper(current)&"|")>0,
+                                                          Set(varAPAS_ExpandedFamilyKeys,Substitute("|"&current&"|","|"&k&"|","|")),
+                                                          Set(varAPAS_ExpandedFamilyKeys,current&If(IsBlank(current),"","|")&k)
+                                                      )
+                                                  )
+                                                Text: =If(ThisItem.HasChildren,If(Find("|"&Upper(Text(ThisItem.FamilyKey))&"|","|"&Upper(Coalesce(varAPAS_ExpandedFamilyKeys,""))&"|")>0,"⌄","›"),"")
+                                                Width: =24
+                                                X: =4+Min(Value(ThisItem.FamilyDepthFromRoot),6)*12
+                                                Y: =5
+                                          - btnAPAS_ScopeSelect:
+                                              Control: Classic/Button@2.2.0
+                                              Properties:
+                                                Align: =Align.Left
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =0
+                                                Color: =ColorValue("#173F63")
+                                                Fill: =RGBA(0,0,0,0)
+                                                Height: =30
+                                                HoverFill: =RGBA(24,201,210,0.08)
+                                                OnSelect: |-
+                                                  =Set(varAPAS_SelectedFamilyKey,If(ThisItem.FamilyKey="ALL_ENGINEERED_EQUIPMENT",Blank(),ThisItem.FamilyKey));
+                                                  Select(btnAPAS_LoadAssetPage_1)
+                                                PaddingLeft: =4+Min(Value(ThisItem.FamilyDepthFromRoot),6)*12
+                                                PaddingRight: =4
+                                                Size: =9
+                                                Text: =ThisItem.FamilyName
+                                                Width: =Parent.TemplateWidth-(150+Min(Value(ThisItem.FamilyDepthFromRoot),6)*12)
+                                                X: =30+Min(Value(ThisItem.FamilyDepthFromRoot),6)*12
+                                          - lblAPAS_ScopeTypeCount:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Align: =Align.Right
+                                                Color: =ColorValue("#5E738C")
+                                                Font: =Font.'Segoe UI'
+                                                Height: =30
+                                                Size: =9
+                                                Text: =Text(ThisItem.EquipmentTypeCount)
+                                                Width: =45
+                                                Wrap: =false
+                                                X: =Parent.TemplateWidth-105
+                                          - lblAPAS_ScopeAssetCount:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Align: =Align.Right
+                                                Color: =ColorValue("#173F63")
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =30
+                                                Size: =9
+                                                Text: =Text(ThisItem.AssetCount)
+                                                Width: =55
+                                                Wrap: =false
+                                                X: =Parent.TemplateWidth-58
+                              - conAPAS_Explorer_1:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Fill: =Color.Transparent
+                                    FillPortions: =7
+                                    Height: =Parent.Height
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    Width: =Parent.Width
+                                  Children:
+                                    - cmpAPAS_DataGrid:
+                                        Control: CanvasComponent
+                                        ComponentName: cmp_AP_DataGridPro
+                                        Properties:
+                                          Columns: |-
+                                            =Table(
+                                                {Order:10,Slot:"C1",Label:"Tag",SortKey:"TAG",Sortable:true},
+                                                {Order:20,Slot:"C2",Label:"Equipment Type",SortKey:"EQUIPMENT_TYPE",Sortable:true},
+                                                {Order:30,Slot:"C3",Label:"Commodity",SortKey:"COMMODITY",Sortable:true},
+                                                {Order:40,Slot:"C4",Label:"HCS",SortKey:"HCS",Sortable:true},
+                                                {Order:50,Slot:"C5",Label:"Preservation",SortKey:"PRESERVATION",Sortable:true}
+                                            )
+                                          EmptyText: =If(IsBlank(Trim(Coalesce(gblAP_SelectedProjectCode,""))),"Select a project to view equipment.","No ALEP equipment is loaded in the current scope.")
+                                          Fill: =Color.Transparent
+                                          Height: =Parent.Height
+                                          IsBusy: =varAPAS_IsBusy
+                                          OnRowAction: |-
+                                            =If(
+                                                !varAPAS_DossierBusy,
+                                                Set(varAPAS_SelectedRow,p_key);
+                                                Set(varAPAS_SelectedAsset,LookUp(colAPAS_AssetPage,TagNumber=p_key));
+                                                Set(varAPAS_LastEvent,"ROW_ACTION:"&p_key)
+                                            )
+                                          OnRowSelect: |-
+                                            =If(
+                                                  !varAPAS_DossierBusy,
+                                                  If(
+                                                      Coalesce(varAPAS_SelectedRow,"")<>Coalesce(p_key,""),
+                                                      Set(varAPAS_TechnicalDataLoadedProject,"");
+                                                      Set(varAPAS_TechnicalDataLoadedTag,"");
+                                                      Set(varAPAS_TechnicalDataLoadState,"IDLE");
+                                                      Set(varAPAS_TechnicalDataEmptyReason,"");
+                                                      Set(varAPAS_TechnicalDataError,"");
+                                                      Set(varAPAS_TechnicalDataErrorCode,"");
+                                                      Clear(colAPAS_SelectedTechnicalRaw);
+                                                      Clear(colAPAS_SelectedTechnicalMappings);
+                                                      Clear(colAPAS_TechnicalDataRows)
+                                                  );
+                                                  Set(varAPAS_SelectedRow,p_key);
+                                                  Set(varAPAS_SelectedAsset,LookUp(colAPAS_AssetPage,TagNumber=p_key));
+                                                  Set(varAPAS_DossierTab,"Overview");
+                                                  Set(varAPAS_LastEvent,"ROW_SELECT:"&p_key)
+                                              )
+                                          OnSort: |-
+                                            =If(
+                                                !varAPAS_DossierBusy,
+                                                If(
+                                                    varAPAS_SortKey=p_sortKey,
+                                                    Set(varAPAS_SortDirection,If(varAPAS_SortDirection="ASC","DESC","ASC")),
+                                                    Set(varAPAS_SortKey,p_sortKey);
+                                                    Set(varAPAS_SortDirection,"ASC")
+                                                );
+                                                Set(varAPAS_LastEvent,"SORT:"&p_sortKey&":"&varAPAS_SortDirection)
+                                            )
+                                          OnToggleSelect: |-
+                                            =If(
+                                                !varAPAS_DossierBusy,
+                                                Set(varAPAS_SelectedRow,p_key);
+                                                Set(varAPAS_SelectedAsset,LookUp(colAPAS_AssetPage,TagNumber=p_key))
+                                            )
+                                          Rows: |-
+                                            =With(
+                                                {
+                                                    baseRows:ForAll(
+                                                        Filter(
+                                                            colAPAS_AssetPage As asset,
+                                                            (
+                                                                IsBlank(varAPAS_SearchText) ||
+                                                                StartsWith(Lower(TagNumber),Lower(varAPAS_SearchText)) ||
+                                                                StartsWith(Lower(EquipmentType),Lower(varAPAS_SearchText)) ||
+                                                                StartsWith(Lower(CommodityCode),Lower(varAPAS_SearchText))
+                                                            ) &&
+                                                            (
+                                                                IsBlank(varAPAS_SelectedFamilyKey) ||
+                                                                Upper(Trim(Text(asset.FamilyKey)))=Upper(Trim(Text(varAPAS_SelectedFamilyKey))) ||
+                                                                StartsWith(
+                                                                    Coalesce(asset.FamilyHierarchySortPath,""),
+                                                                    Coalesce(
+                                                                        LookUp(
+                                                                            colAPAS_FamilyTree,
+                                                                            Upper(Trim(Text(FamilyKey)))=Upper(Trim(Text(varAPAS_SelectedFamilyKey))),
+                                                                            FamilyHierarchySortPath
+                                                                        ),
+                                                                        "__NO_MATCH__"
+                                                                    )
+                                                                )
+                                                            ) &&
+                                                            (
+                                                                IsBlank(ddAPAS_FilterEquipmentType_1.Selected.Value) ||
+                                                                EquipmentType=ddAPAS_FilterEquipmentType_1.Selected.Value
+                                                            ) &&
+                                                            (
+                                                                IsBlank(ddAPAS_FilterReconStatus_1.Selected.Value) ||
+                                                                ReconciliationStatus=ddAPAS_FilterReconStatus_1.Selected.Value
+                                                            ) &&
+                                                            (
+                                                                IsBlank(ddAPAS_FilterHcsState_1.Selected.Value) ||
+                                                                HcsResolutionStatus=ddAPAS_FilterHcsState_1.Selected.Value
+                                                            ) &&
+                                                            (
+                                                                IsBlank(ddAPAS_FilterCommodity_1.Selected.Value) ||
+                                                                CommodityCode=ddAPAS_FilterCommodity_1.Selected.Value
+                                                            )
+                                                        ),
+                                                        {
+                                                            RowKey:asset.TagNumber,
+                                                            IsSelected:false,
+                                                            IsEnabled:true,
+                                                            C1:asset.TagNumber,
+                                                            C2:asset.EquipmentType,
+                                                            C3:asset.CommodityCode,
+                                                            C4:Switch(asset.ReconciliationCoverageStatus,"UNAVAILABLE","Unavailable","NOT_IN_LAST_SUCCESSFUL_SNAPSHOT","Not evaluated",If(Upper(Coalesce(asset.HcsResolutionStatus,""))="RESOLVED","Resolved",If(asset.ReconciliationStatus="HCS_ELEMENT_NOT_RESOLVED","Not resolved",If(asset.ReconciliationStatus="PRESERVATION_DATA_ISSUE","Data issue","—")))),
+                                                            C5:Switch(asset.ReconciliationStatus,"PRESERVATION_REGISTERED","Registered","PRESERVATION_DECISION_REQUIRED","Decision required","PRESERVATION_LOAD_READY","Load ready","USER_DECIDED_DO_NOT_PRESERVE","Do not preserve","HCS_ELEMENT_NOT_RESOLVED","Blocked","PRESERVATION_DATA_ISSUE","Data issue","Unavailable"),
+                                                            C6:"",C7:"",C8:"",C9:"",C10:"",
+                                                            Tone6:"NEUTRAL",Tone7:"NEUTRAL",Tone8:"NEUTRAL"
+                                                        }
+                                                    )
+                                                },
+                                                With(
+                                                    {
+                                                        sortedRows:SortByColumns(
+                                                            baseRows,
+                                                            Switch(varAPAS_SortKey,"TAG","C1","EQUIPMENT_TYPE","C2","COMMODITY","C3","HCS","C4","PRESERVATION","C5","C1"),
+                                                            If(varAPAS_SortDirection="DESC",SortOrder.Descending,SortOrder.Ascending)
+                                                        )
+                                                    },
+                                                    ForAll(
+                                                        Sequence(CountRows(sortedRows)),
+                                                        With(
+                                                            {r:Index(sortedRows,Value)},
+                                                            {
+                                                                Order:Value*10,
+                                                                RowKey:r.RowKey,
+                                                                IsSelected:r.IsSelected,
+                                                                IsEnabled:r.IsEnabled,
+                                                                C1:r.C1,C2:r.C2,C3:r.C3,C4:r.C4,C5:r.C5,
+                                                                C6:r.C6,C7:r.C7,C8:r.C8,C9:r.C9,C10:r.C10,
+                                                                Tone6:r.Tone6,Tone7:r.Tone7,Tone8:r.Tone8
+                                                            }
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                          SelectedRowKeyIn: =varAPAS_SelectedRow
+                                          ShowRowActions: =false
+                                          ShowSelection: =false
+                                          SortDirectionIn: =varAPAS_SortDirection
+                                          SortKeyIn: =varAPAS_SortKey
+                                          State: =If(varAPAS_IsBusy,"LOADING",If(IsBlank(Trim(Coalesce(gblAP_SelectedProjectCode,""))) || CountRows(colAPAS_AssetPage)=0,"EMPTY","READY"))
+                                          Width: =Parent.Width
+                              - conAPAS_Dossier:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderColor: =ColorValue("#D9E3EF")
+                                    BorderThickness: =1
+                                    DropShadow: =DropShadow.None
+                                    Fill: =Color.White
+                                    FillPortions: =4
+                                    Height: =Parent.Height
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =8
+                                    PaddingBottom: =12
+                                    PaddingLeft: =14
+                                    PaddingRight: =14
+                                    PaddingTop: =12
+                                    RadiusBottomLeft: =12
+                                    RadiusBottomRight: =12
+                                    RadiusTopLeft: =12
+                                    RadiusTopRight: =12
+                                    Width: =Parent.Width
+                                  Children:
+                                    - conAPAS_Tabs:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.SetByContainer
+                                          BorderColor: =ColorValue("#E7EEF6")
+                                          BorderThickness: =1
+                                          DropShadow: =DropShadow.None
+                                          Fill: =ColorValue("#F8FAFC")
+                                          FillPortions: =0
+                                          Height: =44
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =4
+                                          PaddingLeft: =6
+                                          PaddingRight: =6
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Width: =Parent.Width
+                                        Children:
+                                          - lblAPAS_TabOverview_1:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Align: =Align.Center
+                                                BorderColor: =If(varAPAS_DossierTab="Overview",ColorValue("#AEEBF0"),RGBA(0,0,0,0))
+                                                BorderThickness: =If(varAPAS_DossierTab="Overview",1,0)
+                                                Color: =If(varAPAS_DossierBusy,ColorValue("#9AAABD"),If(varAPAS_DossierTab="Overview",ColorValue("#12304D"),ColorValue("#5E738C")))
+                                                Fill: =If(varAPAS_DossierTab="Overview",ColorValue("#E8FBFC"),Color.Transparent)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =If(varAPAS_DossierTab="Overview",FontWeight.Semibold,FontWeight.Normal)
+                                                OnSelect: =If(!varAPAS_DossierBusy,Set(varAPAS_DossierTab,"Overview"))
+                                                Size: =8
+                                                Text: ="Overview"
+                                                Width: =74
+                                          - lblAPAS_TabTechnical_1:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Align: =Align.Center
+                                                BorderColor: =If(varAPAS_DossierTab="Technical Data",ColorValue("#AEEBF0"),RGBA(0,0,0,0))
+                                                BorderThickness: =If(varAPAS_DossierTab="Technical Data",1,0)
+                                                Color: =If(varAPAS_DossierBusy,ColorValue("#9AAABD"),If(varAPAS_DossierTab="Technical Data",ColorValue("#12304D"),ColorValue("#5E738C")))
+                                                Fill: =If(varAPAS_DossierTab="Technical Data",ColorValue("#E8FBFC"),Color.Transparent)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =If(varAPAS_DossierTab="Technical Data",FontWeight.Semibold,FontWeight.Normal)
+                                                OnSelect: |-
+                                                  =If(
+                                                      !varAPAS_DossierBusy,
+                                                      Set(varAPAS_DossierTab,"Technical Data");
+                                                      If(
+                                                          !IsBlank(Trim(Coalesce(varAPAS_SelectedAsset.TagNumber,""))) &&
+                                                          Text(varAPAS_TechnicalDataLoadedProject)=Text(gblAP_SelectedProjectCode) &&
+                                                          Text(varAPAS_TechnicalDataLoadedTag)=Text(varAPAS_SelectedAsset.TagNumber) &&
+                                                          Or(
+                                                              varAPAS_TechnicalDataLoadState="READY",
+                                                              varAPAS_TechnicalDataLoadState="EMPTY"
+                                                          ),
+                                                          Set(
+                                                              varAPAS_LastEvent,
+                                                              "TECHNICAL_DATA_CACHE_HIT:"&Coalesce(varAPAS_SelectedAsset.TagNumber,"")
+                                                          ),
+                                                          Set(varAPAS_DossierBusy,true);
+                                                          Set(
+                                                              varAPAS_DossierBusyLabel,
+                                                              "Reading ALEP technical values · "&Coalesce(varAPAS_SelectedAsset.TagNumber,"selected equipment")
+                                                          );
+                                                          Set(varAPAS_TechnicalDataLoadState,"LOADING");
+                                                          Set(varAPAS_TechnicalDataEmptyReason,"");
+                                                          Set(varAPAS_TechnicalDataError,"");
+                                                          Set(varAPAS_TechnicalDataErrorCode,"");
+                                                          Clear(colAPAS_SelectedTechnicalRaw);
+                                                          Clear(colAPAS_SelectedTechnicalMappings);
+                                                          Clear(colAPAS_TechnicalDataRows);
+                                                          Set(
+                                                              varAPAS_LastEvent,
+                                                              "TECHNICAL_DATA_REQUESTED:"&Coalesce(varAPAS_SelectedAsset.TagNumber,"")
+                                                          );
+                                                          Select(btnAPAS_TechnicalLoad_Alep_1)
+                                                      )
+                                                  )
+                                                Size: =8
+                                                Text: ="Technical Data"
+                                                Width: =94
+                                          - lblAPAS_TabPreservation_1:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Align: =Align.Center
+                                                BorderColor: =If(varAPAS_DossierTab="Preservation",ColorValue("#AEEBF0"),RGBA(0,0,0,0))
+                                                BorderThickness: =If(varAPAS_DossierTab="Preservation",1,0)
+                                                Color: =If(varAPAS_DossierBusy,ColorValue("#9AAABD"),If(varAPAS_DossierTab="Preservation",ColorValue("#12304D"),ColorValue("#5E738C")))
+                                                Fill: =If(varAPAS_DossierTab="Preservation",ColorValue("#E8FBFC"),Color.Transparent)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =If(varAPAS_DossierTab="Preservation",FontWeight.Semibold,FontWeight.Normal)
+                                                OnSelect: =If(!varAPAS_DossierBusy,Set(varAPAS_DossierTab,"Preservation"))
+                                                Size: =8
+                                                Text: ="Preservation"
+                                                Width: =88
+                                          - lblAPAS_TabTrace_1:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Align: =Align.Center
+                                                BorderColor: =If(varAPAS_DossierTab="Source & Traceability",ColorValue("#AEEBF0"),RGBA(0,0,0,0))
+                                                BorderThickness: =If(varAPAS_DossierTab="Source & Traceability",1,0)
+                                                Color: =If(varAPAS_DossierBusy,ColorValue("#9AAABD"),If(varAPAS_DossierTab="Source & Traceability",ColorValue("#12304D"),ColorValue("#5E738C")))
+                                                Fill: =If(varAPAS_DossierTab="Source & Traceability",ColorValue("#E8FBFC"),Color.Transparent)
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =If(varAPAS_DossierTab="Source & Traceability",FontWeight.Semibold,FontWeight.Normal)
+                                                OnSelect: =If(!varAPAS_DossierBusy,Set(varAPAS_DossierTab,"Source & Traceability"))
+                                                Size: =8
+                                                Text: ="Traceability"
+                                                Width: =86
+                                    - conAPAS_DossierHero:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.SetByContainer
+                                          DropShadow: =DropShadow.None
+                                          Fill: =Color.Transparent
+                                          FillPortions: =0
+                                          Height: =If(IsBlank(Trim(Coalesce(varAPAS_SelectedRow,""))),0,158)
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =18
+                                          Visible: =!IsBlank(Trim(Coalesce(varAPAS_SelectedRow,"")))
+                                          Width: =Parent.Width
+                                        Children:
+                                          - conAPAS_HeroInfo_1:
+                                              Control: GroupContainer@1.5.0
+                                              Variant: AutoLayout
+                                              Properties:
+                                                DropShadow: =DropShadow.None
+                                                Fill: =Color.Transparent
+                                                Height: =Parent.Height
+                                                LayoutDirection: =LayoutDirection.Vertical
+                                                LayoutGap: =3
+                                                LayoutJustifyContent: =LayoutJustifyContent.Center
+                                                PaddingLeft: =4
+                                              Children:
+                                                - lblAPAS_Tag_1:
+                                                    Control: Label@2.5.1
+                                                    Properties:
+                                                      Color: =ColorValue("#12304D")
+                                                      Font: =Font.'Segoe UI'
+                                                      FontWeight: =FontWeight.Semibold
+                                                      Height: =32
+                                                      Size: =16
+                                                      Text: =Coalesce(varAPAS_SelectedAsset.TagNumber,"—")
+                                                      Width: =Parent.Width
+                                                      Wrap: =false
+                                                - lblAPAS_EquipmentType_1:
+                                                    Control: Label@2.5.1
+                                                    Properties:
+                                                      Color: =ColorValue("#28516F")
+                                                      Font: =Font.'Segoe UI'
+                                                      FontWeight: =FontWeight.Semibold
+                                                      Height: =22
+                                                      Size: =9
+                                                      Text: =Coalesce(varAPAS_SelectedAsset.EquipmentType,"—")
+                                                      Width: =Parent.Width
+                                                      Wrap: =false
+                                                - lblAPAS_Commodity_1:
+                                                    Control: Label@2.5.1
+                                                    Properties:
+                                                      Color: =ColorValue("#5E738C")
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      Size: =8
+                                                      Text: ="Commodity · "&Coalesce(varAPAS_SelectedAsset.CommodityCode,"—")
+                                                      Width: =Parent.Width
+                                                      Wrap: =false
+                                                - lblAPAS_Project_1:
+                                                    Control: Label@2.5.1
+                                                    Properties:
+                                                      Color: =ColorValue("#5E738C")
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =20
+                                                      Size: =8
+                                                      Text: ="Project · "&Coalesce(gblAP_SelectedProjectCode,"—")
+                                                      Width: =Parent.Width
+                                                      Wrap: =false
+                                          - conAPAS_HeroVisual_1:
+                                              Control: GroupContainer@1.5.0
+                                              Variant: ManualLayout
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Center
+                                                BorderColor: =ColorValue("#E6EDF5")
+                                                BorderThickness: =1
+                                                DropShadow: =DropShadow.None
+                                                Fill: =Color.White
+                                                FillPortions: =0
+                                                Height: =148
+                                                RadiusBottomLeft: =10
+                                                RadiusBottomRight: =10
+                                                RadiusTopLeft: =10
+                                                RadiusTopRight: =10
+                                                Width: =Min(300,Max(180,Parent.Width*0.46))
+                                              Children:
+                                                - cmpAPAS_EquipmentIllustration_1:
+                                                    Control: CanvasComponent
+                                                    ComponentName: cmp_EquipmentIllustrationPro
+                                                    Properties:
+                                                      AccessibleLabel: ="Equipment illustration for "&Coalesce(varAPAS_SelectedAsset.EquipmentType,"equipment")
+                                                      EquipmentType: =Coalesce(varAPAS_SelectedAsset.EquipmentType,"")
+                                                      Fill: =Color.Transparent
+                                                      Height: =Parent.Height-12
+                                                      Width: =Parent.Width-16
+                                                      X: =8
+                                                      Y: =8
+                                                - icoAPAS_IllustrationZoom_1:
+                                                    Control: Classic/Icon@2.5.0
+                                                    Properties:
+                                                      AccessibleLabel: ="Open equipment illustration larger"
+                                                      BorderColor: =ColorValue("#D9E3EF")
+                                                      BorderThickness: =1
+                                                      Color: =ColorValue("#28516F")
+                                                      Fill: =RGBA(255,255,255,0.94)
+                                                      Height: =32
+                                                      HoverColor: =ColorValue("#082B6F")
+                                                      HoverFill: =ColorValue("#F2FCFD")
+                                                      Icon: =Icon.ZoomIn
+                                                      OnSelect: =Set(varAPAS_IllustrationModalOpen,true)
+                                                      PaddingBottom: =6
+                                                      PaddingLeft: =6
+                                                      PaddingRight: =6
+                                                      PaddingTop: =6
+                                                      PressedColor: =ColorValue("#082B6F")
+                                                      PressedFill: =ColorValue("#E8FBFC")
+                                                      Tooltip: ="View larger"
+                                                      Visible: =!IsBlank(Coalesce(varAPAS_SelectedAsset.TagNumber,"")) && !IsBlank(Coalesce(varAPAS_SelectedAsset.EquipmentType,""))
+                                                      Width: =32
+                                                      X: =Parent.Width-Self.Width-8
+                                                      Y: =8
+                                    - conAPAS_DossierBusy:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.SetByContainer
+                                          BorderColor: =ColorValue("#AEEBF0")
+                                          BorderThickness: =If(varAPAS_DossierBusy,1,0)
+                                          DropShadow: =DropShadow.None
+                                          Fill: =If(varAPAS_DossierBusy,ColorValue("#F2FCFD"),Color.Transparent)
+                                          FillPortions: =0
+                                          Height: =If(varAPAS_DossierBusy,32,0)
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =8
+                                          PaddingLeft: =10
+                                          PaddingRight: =10
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Visible: =varAPAS_DossierBusy
+                                          Width: =Parent.Width
+                                        Children:
+                                          - spnAPAS_DossierBusy_1:
+                                              Control: ModernSpinner@1.1.0
+                                              Properties:
+                                                FontWeight: =""
+                                                Height: =28
+                                                PaddingBottom: =4
+                                                PaddingLeft: =4
+                                                PaddingRight: =4
+                                                PaddingTop: =4
+                                                SpinnerColor: =ColorValue("#18C9D2")
+                                                Width: =28
+                                          - lblAPAS_DossierBusy_1:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Color: =ColorValue("#28516F")
+                                                Fill: =Color.Transparent
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =22
+                                                Size: =8
+                                                Text: =Coalesce(varAPAS_DossierBusyLabel,"Loading selected equipment…")
+                                                Width: =Parent.Width-50
+                                                Wrap: =false
+                                    - cmpAPAS_OverviewCard:
+                                        Control: CanvasComponent
+                                        ComponentName: cmp_AP_KeyValueCardPro
+                                        Properties:
+                                          EmptyText: ="Select an equipment row to inspect its dossier."
+                                          Height: |-
+                                            =Max(
+                                                  96,
+                                                  Parent.Height
+                                                  - conAPAS_Tabs.Height
+                                                  - conAPAS_DossierHero.Height
+                                                  - conAPAS_DossierBusy.Height
+                                                  - conAPAS_Actions.Height
+                                                  - 40
+                                                  - If(conAPAS_DossierHero.Visible,8,0)
+                                                  - If(conAPAS_DossierBusy.Visible,8,0)
+                                              )
+                                          OnRowSelect: =Set(varAPAS_LastEvent,"DOSSIER_ROW:"&p_key)
+                                          Rows: |-
+                                            =Switch(
+                                                varAPAS_DossierTab,
+                                                "Overview",
+                                                Table(
+                                                    {Order:10,Key:"COVERAGE",Label:"Reconciliation coverage",ValueText:Coalesce(varAPAS_SelectedAsset.ReconciliationCoverageStatus,"UNAVAILABLE"),SupportingText:If(varAPAS_SelectedAsset.ReconciliationCoverageStatus="NOT_IN_LAST_SUCCESSFUL_SNAPSHOT","ALEP asset is newer than the last successful snapshot",If(varAPAS_SelectedAsset.ReconciliationCoverageStatus="AVAILABLE","Evaluated by the published snapshot","Reconciliation is not currently available")),Tone:If(varAPAS_SelectedAsset.ReconciliationCoverageStatus="AVAILABLE","SUCCESS","WARNING"),IsInteractive:false},
+                                                    {Order:20,Key:"HCS",Label:"HCS resolution",ValueText:If(varAPAS_SelectedAsset.ReconciliationCoverageStatus<>"AVAILABLE","Unavailable",If(Upper(Coalesce(varAPAS_SelectedAsset.HcsResolutionStatus,""))="RESOLVED","Resolved",If(varAPAS_SelectedAsset.ReconciliationStatus="HCS_ELEMENT_NOT_RESOLVED","Not resolved","Data issue"))),SupportingText:If(varAPAS_SelectedAsset.ReconciliationCoverageStatus="AVAILABLE","Exact-match source result","No current reconciliation result for this ALEP identity"),Tone:If(Upper(Coalesce(varAPAS_SelectedAsset.HcsResolutionStatus,""))="RESOLVED","SUCCESS","WARNING"),IsInteractive:false},
+                                                    {Order:30,Key:"ELEMENT",Label:"HCS element",ValueText:Coalesce(varAPAS_SelectedAsset.HcsElementCode,"—"),SupportingText:Coalesce(varAPAS_SelectedAsset.HcsRepresentation,"Integration metadata unavailable"),Tone:"NEUTRAL",IsInteractive:false}
+                                                ),
+                                                "Technical Data",
+                                                Switch(
+                                                    varAPAS_TechnicalDataLoadState,
+                                                    "LOADING",Table({Order:10,Key:"TD_LOADING",Label:"Technical Data",ValueText:"Loading…",SupportingText:"Reading selected ALEP values and governed mappings.",Tone:"INFO",IsInteractive:false}),
+                                                    "ERROR",Table({Order:10,Key:"TD_ERROR",Label:"Technical Data",ValueText:"Unavailable",SupportingText:Coalesce(varAPAS_TechnicalDataError,"Technical Data could not be loaded.") & If(!IsBlank(varAPAS_TechnicalDataErrorCode)," · " & varAPAS_TechnicalDataErrorCode,""),Tone:"WARNING",IsInteractive:false}),
+                                                    "EMPTY",
+                                                    Switch(
+                                                        varAPAS_TechnicalDataEmptyReason,
+                                                        "NO_SELECTION",Table({Order:10,Key:"TD_EMPTY_SELECTION",Label:"Technical Data",ValueText:"Select equipment",SupportingText:"Select an equipment row before opening Technical Data.",Tone:"INFO",IsInteractive:false}),
+                                                        "NO_RAW_VALUES",Table({Order:10,Key:"TD_EMPTY_RAW",Label:"Technical Data",ValueText:"No ALEP technical values",SupportingText:"This equipment has no populated DS_COLUMN1..DS_COLUMN100 values in ALEP CURRENT.",Tone:"NEUTRAL",IsInteractive:false}),
+                                                        "NO_CONTEXTUAL_MAPPINGS",Table({Order:10,Key:"TD_EMPTY_MAPPING",Label:"Technical Data",ValueText:"No contextual mappings",SupportingText:"ALEP technical values exist, but no confirmed mappings are configured for " & Coalesce(varAPAS_TechnicalContextKey,"this context") & ".",Tone:"WARNING",IsInteractive:false}),
+                                                        "NO_GOVERNED_MATCHES",Table({Order:10,Key:"TD_EMPTY_GOVERNED",Label:"Technical Data",ValueText:"No governed matches",SupportingText:"Mappings exist, but none of the selected equipment values resolve to an active Technical Field.",Tone:"WARNING",IsInteractive:false}),
+                                                        Table({Order:10,Key:"TD_EMPTY",Label:"Technical Data",ValueText:"No governed fields",SupportingText:"No governed Technical Data rows are available for this equipment.",Tone:"NEUTRAL",IsInteractive:false})
+                                                    ),
+                                                    "READY",colAPAS_TechnicalDataRows,
+                                                    Table({Order:10,Key:"TD_IDLE",Label:"Technical Data",ValueText:"Open tab to load",SupportingText:"Technical Data is loaded lazily for the selected equipment.",Tone:"INFO",IsInteractive:false})
+                                                ),
+                                                "Preservation",
+                                                Table(
+                                                    {Order:10,Key:"STATE",Label:"State",ValueText:Coalesce(varAPAS_SelectedAsset.ReconciliationStatus,"UNAVAILABLE"),SupportingText:"Canonical Assets reconciliation state",Tone:If(varAPAS_SelectedAsset.ReconciliationStatus="PRESERVATION_REGISTERED","SUCCESS",If(IsBlank(varAPAS_SelectedAsset.ReconciliationStatus),"WARNING","INFO")),IsInteractive:false},
+                                                    {Order:20,Key:"TYPE",Label:"Preservation Type",ValueText:Coalesce(varAPAS_SelectedAsset.PreservationTypeCode,varAPAS_SelectedAsset.SelectedPreservationTypeCode,"—"),SupportingText:If(varAPAS_SelectedAsset.ReconciliationStatus="PRESERVATION_DECISION_REQUIRED","Pending human decision",If(varAPAS_SelectedAsset.ReconciliationStatus="HCS_ELEMENT_NOT_RESOLVED","Blocked until exact HCS resolution",If(varAPAS_SelectedAsset.ReconciliationStatus="PRESERVATION_REGISTERED","Current HCS assignment","No final Preservation Type available"))),Tone:"NEUTRAL",IsInteractive:false}
+                                                ),
+                                                Table(
+                                                    {Order:10,Key:"ALEP",Label:"ALEP",ValueText:"CURRENT",SupportingText:"Equipment universe authority",Tone:"INFO",IsInteractive:false},
+                                                    {Order:20,Key:"RECON",Label:"Reconciliation",ValueText:Coalesce(varAPAS_SelectedAsset.ReconciliationCoverageStatus,"UNAVAILABLE"),SupportingText:"Freshness · "&Coalesce(varAPAS_FreshnessStatus,"UNAVAILABLE"),Tone:If(varAPAS_SelectedAsset.ReconciliationCoverageStatus="AVAILABLE","SUCCESS","WARNING"),IsInteractive:false},
+                                                    {Order:30,Key:"DECISION",Label:"Decision Store",ValueText:Coalesce(varAPAS_SelectedAsset.DecisionStatus,"UNAVAILABLE"),SupportingText:"Read-only decision overlay",Tone:"NEUTRAL",IsInteractive:false}
+                                                )
+                                            )
+                                          State: =If(IsBlank(varAPAS_SelectedRow),"EMPTY","READY")
+                                          Subtitle: =varAPAS_DossierTab
+                                          Title: ="Equipment dossier"
+                                          Width: =Parent.Width
+                                    - conAPAS_Actions:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.SetByContainer
+                                          DropShadow: =DropShadow.None
+                                          Fill: =Color.Transparent
+                                          FillPortions: =0
+                                          Height: |
+                                            =56
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =8
+                                          PaddingBottom: =12
+                                          PaddingLeft: =12
+                                          PaddingRight: =12
+                                          PaddingTop: =4
+                                          Width: =Parent.Width
+                                        Children:
+                                          - cmpAPAS_OpenWorkspace_1:
+                                              Control: CanvasComponent
+                                              ComponentName: cmp_AP_ActionButtonPro
+                                              Properties:
+                                                AccessibleLabel: =
+                                                BusyText: ="Opening..."
+                                                Height: =32
+                                                IconKey: ="Open"
+                                                IsBusy: =false
+                                                IsEnabled: =false
+                                                OnSelect: =Set(varAPAS_LastEvent,"OPEN_PRESERVATION_WORKSPACE:"&Coalesce(varAPAS_SelectedAsset.TagNumber,""))
+                                                ShowIcon: =
+                                                Text: ="Open Workspace"
+                                                Tone: ="PRIMARY"
+                                                Width: =150
+                                          - cmpAPAS_ClearFilters_1:
+                                              Control: CanvasComponent
+                                              ComponentName: cmp_AP_ActionButtonPro
+                                              Properties:
+                                                AccessibleLabel: =
+                                                BusyText: =
+                                                Height: =32
+                                                IconKey: ="Clear"
+                                                IsBusy: =varAPAS_DossierBusy
+                                                IsEnabled: =!IsBlank(varAPAS_SearchText) && !varAPAS_DossierBusy
+                                                OnSelect: |-
+                                                  =Set(varAPAS_SearchText,"");
+                                                  Set(varAPAS_LastEvent,"CLEAR_FILTERS")
+                                                ShowIcon: =
+                                                Text: ="Clear search"
+                                                Tone: ="SECONDARY"
+                                                Width: =120
+      - btnAPAS_LoadAssetPage_1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Height: =1
+            OnSelect: |-
+              =If(
+                  !varAPAS_DossierBusy && !IsBlank(Trim(Coalesce(gblAP_SelectedProjectCode,""))),
+                  Set(varAPAS_DossierBusy,true);
+                  Set(varAPAS_DossierBusyLabel,"Loading assets...");
+                  IfError(
+                      Set(
+                          varAPAS_AssetPageResponse,
+                          AssetPlan_GetAlepAssetsPaged.Run(
+                              Value(gblAP_SelectedProjectCode),
+                              Coalesce(varAPAS_SelectedFamilyKey,""),
+                              Coalesce(varAPAS_SearchText,""),
+                              Coalesce(ddAPAS_FilterEquipmentType_1.Selected.Value,""),
+                              Coalesce(ddAPAS_FilterCommodity_1.Selected.Value,""),
+                              Coalesce(varAPAS_AssetPageNumber,1),
+                              Coalesce(varAPAS_AssetPageSize,50)
+                          )
+                      );
+                      Set(varAPAS_AssetPageJson,Coalesce(Text(varAPAS_AssetPageResponse.resultjson),"[]"));
+                      Set(varAPAS_AssetPageJson,Trim(Substitute(Substitute(varAPAS_AssetPageJson,Char(13),""),Char(10),"")));
+                      If(StartsWith(varAPAS_AssetPageJson,Char(34)),Set(varAPAS_AssetPageJson,Substitute(Mid(varAPAS_AssetPageJson,2,Len(varAPAS_AssetPageJson)-2),Char(92)&Char(34),Char(34))));
+                      ClearCollect(
+                          colAPAS_AssetPage,
+                          ForAll(
+                              Table(ParseJSON(varAPAS_AssetPageJson)),
+                              With(
+                                  {r:ThisRecord.Value},
+                                  {
+                                      TagNumber:Coalesce(Text(r.TagNumber),""),
+                                      EquipmentId:Coalesce(Text(r.EquipmentId),""),
+                                      EquipmentDescription:Coalesce(Text(r.EquipmentDescription),""),
+                                      Discipline:Coalesce(Text(r.Discipline),""),
+                                      EquipmentType:Coalesce(Text(r.EquipmentType),""),
+                                      CommodityCode:Coalesce(Text(r.CommodityCode),""),
+                                      RevisionNumber:IfError(Value(r.RevisionNumber),Blank()),
+                                      Quantity:IfError(Value(r.Quantity),Blank()),
+                                      FamilyKey:Coalesce(Text(r.FamilyKey),""),
+                                      FamilyName:Coalesce(Text(r.FamilyName),""),
+                                      FamilyParentKey:Coalesce(Text(r.FamilyParentKey),""),
+                                      FamilyDepthFromRoot:IfError(Value(r.FamilyDepthFromRoot),0),
+                                      FamilyHierarchySortPath:Coalesce(Text(r.FamilyHierarchySortPath),""),
+                                      EffectiveEquipmentTypeKey:Coalesce(Text(r.EffectiveEquipmentTypeKey),""),
+                                      EffectiveEquipmentTypeName:Coalesce(Text(r.EffectiveEquipmentTypeName),""),
+                                      FamilyResolutionState:Coalesce(Text(r.FamilyResolutionState),""),
+                                      ReconciliationStatus:"",
+                                      HcsResolutionStatus:"",
+                                      ReconciliationCoverageStatus:""
+                                  }
+                              )
+                          )
+                      );
+                      Set(varAPAS_DossierBusy,false);
+                      Set(varAPAS_DossierBusyLabel,"");
+                      Set(varAPAS_LastEvent,"ASSET_PAGE_READY"),
+                      Set(varAPAS_DossierBusy,false);
+                      Set(varAPAS_DossierBusyLabel,"");
+                      Set(varAPAS_LastEvent,"ASSET_PAGE_ERROR")
+                  )
+              )
+      - btnAPAS_LoadProjectData_1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Height: =1
+            OnSelect: |
+              =Set(gblAP_ShowCredits, false);
+
+              Set(varAPAS_TechnicalDataLoadedProject,"");
+
+              Set(varAPAS_TechnicalDataLoadedTag,"");
+
+              Set(varAPAS_TechnicalDataLoadState,"IDLE");
+
+              Set(varAPAS_IllustrationModalOpen,false);
+
+              Set(gblAP_ActiveView,"Assets");
+
+              Set(varAPAS_DossierTab,"Overview");
+
+              Set(varAPAS_LastEvent,"PRODUCTIVE_BINDING_LOADING");
+
+              Set(varAPAS_IsBusy,true);
+
+              Set(varAPAS_DossierBusy,false);
+
+              Set(varAPAS_DossierBusyLabel,"");
+
+              Set(varAPAS_TechnicalLoadRequested,false);
+
+              Set(varAPAS_SearchText,"");
+
+              Reset(txtAPAS_Search_1);
+
+              Reset(ddAPAS_FilterEquipmentType_1);
+
+              Reset(ddAPAS_FilterReconStatus_1);
+
+              Reset(ddAPAS_FilterHcsState_1);
+
+              Reset(ddAPAS_FilterCommodity_1);
+
+              Set(varAPAS_SortKey,"TAG");
+
+              Set(varAPAS_SortDirection,"ASC");
+
+              Set(varAPAS_SummaryOk,false);
+
+              Set(varAPAS_ReconciliationOk,false);
+
+              Set(varAPAS_SummaryReadState,"UNAVAILABLE");
+
+              Set(varAPAS_FreshnessStatus,"UNAVAILABLE");
+
+              Set(varAPAS_LastSuccessfulRunId,Blank());
+
+              Clear(colAPAS_Summary);
+
+              Clear(colAPAS_Reconciliation);
+
+              Clear(colAPAS_AssetsView);
+              Clear(colAPAS_AssetPage);
+              Set(varAPAS_AssetPageNumber,1);
+              Set(varAPAS_AssetPageSize,50);
+
+              If(
+
+                  IsBlank(Trim(Coalesce(gblAP_SelectedProjectCode,""))),
+
+                  Set(varAPAS_SelectedRow,"");
+
+                  Set(varAPAS_SelectedAsset,Blank());
+
+                  Set(varAPAS_LastEvent,"NO_PROJECT");
+
+                  Set(gblAP_AlepLoadStatus,"IDLE");
+
+                  Set(gblAP_AlepLoadedProjectCode,"");
+
+                  Clear(colAP_AlepRaw);
+
+                  Set(varAPAS_IsBusy,false),
+
+                  Set(gblAP_AlepLoadStatus,"LOADING");
+
+                  Set(gblAP_AlepLoadMessage,"Loading ALEP equipment data...");
+
+                  Set(gblAP_AlepLoadErrorDetail,"");
+
+                  IfError(
+
+                      Set(
+
+                          varAP_AlepFlowResult,
+
+                          'AssetPlan_GetAlepEquipmentByProject'.Run(
+
+                              Value(gblAP_SelectedProjectCode)
+
+                          )
+
+                      );
+
+                      Set(
+
+                          varAP_AlepJson,
+
+                          Coalesce(Text(varAP_AlepFlowResult.resultjson),"[]")
+
+                      );
+
+                      Set(varAP_AlepJson,Substitute(varAP_AlepJson,Char(13),""));
+
+                      Set(varAP_AlepJson,Substitute(varAP_AlepJson,Char(10),""));
+
+                      Set(varAP_AlepJson,Trim(varAP_AlepJson));
+
+                      If(
+
+                          StartsWith(varAP_AlepJson,Char(34)),
+
+                          Set(
+
+                              varAP_AlepJson,
+
+                              Substitute(
+
+                                  Mid(varAP_AlepJson,2,Len(varAP_AlepJson)-2),
+
+                                  Char(92) & Char(34),
+
+                                  Char(34)
+
+                              )
+
+                          );
+
+                          Set(varAP_AlepJson,Trim(varAP_AlepJson))
+
+                      );
+
+                      ClearCollect(
+
+                          colAP_AlepRaw,
+
+                          ForAll(
+
+                              Table(ParseJSON(varAP_AlepJson)),
+
+                              With(
+
+                                  {r:ThisRecord.Value},
+
+                                  {
+
+                                      ProjectCode:Coalesce(Text(r.PROJECT),""),
+
+                                      TagNumber:Coalesce(Text(r.TAG_NUMBER),""),
+
+                                      EquipmentId:Coalesce(Text(r.EQUIPMENT_ID),""),
+
+                                      EquipmentDescription:Coalesce(Text(r.EQUIPMENT_DESCRIPTION),""),
+
+                                      Discipline:Coalesce(Text(r.DISCIPLINE),""),
+
+                                      EquipmentType:Coalesce(Text(r.EQUIPMENT_TYPE),""),
+
+                                      ClientUnit:Coalesce(Text(r.CLIENT_UNIT),""),
+
+                                      TRUnit:Coalesce(Text(r.TR_UNIT),""),
+
+                                      RevisionNumber:IfError(Value(r.REVISION_NUMBER),Blank()),
+
+                                      Quantity:IfError(Value(r.QUANTITY),Blank()),
+
+                                      CommodityCode:Coalesce(Text(r.COMMODITY_CODE),""),
+
+                                      CommodityCodeFinal:Coalesce(Text(r.COMMODITY_CODE_FINAL),""),
+
+                                      RevisionCode:Coalesce(Text(r.REVISION_CODE),""),
+
+                                      ReqPONumber:Coalesce(Text(r.REQ_PO_NUMBER),""),
+
+                                      PackageNumber:Coalesce(Text(r.PACKAGE_NUMBER),""),
+
+                                      TRProcessUnit:Coalesce(Text(r.TR_PROCESS_UNIT),""),
+
+                                      ClientProcessUnit:Coalesce(Text(r.CLIENT_PROCESS_UNIT),""),
+
+                                      OperationalSystem:Coalesce(Text(r.OPERATIONAL_SYSTEM),""),
+
+                                      SupplyByOthers:Coalesce(Text(r.SUPPLY_BY_OTHERS),""),
+
+                                      Module:Coalesce(Text(r.MODULE),""),
+
+                                      Yard:Coalesce(Text(r.YARD),""),
+
+                                      ECTag:Coalesce(Text(r.EC_TAG),""),
+
+                                      CEConformity:Coalesce(Text(r.CE_CONFORMITY),""),
+
+                                      AlepProjectCode:Coalesce(Text(r.ALEP_PROJECT_CODE),""),
+
+                                      ProjectDescription:Coalesce(Text(r.PROJECT_DESCRIPTION),""),
+
+                                      CanonicalEquipmentTypeKey:Coalesce(Text(r.CanonicalEquipmentTypeKey),""),
+
+                                      CanonicalEquipmentTypeName:Coalesce(Text(r.CanonicalEquipmentTypeName),""),
+
+                                      CanonicalizationState:Coalesce(Text(r.CanonicalizationState),""),
+
+                                      FamilyKey:Coalesce(Text(r.FamilyKey),""),
+
+                                      FamilyName:Coalesce(Text(r.FamilyName),""),
+
+                                      FamilyParentKey:Coalesce(Text(r.FamilyParentKey),""),
+
+                                      FamilyDepthFromRoot:IfError(Value(r.FamilyDepthFromRoot),Blank()),
+
+                                      FamilyHierarchySortPath:Coalesce(Text(r.FamilyHierarchySortPath),""),
+
+                                      FamilyResolutionState:Coalesce(Text(r.FamilyResolutionState),""),
+
+                                      EffectiveEquipmentTypeKey:Coalesce(Text(r.EffectiveEquipmentTypeKey),""),
+
+                                      EffectiveEquipmentTypeName:Coalesce(Text(r.EffectiveEquipmentTypeName),"")
+
+                                  }
+
+                              )
+
+                          )
+
+                      );
+
+                      Set(gblAP_AlepSourceRowCount,CountRows(colAP_AlepRaw));
+
+                      Set(gblAP_AlepLoadedProjectCode,gblAP_SelectedProjectCode);
+
+                      If(
+
+                          gblAP_AlepSourceRowCount=0,
+
+                          Set(gblAP_AlepLoadStatus,"EMPTY");
+
+                          Set(gblAP_AlepLoadMessage,"No ALEP equipment data found for this project."),
+
+                          Set(gblAP_AlepLoadStatus,"READY");
+
+                          Set(gblAP_AlepLoadMessage,Text(gblAP_AlepSourceRowCount) & " ALEP equipment row(s) loaded")
+
+                      ),
+
+                      Set(gblAP_AlepLoadStatus,"ERROR");
+
+                      Set(gblAP_AlepLoadMessage,"Unable to load ALEP equipment data.");
+
+                      Set(gblAP_AlepLoadErrorDetail,Coalesce(FirstError.Message,"Unknown ALEP source error."));
+
+                      Clear(colAP_AlepRaw);
+
+                      Set(gblAP_AlepSourceRowCount,0);
+
+                      Set(gblAP_AlepLoadedProjectCode,"")
+
+                  );
+
+                  IfError(
+
+                      Set(
+
+                          varAPAS_BundleRaw,
+
+                          AssetPlan_Assets_GetProjectBundle.Run(
+
+                              Value(gblAP_SelectedProjectCode)
+
+                          )
+
+                      );
+
+                      Set(
+
+                          varAPAS_SummaryOk,
+
+                          Lower(Trim(Text(varAPAS_BundleRaw.summaryok)))="true"
+
+                      );
+
+                      Set(
+
+                          varAPAS_ReconciliationOk,
+
+                          Lower(Trim(Text(varAPAS_BundleRaw.reconciliationok)))="true"
+
+                      );
+
+                      Set(
+
+                          varAPAS_SummaryJson,
+
+                          Coalesce(Text(varAPAS_BundleRaw.summaryjson),"[]")
+
+                      );
+
+                      Set(
+
+                          varAPAS_ReconciliationJson,
+
+                          Coalesce(Text(varAPAS_BundleRaw.reconciliationjson),"[]")
+
+                      );
+
+                      Set(
+
+                          varAPAS_ReconciliationCount,
+
+                          IfError(Value(Text(varAPAS_BundleRaw.reconciliationcount)),-1)
+
+                      );
+
+                      ClearCollect(
+
+                          colAPAS_Summary,
+
+                          ForAll(
+
+                              Table(ParseJSON(varAPAS_SummaryJson)),
+
+                              {
+
+                                  ProjectCode:Text(ThisRecord.Value.ProjectCode),
+
+                                  ReconciliationReadState:Text(ThisRecord.Value.ReconciliationReadState),
+
+                                  DecisionReadState:Text(ThisRecord.Value.DecisionReadState),
+
+                                  LastSuccessfulRunId:Text(ThisRecord.Value.LastSuccessfulRunId),
+
+                                  GeneratedAtUtc:Text(ThisRecord.Value.GeneratedAtUtc),
+
+                                  AlepCapturedAtUtc:Text(ThisRecord.Value.AlepCapturedAtUtc),
+
+                                  HcsCapturedAtUtc:Text(ThisRecord.Value.HcsCapturedAtUtc),
+
+                                  LastAttemptStatus:Text(ThisRecord.Value.LastAttemptStatus),
+
+                                  LastFailureCode:Text(ThisRecord.Value.LastFailureCode),
+
+                                  FreshnessStatus:Text(ThisRecord.Value.FreshnessStatus),
+
+                                  FreshnessPolicyStatus:Text(ThisRecord.Value.FreshnessPolicyStatus),
+
+                                  SnapshotEquipmentCount:IfError(Value(Text(ThisRecord.Value.SnapshotEquipmentCount)),Blank()),
+
+                                  HcsResolvedCount:IfError(Value(Text(ThisRecord.Value.HcsResolvedCount)),Blank()),
+
+                                  HcsNotResolvedCount:IfError(Value(Text(ThisRecord.Value.HcsNotResolvedCount)),Blank()),
+
+                                  PreservationRegisteredCount:IfError(Value(Text(ThisRecord.Value.PreservationRegisteredCount)),Blank()),
+
+                                  PreservationDataIssueCount:IfError(Value(Text(ThisRecord.Value.PreservationDataIssueCount)),Blank()),
+
+                                  SourceDifferenceCount:IfError(Value(Text(ThisRecord.Value.SourceDifferenceCount)),Blank())
+
+                              }
+
+                          )
+
+                      );
+
+                      Set(varAPAS_SummaryRecord,First(colAPAS_Summary));
+
+                      Set(
+
+                          varAPAS_SummaryReadState,
+
+                          Coalesce(varAPAS_SummaryRecord.ReconciliationReadState,"UNAVAILABLE")
+
+                      );
+
+                      Set(
+
+                          varAPAS_FreshnessStatus,
+
+                          Coalesce(varAPAS_SummaryRecord.FreshnessStatus,"UNAVAILABLE")
+
+                      );
+
+                      Set(
+
+                          varAPAS_LastSuccessfulRunId,
+
+                          varAPAS_SummaryRecord.LastSuccessfulRunId
+
+                      );
+
+                      ClearCollect(
+
+                          colAPAS_Reconciliation,
+
+                          ForAll(
+
+                              Table(ParseJSON(varAPAS_ReconciliationJson)),
+
+                              {
+
+                                  ProjectCode:Text(ThisRecord.Value.ProjectCode),
+
+                                  TagNumber:Text(ThisRecord.Value.TagNumber),
+
+                                  EquipmentType:Coalesce(Text(ThisRecord.Value.EquipmentType),""),
+
+                                  CommodityCode:Coalesce(Text(ThisRecord.Value.CommodityCode),""),
+
+                                  ReconciliationCoverageStatus:Text(ThisRecord.Value.ReconciliationCoverageStatus),
+
+                                  ReconciliationStatus:Text(ThisRecord.Value.ReconciliationStatus),
+
+                                  DataIssueCode:Text(ThisRecord.Value.DataIssueCode),
+
+                                  HcsResolutionStatus:Text(ThisRecord.Value.HcsResolutionStatus),
+
+                                  HcsElementId:Text(ThisRecord.Value.HcsElementId),
+
+                                  HcsElementCode:Text(ThisRecord.Value.HcsElementCode),
+
+                                  HcsRepresentation:Text(ThisRecord.Value.HcsRepresentation),
+
+                                  PreservationTypeCode:Text(ThisRecord.Value.PreservationTypeCode),
+
+                                  PreservationTypeName:Text(ThisRecord.Value.PreservationTypeName),
+
+                                  DecisionStatus:Text(ThisRecord.Value.DecisionStatus),
+
+                                  SelectedPreservationTypeCode:Text(ThisRecord.Value.SelectedPreservationTypeCode),
+
+                                  SelectedPreservationTypeName:Text(ThisRecord.Value.SelectedPreservationTypeName),
+
+                                  SuggestedPreservationTypeCode:Text(ThisRecord.Value.SuggestedPreservationTypeCode),
+
+                                  PublishedRunId:Text(ThisRecord.Value.PublishedRunId),
+
+                                  GeneratedAtUtc:Text(ThisRecord.Value.GeneratedAtUtc)
+
+                              }
+
+                          )
+
+                      ),
+
+                      Set(varAPAS_SummaryOk,false);
+
+                      Set(varAPAS_ReconciliationOk,false);
+
+                      Set(varAPAS_SummaryReadState,"UNAVAILABLE");
+
+                      Set(varAPAS_FreshnessStatus,"UNAVAILABLE");
+
+                      Set(varAPAS_LastEvent,"READ_BUNDLE_ERROR")
+
+                  );
+
+                  If(
+
+                      !varAPAS_ReconciliationOk ||
+
+                      Upper(Coalesce(varAPAS_SummaryReadState,"UNAVAILABLE"))<>"READY",
+
+                      ClearCollect(
+
+                          colAPAS_AssetsView,
+
+                          ForAll(
+
+                              Filter(
+
+                                  colAP_AlepRaw,
+
+                                  Text(ProjectCode)=Text(gblAP_SelectedProjectCode) &&
+
+                                  !IsBlank(Trim(Text(TagNumber)))
+
+                              ) As alep,
+
+                              {
+
+                                  Order:10,
+
+                                  ProjectCode:Text(alep.ProjectCode),
+
+                                  TagNumber:Text(alep.TagNumber),
+
+                                  EquipmentType:Coalesce(Text(alep.EquipmentType),""),
+
+                                  CommodityCode:Coalesce(Text(alep.CommodityCode),""),
+
+                                  CanonicalEquipmentTypeKey:Coalesce(Text(alep.CanonicalEquipmentTypeKey),""),
+
+                                  CanonicalEquipmentTypeName:Coalesce(Text(alep.CanonicalEquipmentTypeName),""),
+
+                                  CanonicalizationState:Coalesce(Text(alep.CanonicalizationState),""),
+
+                                  FamilyKey:Coalesce(Text(alep.FamilyKey),""),
+
+                                  FamilyName:Coalesce(Text(alep.FamilyName),""),
+
+                                  FamilyParentKey:Coalesce(Text(alep.FamilyParentKey),""),
+
+                                  FamilyDepthFromRoot:alep.FamilyDepthFromRoot,
+
+                                  FamilyHierarchySortPath:Coalesce(Text(alep.FamilyHierarchySortPath),""),
+
+                                  FamilyResolutionState:Coalesce(Text(alep.FamilyResolutionState),""),
+
+                                  EffectiveEquipmentTypeKey:Coalesce(Text(alep.EffectiveEquipmentTypeKey),""),
+
+                                  EffectiveEquipmentTypeName:Coalesce(Text(alep.EffectiveEquipmentTypeName),""),
+
+                                  ReconciliationCoverageStatus:"UNAVAILABLE",
+
+                                  ReconciliationStatus:Blank(),
+
+                                  DataIssueCode:Blank(),
+
+                                  HcsResolutionStatus:Blank(),
+
+                                  HcsElementId:Blank(),
+
+                                  HcsElementCode:Blank(),
+
+                                  HcsRepresentation:Blank(),
+
+                                  PreservationTypeCode:Blank(),
+
+                                  PreservationTypeName:Blank(),
+
+                                  DecisionStatus:Blank(),
+
+                                  SelectedPreservationTypeCode:Blank(),
+
+                                  SelectedPreservationTypeName:Blank(),
+
+                                  SuggestedPreservationTypeCode:Blank(),
+
+                                  PublishedRunId:Blank(),
+
+                                  ReconciliationGeneratedAtUtc:Blank()
+
+                              }
+
+                          )
+
+                      ),
+
+                      ClearCollect(
+
+                          colAPAS_AssetsView,
+
+                          ForAll(
+
+                              Filter(
+
+                                  colAP_AlepRaw,
+
+                                  Text(ProjectCode)=Text(gblAP_SelectedProjectCode) &&
+
+                                  !IsBlank(Trim(Text(TagNumber)))
+
+                              ) As alep,
+
+                              With(
+
+                                  {
+
+                                      rec:LookUp(
+
+                                          colAPAS_Reconciliation As rr,
+
+                                          rr.ProjectCode=Text(gblAP_SelectedProjectCode) &&
+
+                                          rr.TagNumber=Text(alep.TagNumber)
+
+                                      )
+
+                                  },
+
+                                  With(
+
+                                      {
+
+                                          coverage:If(
+
+                                              !IsBlank(rec.TagNumber),
+
+                                              Coalesce(rec.ReconciliationCoverageStatus,"AVAILABLE"),
+
+                                              If(
+
+                                                  !IsBlank(varAPAS_LastSuccessfulRunId),
+
+                                                  "NOT_IN_LAST_SUCCESSFUL_SNAPSHOT",
+
+                                                  "UNAVAILABLE"
+
+                                              )
+
+                                          )
+
+                                      },
+
+                                      {
+
+                                          Order:10,
+
+                                          ProjectCode:Text(alep.ProjectCode),
+
+                                          TagNumber:Text(alep.TagNumber),
+
+                                          EquipmentType:Coalesce(Text(alep.EquipmentType),""),
+
+                                          CommodityCode:Coalesce(Text(alep.CommodityCode),""),
+
+                                          CanonicalEquipmentTypeKey:Coalesce(Text(alep.CanonicalEquipmentTypeKey),""),
+
+                                          CanonicalEquipmentTypeName:Coalesce(Text(alep.CanonicalEquipmentTypeName),""),
+
+                                          CanonicalizationState:Coalesce(Text(alep.CanonicalizationState),""),
+
+                                          FamilyKey:Coalesce(Text(alep.FamilyKey),""),
+
+                                          FamilyName:Coalesce(Text(alep.FamilyName),""),
+
+                                          FamilyParentKey:Coalesce(Text(alep.FamilyParentKey),""),
+
+                                          FamilyDepthFromRoot:alep.FamilyDepthFromRoot,
+
+                                          FamilyHierarchySortPath:Coalesce(Text(alep.FamilyHierarchySortPath),""),
+
+                                          FamilyResolutionState:Coalesce(Text(alep.FamilyResolutionState),""),
+
+                                          EffectiveEquipmentTypeKey:Coalesce(Text(alep.EffectiveEquipmentTypeKey),""),
+
+                                          EffectiveEquipmentTypeName:Coalesce(Text(alep.EffectiveEquipmentTypeName),""),
+
+                                          ReconciliationCoverageStatus:coverage,
+
+                                          ReconciliationStatus:If(coverage="AVAILABLE",rec.ReconciliationStatus,Blank()),
+
+                                          DataIssueCode:If(coverage="AVAILABLE",rec.DataIssueCode,Blank()),
+
+                                          HcsResolutionStatus:If(coverage="AVAILABLE",rec.HcsResolutionStatus,Blank()),
+
+                                          HcsElementId:If(coverage="AVAILABLE",rec.HcsElementId,Blank()),
+
+                                          HcsElementCode:If(coverage="AVAILABLE",rec.HcsElementCode,Blank()),
+
+                                          HcsRepresentation:If(coverage="AVAILABLE",rec.HcsRepresentation,Blank()),
+
+                                          PreservationTypeCode:If(coverage="AVAILABLE",rec.PreservationTypeCode,Blank()),
+
+                                          PreservationTypeName:If(coverage="AVAILABLE",rec.PreservationTypeName,Blank()),
+
+                                          DecisionStatus:If(coverage="AVAILABLE",rec.DecisionStatus,Blank()),
+
+                                          SelectedPreservationTypeCode:If(coverage="AVAILABLE",rec.SelectedPreservationTypeCode,Blank()),
+
+                                          SelectedPreservationTypeName:If(coverage="AVAILABLE",rec.SelectedPreservationTypeName,Blank()),
+
+                                          SuggestedPreservationTypeCode:If(coverage="AVAILABLE",rec.SuggestedPreservationTypeCode,Blank()),
+
+                                          PublishedRunId:If(coverage="AVAILABLE",rec.PublishedRunId,Blank()),
+
+                                          ReconciliationGeneratedAtUtc:If(coverage="AVAILABLE",rec.GeneratedAtUtc,Blank())
+
+                                      }
+
+                                  )
+
+                              )
+
+                          )
+
+                      )
+
+                  );
+
+                  ClearCollect(
+                      colAPAS_FamilyTree,
+                      AddColumns(
+                          GroupBy(
+                              Filter(
+                                  colAPAS_AssetsView,
+                                  !IsBlank(Trim(Coalesce(FamilyKey,"")))
+                              ),
+                              FamilyKey,
+                              FamilyRows
+                          ),
+                          FamilyName,
+                          Coalesce(First(FamilyRows).FamilyName,""),
+                          FamilyParentKey,
+                          Coalesce(First(FamilyRows).FamilyParentKey,""),
+                          FamilyDepthFromRoot,
+                          First(FamilyRows).FamilyDepthFromRoot,
+                          FamilyHierarchySortPath,
+                          Coalesce(First(FamilyRows).FamilyHierarchySortPath,""),
+                          AssetCount,
+                          CountRows(FamilyRows),
+                          EquipmentTypeCount,
+                          CountRows(
+                              Distinct(
+                                  Filter(
+                                      FamilyRows,
+                                      !IsBlank(Trim(Coalesce(EffectiveEquipmentTypeKey,"")))
+                                  ),
+                                  EffectiveEquipmentTypeKey
+                              )
+                          ),
+                          HasChildren,
+                          CountRows(
+                              Filter(
+                                  colAPAS_AssetsView,
+                                  FamilyParentKey=FamilyKey
+                              )
+                          )>0
+                      )
+                  );
+
+                  Collect(
+                      colAPAS_FamilyTree,
+                      {
+                          FamilyKey:"ALL_ENGINEERED_EQUIPMENT",
+                          FamilyName:"All Engineered Equipment",
+                          FamilyParentKey:"",
+                          FamilyDepthFromRoot:0,
+                          FamilyHierarchySortPath:"0000000000",
+                          AssetCount:CountRows(colAPAS_AssetsView),
+                          EquipmentTypeCount:CountRows(Distinct(colAPAS_AssetsView,EffectiveEquipmentTypeKey)),
+                          HasChildren:CountRows(Filter(colAPAS_FamilyTree,FamilyKey<>"ALL_ENGINEERED_EQUIPMENT"))>0
+                      }
+                  );
+
+                  Set(varAPAS_SelectedFamilyKey,Blank());
+
+                  Set(
+                      varAPAS_ExpandedFamilyKeys,
+                      Concat(
+                          Filter(colAPAS_FamilyTree,FamilyKey="ALL_ENGINEERED_EQUIPMENT"),
+                          Upper(FamilyKey),
+                          "|"
+                      )
+                  );
+
+                  Set(varAPAS_SelectedRow,Coalesce(First(colAPAS_AssetsView).TagNumber,""));
+
+                  Set(varAPAS_SelectedAsset,First(colAPAS_AssetsView));
+
+                  Set(varAPAS_SelectedFamilyKey,Blank());
+
+                  Set(varAPAS_AssetPageNumber,1);
+
+                  Select(btnAPAS_LoadAssetPage_1);
+
+                  Set(varAPAS_IsBusy,false);
+
+                  If(
+
+                      gblAP_AlepLoadStatus="ERROR",
+
+                      Set(varAPAS_LastEvent,"ALEP_READ_ERROR"),
+
+                      gblAP_AlepLoadStatus="EMPTY",
+
+                      Set(varAPAS_LastEvent,"ALEP_EMPTY"),
+
+                      Set(varAPAS_LastEvent,"PRODUCTIVE_BINDING_READY")
+
+                  )
+
+              );
+            Text: =""
+            Visible: =false
+            Width: =1
+      - btnAPAS_TechnicalLoad_Alep_1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Height: =1
+            OnSelect: |-
+              =If(
+                  IsBlank(varAPAS_SelectedAsset) ||
+                  IsBlank(Trim(Coalesce(varAPAS_SelectedAsset.TagNumber,""))) ||
+                  IsBlank(Trim(Coalesce(gblAP_SelectedProjectCode,""))),
+                  Set(varAPAS_TechnicalDataLoadState,"EMPTY");
+                  Set(varAPAS_TechnicalDataEmptyReason,"NO_SELECTION");
+                  Set(varAPAS_LastEvent,"TECHNICAL_DATA_EMPTY:NO_SELECTION");
+                  Set(varAPAS_DossierBusy,false);
+                  Set(varAPAS_DossierBusyLabel,""),
+                  Set(
+                      varAPAS_TechnicalContextKey,
+                      Trim(Coalesce(varAPAS_SelectedAsset.EquipmentType,"")) & " | " &
+                      Trim(Coalesce(varAPAS_SelectedAsset.CommodityCode,""))
+                  );
+                  IfError(
+                      Set(
+                          varAPAS_SelectedTechnicalResponse,
+                          AssetPlan_Assets_GetSelectedTechnicalData.Run(
+                              Text(gblAP_SelectedProjectCode),
+                              Text(varAPAS_SelectedAsset.TagNumber)
+                          )
+                      );
+                      Set(varAPAS_SelectedTechnicalOk,Lower(Trim(Text(varAPAS_SelectedTechnicalResponse.ok)))="true");
+                      Set(varAPAS_SelectedTechnicalJson,Coalesce(Text(varAPAS_SelectedTechnicalResponse.resultjson),"[]"));
+                      Set(varAPAS_SelectedTechnicalCount,IfError(Value(Text(varAPAS_SelectedTechnicalResponse.count)),0));
+                      Set(varAPAS_TechnicalDataErrorCode,Coalesce(Text(varAPAS_SelectedTechnicalResponse.errorcode),""));
+                      Set(varAPAS_TechnicalDataError,Coalesce(Text(varAPAS_SelectedTechnicalResponse.errormessage),""));
+                      If(
+                          varAPAS_SelectedTechnicalOk,
+                          ClearCollect(
+                              colAPAS_SelectedTechnicalRaw,
+                              ForAll(
+                                  Table(ParseJSON(varAPAS_SelectedTechnicalJson)),
+                                  {
+                                      ProjectCode:Text(ThisRecord.Value.PROJECT),
+                                      TagNumber:Text(ThisRecord.Value.TAG_NUMBER),
+                                      EquipmentType:Text(ThisRecord.Value.EQUIPMENT_TYPE),
+                                      CommodityCode:Text(ThisRecord.Value.COMMODITY_CODE),
+                                      ContextKey:Text(ThisRecord.Value.CONTEXT_KEY),
+                                      SourceColumn:Text(ThisRecord.Value.SOURCE_COLUMN),
+                                      ColumnOrder:IfError(Value(Text(ThisRecord.Value.COLUMN_ORDER)),999),
+                                      RawValue:Text(ThisRecord.Value.RAW_VALUE)
+                                  }
+                              )
+                          );
+                          If(
+                              CountRows(colAPAS_SelectedTechnicalRaw)=0,
+                              Set(varAPAS_TechnicalDataLoadState,"EMPTY");
+                              Set(varAPAS_TechnicalDataEmptyReason,"NO_RAW_VALUES");
+                              Set(varAPAS_TechnicalDataLoadedProject,Text(gblAP_SelectedProjectCode));
+                              Set(varAPAS_TechnicalDataLoadedTag,Text(varAPAS_SelectedAsset.TagNumber));
+                              Set(varAPAS_LastEvent,"TECHNICAL_DATA_EMPTY:NO_RAW_VALUES");
+                              Set(varAPAS_DossierBusy,false);
+                              Set(varAPAS_DossierBusyLabel,""),
+                              Set(
+                                  varAPAS_DossierBusyLabel,
+                                  "Reading contextual mappings · "&Coalesce(varAPAS_SelectedAsset.TagNumber,"selected equipment")
+                              );
+                              Select(btnAPAS_TechnicalLoad_Mappings_1)
+                          ),
+                          Set(varAPAS_TechnicalDataLoadState,"ERROR");
+                          Set(varAPAS_TechnicalDataErrorCode,Coalesce(varAPAS_TechnicalDataErrorCode,"ASSETS_TECHNICAL_DATA_READ_FAILED"));
+                          Set(varAPAS_TechnicalDataError,Coalesce(varAPAS_TechnicalDataError,"Technical Data read returned an error."));
+                          Set(varAPAS_LastEvent,"TECHNICAL_DATA_ERROR:"&Coalesce(varAPAS_TechnicalDataErrorCode,"READ_FAILED"));
+                          Set(varAPAS_DossierBusy,false);
+                          Set(varAPAS_DossierBusyLabel,"")
+                      ),
+                      Set(varAPAS_SelectedTechnicalOk,false);
+                      Set(varAPAS_TechnicalDataLoadState,"ERROR");
+                      Set(varAPAS_TechnicalDataErrorCode,"ASSETS_TECHNICAL_DATA_TRANSPORT_FAILED");
+                      Set(varAPAS_TechnicalDataError,Coalesce(FirstError.Message,"Unable to read selected ALEP technical values."));
+                      Set(varAPAS_LastEvent,"TECHNICAL_DATA_ERROR:ASSETS_TECHNICAL_DATA_TRANSPORT_FAILED");
+                      Set(varAPAS_DossierBusy,false);
+                      Set(varAPAS_DossierBusyLabel,"")
+                  )
+              )
+            Text: =""
+            Visible: =false
+            Width: =1
+      - btnAPAS_TechnicalLoad_Mappings_1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Height: =1
+            OnSelect: |-
+              =IfError(
+                  Set(
+                      varAPAS_MappingResponse,
+                      AssetPlan_GetAlepFieldMappings.Run(
+                          Text(gblAP_SelectedProjectCode),
+                          varAPAS_TechnicalContextKey
+                      )
+                  );
+                  Set(varAPAS_MappingOk,Lower(Trim(Text(varAPAS_MappingResponse.ok)))="true");
+                  Set(varAPAS_MappingJson,Coalesce(Text(varAPAS_MappingResponse.resultjson),"[]"));
+                  If(
+                      varAPAS_MappingOk,
+                      ClearCollect(
+                          colAPAS_SelectedTechnicalMappings,
+                          ForAll(
+                              Table(ParseJSON(varAPAS_MappingJson)),
+                              {
+                                  MappingId:IfError(Value(Text(ThisRecord.Value.MappingId)),Blank()),
+                                  ProjectCode:Text(ThisRecord.Value.ProjectCode),
+                                  ContextKey:Text(ThisRecord.Value.ContextKey),
+                                  SourceColumn:Text(ThisRecord.Value.SourceColumn),
+                                  AttributeKey:Text(ThisRecord.Value.AttributeKey),
+                                  MappingKey:Text(ThisRecord.Value.MappingKey)
+                              }
+                          )
+                      );
+                      If(
+                          CountRows(colAPAS_SelectedTechnicalMappings)=0,
+                          Set(varAPAS_TechnicalDataLoadState,"EMPTY");
+                          Set(varAPAS_TechnicalDataEmptyReason,"NO_CONTEXTUAL_MAPPINGS");
+                          Set(varAPAS_TechnicalDataLoadedProject,Text(gblAP_SelectedProjectCode));
+                          Set(varAPAS_TechnicalDataLoadedTag,Text(varAPAS_SelectedAsset.TagNumber));
+                          Set(varAPAS_LastEvent,"TECHNICAL_DATA_EMPTY:NO_CONTEXTUAL_MAPPINGS");
+                          Set(varAPAS_DossierBusy,false);
+                          Set(varAPAS_DossierBusyLabel,""),
+                          If(
+                              CountRows(colAPAS_TechnicalFieldsCatalog)=0,
+                              Set(
+                                  varAPAS_DossierBusyLabel,
+                                  "Loading Technical Fields glossary · "&Coalesce(varAPAS_SelectedAsset.TagNumber,"selected equipment")
+                              );
+                              Select(btnAPAS_TechnicalLoad_Glossary_1),
+                              Set(varAPAS_GlossaryOk,true);
+                              Set(
+                                  varAPAS_DossierBusyLabel,
+                                  "Building governed Technical Data · "&Coalesce(varAPAS_SelectedAsset.TagNumber,"selected equipment")
+                              );
+                              Select(btnAPAS_TechnicalLoad_Build_1)
+                          )
+                      ),
+                      Set(varAPAS_TechnicalDataLoadState,"ERROR");
+                      Set(varAPAS_TechnicalDataErrorCode,Coalesce(Text(varAPAS_MappingResponse.errorcode),"MAPPING_READ_FAILED"));
+                      Set(varAPAS_TechnicalDataError,Coalesce(Text(varAPAS_MappingResponse.errormessage),"Unable to read contextual mappings."));
+                      Set(varAPAS_LastEvent,"TECHNICAL_DATA_ERROR:"&varAPAS_TechnicalDataErrorCode);
+                      Set(varAPAS_DossierBusy,false);
+                      Set(varAPAS_DossierBusyLabel,"")
+                  ),
+                  Set(varAPAS_MappingOk,false);
+                  Set(varAPAS_TechnicalDataLoadState,"ERROR");
+                  Set(varAPAS_TechnicalDataErrorCode,"MAPPING_TRANSPORT_FAILED");
+                  Set(varAPAS_TechnicalDataError,Coalesce(FirstError.Message,"Unable to read contextual mappings."));
+                  Set(varAPAS_LastEvent,"TECHNICAL_DATA_ERROR:MAPPING_TRANSPORT_FAILED");
+                  Set(varAPAS_DossierBusy,false);
+                  Set(varAPAS_DossierBusyLabel,"")
+              )
+            Text: =""
+            Visible: =false
+            Width: =1
+      - btnAPAS_TechnicalLoad_Glossary_1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Height: =1
+            OnSelect: |-
+              =IfError(
+                  Set(
+                      varAPAS_GlossaryResponse,
+                      AssetPlan_TechnicalFields_GlossaryReadSearch.Run(
+                          JSON({contractVersion:"1.0",mode:"BROWSE",maxResults:100},JSONFormat.Compact)
+                      )
+                  );
+                  Set(varAPAS_GlossaryParsed,ParseJSON(Text(varAPAS_GlossaryResponse.resultjson)));
+                  Set(varAPAS_GlossaryOk,Lower(Trim(Text(varAPAS_GlossaryParsed.ok)))="true");
+                  If(
+                      varAPAS_GlossaryOk,
+                      ClearCollect(
+                          colAPAS_TechnicalFieldsCatalog,
+                          ForAll(
+                              Table(varAPAS_GlossaryParsed.results),
+                              {
+                                  AttributeId:IfError(Value(Text(ThisRecord.Value.attributeId)),Blank()),
+                                  AttributeKey:Text(ThisRecord.Value.attributeKey),
+                                  DisplayName:Text(ThisRecord.Value.displayName),
+                                  CategoryKey:Text(ThisRecord.Value.categoryKey),
+                                  CategoryDisplayName:Text(ThisRecord.Value.categoryDisplayName),
+                                  DataTypeCode:Text(ThisRecord.Value.dataTypeCode),
+                                  PreservationRelevanceCode:Text(ThisRecord.Value.preservationRelevanceCode)
+                              }
+                          )
+                      );
+                      Set(
+                          varAPAS_DossierBusyLabel,
+                          "Building governed Technical Data · "&Coalesce(varAPAS_SelectedAsset.TagNumber,"selected equipment")
+                      );
+                      Select(btnAPAS_TechnicalLoad_Build_1),
+                      Set(varAPAS_TechnicalDataLoadState,"ERROR");
+                      Set(varAPAS_TechnicalDataErrorCode,"GLOSSARY_READ_FAILED");
+                      Set(varAPAS_TechnicalDataError,"Technical Fields glossary returned an error.");
+                      Set(varAPAS_LastEvent,"TECHNICAL_DATA_ERROR:GLOSSARY_READ_FAILED");
+                      Set(varAPAS_DossierBusy,false);
+                      Set(varAPAS_DossierBusyLabel,"")
+                  ),
+                  Set(varAPAS_GlossaryOk,false);
+                  Set(varAPAS_TechnicalDataLoadState,"ERROR");
+                  Set(varAPAS_TechnicalDataErrorCode,"GLOSSARY_TRANSPORT_FAILED");
+                  Set(varAPAS_TechnicalDataError,Coalesce(FirstError.Message,"Unable to read Technical Fields glossary."));
+                  Set(varAPAS_LastEvent,"TECHNICAL_DATA_ERROR:GLOSSARY_TRANSPORT_FAILED");
+                  Set(varAPAS_DossierBusy,false);
+                  Set(varAPAS_DossierBusyLabel,"")
+              )
+            Text: =""
+            Visible: =false
+            Width: =1
+      - btnAPAS_TechnicalLoad_Build_1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Height: =1
+            OnSelect: |-
+              =ClearCollect(
+                  colAPAS_TechnicalDataRows,
+                  ForAll(
+                      colAPAS_SelectedTechnicalRaw As raw,
+                      With(
+                          {mapping:LookUp(colAPAS_SelectedTechnicalMappings As map,map.SourceColumn=raw.SourceColumn)},
+                          With(
+                              {field:LookUp(colAPAS_TechnicalFieldsCatalog As tf,tf.AttributeKey=mapping.AttributeKey)},
+                              If(
+                                  !IsBlank(mapping.AttributeKey) && !IsBlank(field.AttributeKey),
+                                  {
+                                      Order:raw.ColumnOrder,
+                                      Key:field.AttributeKey,
+                                      Label:field.DisplayName,
+                                      ValueText:raw.RawValue,
+                                      SupportingText:field.CategoryDisplayName & " · " & raw.SourceColumn,
+                                      Tone:"NEUTRAL",
+                                      IsInteractive:false
+                                  }
+                              )
+                          )
+                      )
+                  )
+              );
+              If(
+                  CountRows(colAPAS_TechnicalDataRows)>0,
+                  Set(varAPAS_TechnicalDataLoadState,"READY");
+                  Set(varAPAS_TechnicalDataEmptyReason,""),
+                  Set(varAPAS_TechnicalDataLoadState,"EMPTY");
+                  Set(varAPAS_TechnicalDataEmptyReason,"NO_GOVERNED_MATCHES")
+              );
+              Set(varAPAS_TechnicalDataLoadedProject,Text(gblAP_SelectedProjectCode));
+              Set(varAPAS_TechnicalDataLoadedTag,Text(varAPAS_SelectedAsset.TagNumber));
+              Set(
+                  varAPAS_LastEvent,
+                  "TECHNICAL_DATA_" & varAPAS_TechnicalDataLoadState &
+                  If(!IsBlank(varAPAS_TechnicalDataEmptyReason),":" & varAPAS_TechnicalDataEmptyReason,"")
+              );
+              Set(varAPAS_DossierBusy,false);
+              Set(varAPAS_DossierBusyLabel,"")
+            Text: =""
+            Visible: =false
+            Width: =1
+      - conAPAS_IllustrationLightbox_1:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            BorderColor: =RGBA(0,0,0,0)
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(7,31,61,0.68)
+            Height: =App.Height
+            Visible: =varAPAS_IllustrationModalOpen
+            Width: =App.Width
+          Children:
+            - lblAPAS_IllustrationBackdrop_1:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =Color.Transparent
+                  Fill: =Color.Transparent
+                  Height: =Parent.Height
+                  OnSelect: =Set(varAPAS_IllustrationModalOpen,false)
+                  Text: =""
+                  Width: =Parent.Width
+            - conAPAS_IllustrationModalPanel_1:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  BorderColor: =ColorValue("#D9E3EF")
+                  BorderThickness: =1
+                  DropShadow: =DropShadow.None
+                  Fill: =Color.White
+                  Height: =Min(580,Parent.Height-80)
+                  LayoutDirection: =LayoutDirection.Vertical
+                  RadiusBottomLeft: =16
+                  RadiusBottomRight: =16
+                  RadiusTopLeft: =16
+                  RadiusTopRight: =16
+                  Width: =Min(720,Parent.Width-120)
+                  X: =(Parent.Width-Self.Width)/2
+                  Y: =(Parent.Height-Self.Height)/2
+                Children:
+                  - conAPAS_IllustrationModalHeader_1:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =RGBA(0,0,0,0)
+                        DropShadow: =DropShadow.None
+                        Fill: =Color.White
+                        FillPortions: =0
+                        Height: =82
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =12
+                        PaddingLeft: =22
+                        PaddingRight: =16
+                        Width: =Parent.Width
+                      Children:
+                        - conAPAS_IllustrationModalIdentity_1:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =Color.Transparent
+                              Height: =Parent.Height
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutJustifyContent: =LayoutJustifyContent.Center
+                            Children:
+                              - lblAPAS_IllustrationModalTitle_1:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Color: =ColorValue("#12304D")
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =34
+                                    Size: =16
+                                    Text: =Coalesce(varAPAS_SelectedAsset.TagNumber,"Equipment illustration")
+                                    Width: =Parent.Width
+                                    Wrap: =false
+                              - lblAPAS_IllustrationModalSubtitle_1:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Color: =ColorValue("#5E738C")
+                                    Font: =Font.'Segoe UI'
+                                    Height: =28
+                                    Size: =9
+                                    Text: =Coalesce(varAPAS_SelectedAsset.EquipmentType,"—") & " · " & Coalesce(varAPAS_SelectedAsset.CommodityCode,"—")
+                                    Width: =Parent.Width
+                                    Wrap: =false
+                        - icoAPAS_IllustrationModalClose_1:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              AccessibleLabel: ="Close equipment illustration viewer"
+                              BorderColor: =RGBA(0,0,0,0)
+                              Color: =ColorValue("#5E738C")
+                              Fill: =Color.Transparent
+                              Height: =40
+                              HoverColor: =ColorValue("#12304D")
+                              HoverFill: =ColorValue("#F6F9FC")
+                              Icon: =Icon.Cancel
+                              OnSelect: =Set(varAPAS_IllustrationModalOpen,false)
+                              PaddingBottom: =9
+                              PaddingLeft: =9
+                              PaddingRight: =9
+                              PaddingTop: =9
+                              Tooltip: ="Close"
+                              Width: =40
+                  - recAPAS_IllustrationModalDivider_1:
+                      Control: Rectangle@2.3.0
+                      Properties:
+                        BorderColor: =RGBA(0,0,0,0)
+                        Fill: =ColorValue("#E6EDF5")
+                        Height: =1
+                        Width: =Parent.Width
+                  - conAPAS_IllustrationModalMedia_1:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        BorderColor: =RGBA(0,0,0,0)
+                        DropShadow: =DropShadow.None
+                        Fill: =Color.White
+                        Width: =Parent.Width
+                      Children:
+                        - conAPAS_IllustrationNativeFrame_1:
+                            Control: GroupContainer@1.5.0
+                            Variant: ManualLayout
+                            Properties:
+                              BorderColor: =ColorValue("#EEF3F8")
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.None
+                              Fill: =Color.White
+                              Height: =Min(416,Parent.Height-24)
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Width: =Min(416,Parent.Width-48)
+                              X: =(Parent.Width-Self.Width)/2
+                              Y: =(Parent.Height-Self.Height)/2
+                            Children:
+                              - cmpAPAS_IllustrationModalImage_1:
+                                  Control: CanvasComponent
+                                  ComponentName: cmp_EquipmentIllustrationPro
+                                  Properties:
+                                    AccessibleLabel: ="Large equipment illustration for "&Coalesce(varAPAS_SelectedAsset.EquipmentType,"equipment")
+                                    EquipmentType: =Coalesce(varAPAS_SelectedAsset.EquipmentType,"")
+                                    Height: =Min(384,Parent.Height-24)
+                                    Width: =Min(384,Parent.Width-24)
+                                    X: =(Parent.Width-Self.Width)/2
+                                    Y: =(Parent.Height-Self.Height)/2
+                  - conAPAS_IllustrationModalFooter_1:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderColor: =RGBA(0,0,0,0)
+                        DropShadow: =DropShadow.None
+                        Fill: =ColorValue("#F8FAFC")
+                        FillPortions: =0
+                        Height: =52
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =18
+                        PaddingLeft: =22
+                        PaddingRight: =22
+                        Width: =Parent.Width
+                      Children:
+                        - lblAPAS_IllustrationModalMeta_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =ColorValue("#5E738C")
+                              Fill: =Color.Transparent
+                              Font: =Font.'Segoe UI'
+                              Height: =24
+                              Size: =8
+                              Text: ="Presentation view · Standard media · native-size render · Project "&Coalesce(gblAP_SelectedProjectCode,"—")
+                              Width: =Parent.Width
+                              Wrap: =false
+
+# Visual design alignment applied from Assets reference image. Existing runtime/data contracts preserved.
