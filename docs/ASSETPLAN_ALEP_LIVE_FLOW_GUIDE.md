@@ -1,103 +1,117 @@
-# AssetPlan — guía ejecutable del flow de Assets ALEP
+# AssetPlan / ALEP — guía ejecutable del flow live de Assets
 
-## Decisión cerrada
+Estado: diseño listo para construir.  
+Última decisión: Assets lee siempre desde Fabric en vivo. No usa cache, no llama al procedimiento SQL antiguo y no crea casos unresolved.
 
-Assets consulta en vivo esta fuente Fabric:
+## 1. Alcance cerrado
 
-`ops_ing_trd277.FAC_ALEP_EQ_EXPORT_OFFICIAL_CURRENT`
+El flow es **Power Apps (V2) → Power Automate → Fabric → Power Apps**.
 
-No usa el cache `AssetPlan.AlepAssetProjectCache`, la antigua `AssetPlan.usp_AlepAsset_SearchPaged`, ni bootstrap de unresolved o propuestas de Technical Fields.
+Fuente única:
 
-Los tipos unresolved son assets válidos y deben aparecer. Technical Fields decidirá su familia después desde el modal. Esta primera versión devuelve el dato live y `familyResolutionState = NOT_ENRICHED`; no etiqueta como `RESOLVED` algo que no se haya enriquecido.
+\`ops_ing_trd277.FAC_ALEP_EQ_EXPORT_OFFICIAL_CURRENT\`
 
-## Contrato
+Identidad del asset:
 
-Flow: `AssetPlan_GetAlepAssetsPaged`
+\`ProjectCode + EquipmentId\`
 
-Trigger: **Power Apps (V2)**
+Mapeo de columnas:
 
-Inputs:
+| Respuesta del flow | Fuente Fabric |
+|---|---|
+| ProjectCode | ID_COD_PROJECT |
+| EquipmentId | ID_EQUIPMENT |
+| TagNumber | ID_TAG_NUMBER |
+| EquipmentType | DS_EQUIPMENT_TYPE |
+| CommodityCode | ID_COMMODITY_CODE |
+| EquipmentDescription | DS_DESCRIPTION |
+| Discipline | DS_DISCIPLINE |
+| RevisionNumber | NU_REVISION |
+| Quantity | NU_QUANTITY |
 
-| Nombre | Tipo | Regla |
-|---|---|---|
-| `ProjectCode` | Number | obligatorio, positivo |
-| `PageNumber` | Number | opcional, defecto 1 |
-| `PageSize` | Number | opcional, defecto 50, máximo 200 |
-| `SearchText` | Text | opcional |
-| `EquipmentType` | Text | opcional |
-| `CommodityCode` | Text | opcional |
+La clasificación de familia no bloquea Assets. Para esta fase, el resultado devuelve \`FamilyResolutionState = NOT_ENRICHED\`. La decisión de tipos unresolved queda para el modal de Technical Fields.
 
-Identidad del asset: `ProjectCode + EquipmentId`. `TagNumber` es display, no identidad.
+## 2. Contrato del flow
 
-Respuesta:
+Nombre recomendado:
 
-```json
-{
-  "ok": true,
-  "status": "READY",
-  "projectCode": 10230,
-  "pageNumber": 1,
-  "pageSize": 50,
-  "totalRows": 0,
-  "hasNextPage": false,
-  "items": []
-}
-```
+\`AssetPlan_GetAlepAssetsPaged\`
 
-## Construcción en Power Automate
+### Entradas del trigger Power Apps (V2)
 
-### 1. Normalizar inputs
+Crear estos inputs:
 
-Añade estas acciones Compose, con estos nombres exactos:
+| Input | Tipo | Obligatorio | Valor por defecto |
+|---|---|---:|---:|
+| ProjectCode | Number | Sí | — |
+| PageNumber | Number | No | 1 |
+| PageSize | Number | No | 50 |
+| SearchText | Text | No | vacío |
+| EquipmentType | Text | No | vacío |
+| CommodityCode | Text | No | vacío |
 
-- `Compose_ProjectCode`
-- `Compose_PageNumber`
-- `Compose_PageSize`
-- `Compose_SearchText`
-- `Compose_EquipmentType`
-- `Compose_CommodityCode`
+Reglas:
 
-Expresiones:
+- \`ProjectCode\` debe ser positivo.
+- \`PageNumber\` se limita a mínimo 1.
+- \`PageSize\` se limita entre 1 y 200.
+- Los filtros de texto son opcionales.
+- No se debe consultar \`AssetPlan.AlepAssetProjectCache\`.
+- No se debe llamar a \`AssetPlan.usp_AlepAsset_SearchPaged\`.
 
-```text
+## 3. Acciones y expresiones
+
+Usa exactamente estos nombres de acción. Si Power Automate añade sufijos, actualiza las referencias de las expresiones para que coincidan.
+
+### 3.1 Normalización de inputs
+
+Agregar cuatro acciones **Compose**.
+
+**Compose_ProjectCode**
+
+\`\`\`
 int(triggerBody()?['ProjectCode'])
-```
+\`\`\`
 
-```text
-if(
-  or(
-    equals(triggerBody()?['PageNumber'], null),
-    lessOrEquals(int(triggerBody()?['PageNumber']), 0)
-  ),
-  1,
-  int(triggerBody()?['PageNumber'])
-)
-```
+**Compose_PageNumber**
 
-```text
-if(
-  or(
-    equals(triggerBody()?['PageSize'], null),
-    lessOrEquals(int(triggerBody()?['PageSize']), 0)
-  ),
-  50,
-  min(int(triggerBody()?['PageSize']), 200)
-)
-```
+\`\`\`
+max(1, int(coalesce(triggerBody()?['PageNumber'], 1)))
+\`\`\`
 
-Para los tres textos:
+**Compose_PageSize**
 
-```text
+\`\`\`
+min(200, max(1, int(coalesce(triggerBody()?['PageSize'], 50))))
+\`\`\`
+
+**Compose_SearchText**
+
+\`\`\`
 trim(coalesce(triggerBody()?['SearchText'], ''))
-```
+\`\`\`
 
-Cambia el nombre de la entrada para EquipmentType y CommodityCode.
+Agregar también:
 
-Añade:
+**Compose_EquipmentType**
 
-`Compose_RowFrom`
+\`\`\`
+trim(coalesce(triggerBody()?['EquipmentType'], ''))
+\`\`\`
 
-```text
+**Compose_CommodityCode**
+
+\`\`\`
+trim(coalesce(triggerBody()?['CommodityCode'], ''))
+\`\`\`
+
+### 3.2 Paginación
+
+Agregar dos acciones **Compose**.
+
+**Compose_RowFrom**
+
+\`\`\`
 add(
   1,
   mul(
@@ -105,67 +119,98 @@ add(
     outputs('Compose_PageSize')
   )
 )
-```
+\`\`\`
 
-`Compose_RowTo`
+**Compose_RowTo**
 
-```text
+\`\`\`
 mul(
   outputs('Compose_PageNumber'),
   outputs('Compose_PageSize')
 )
-```
+\`\`\`
 
-### 2. Escapar filtros
+### 3.3 Escapado SQL
 
-Añade tres Compose:
+Agregar tres acciones **Compose**. El valor resultante no lleva comillas externas; la plantilla SQL las añadirá.
 
-- `Compose_SearchTextSql`
-- `Compose_EquipmentTypeSql`
-- `Compose_CommodityCodeSql`
+**Compose_SearchTextSql**
 
-Usa:
+\`\`\`
+replace(outputs('Compose_SearchText'),'''','''''')
+\`\`\`
 
-```text
-replace(outputs('Compose_SearchText'), '''', '''''')
-```
+**Compose_EquipmentTypeSql**
 
-Repite cambiando el nombre de la acción. Esto escapa comillas simples antes de insertar valores en la consulta.
+\`\`\`
+replace(outputs('Compose_EquipmentType'),'''','''''')
+\`\`\`
 
-### 3. Crear la consulta paginada
+**Compose_CommodityCodeSql**
 
-Añade un Compose llamado `Compose_AssetsPageQuery`.
+\`\`\`
+replace(outputs('Compose_CommodityCode'),'''','''''')
+\`\`\`
 
-Su expresión es una concatenación del SQL fijo y los valores normalizados. La consulta que debe generar es esta:
+## 4. Consulta paginada
 
-```sql
-WITH SourceRows AS
+### 4.1 Plantilla SQL
+
+Agregar un **Compose** llamado \`Compose_PageSqlTemplate\` con este texto literal:
+
+\`\`\`sql
+WITH base AS
 (
     SELECT
         CAST(ID_COD_PROJECT AS INT) AS ProjectCode,
         CAST(ID_EQUIPMENT AS STRING) AS EquipmentId,
-        ID_TAG_NUMBER AS TagNumber,
-        DS_EQUIPMENT_TYPE AS EquipmentType,
-        ID_COMMODITY_CODE AS CommodityCode,
-        DS_DESCRIPTION AS EquipmentDescription,
-        DS_DISCIPLINE AS Discipline,
-        NU_REVISION AS RevisionNumber,
-        NU_QUANTITY AS Quantity,
-        ROW_NUMBER() OVER (ORDER BY ID_TAG_NUMBER, ID_EQUIPMENT) AS RowNumber
+        CAST(ID_TAG_NUMBER AS STRING) AS TagNumber,
+        CAST(DS_EQUIPMENT_TYPE AS STRING) AS EquipmentType,
+        CAST(ID_COMMODITY_CODE AS STRING) AS CommodityCode,
+        CAST(DS_DESCRIPTION AS STRING) AS EquipmentDescription,
+        CAST(DS_DISCIPLINE AS STRING) AS Discipline,
+        CAST(NU_REVISION AS INT) AS RevisionNumber,
+        CAST(NU_QUANTITY AS DECIMAL(18,3)) AS Quantity
     FROM ops_ing_trd277.FAC_ALEP_EQ_EXPORT_OFFICIAL_CURRENT
-    WHERE CAST(ID_COD_PROJECT AS STRING) = '<ProjectCode>'
-      AND (
-          '<SearchText>' = ''
-          OR CAST(ID_TAG_NUMBER AS STRING) LIKE CONCAT('%', '<SearchText>', '%')
-          OR DS_EQUIPMENT_TYPE LIKE CONCAT('%', '<SearchText>', '%')
-          OR DS_DESCRIPTION LIKE CONCAT('%', '<SearchText>', '%')
-          OR CAST(ID_COMMODITY_CODE AS STRING) LIKE CONCAT('%', '<SearchText>', '%')
-      )
-      AND ('<EquipmentType>' = '' OR DS_EQUIPMENT_TYPE = '<EquipmentType>')
-      AND (
-          '<CommodityCode>' = ''
-          OR CAST(ID_COMMODITY_CODE AS STRING) = '<CommodityCode>'
-      )
+    WHERE CAST(ID_COD_PROJECT AS STRING) = '__PROJECT_CODE__'
+),
+filtered AS
+(
+    SELECT *
+    FROM base
+    WHERE
+        (
+            '__SEARCH_TEXT__' = ''
+            OR LOWER(COALESCE(EquipmentId, '')) LIKE CONCAT('%', LOWER('__SEARCH_TEXT__'), '%')
+            OR LOWER(COALESCE(TagNumber, '')) LIKE CONCAT('%', LOWER('__SEARCH_TEXT__'), '%')
+            OR LOWER(COALESCE(EquipmentType, '')) LIKE CONCAT('%', LOWER('__SEARCH_TEXT__'), '%')
+            OR LOWER(COALESCE(CommodityCode, '')) LIKE CONCAT('%', LOWER('__SEARCH_TEXT__'), '%')
+            OR LOWER(COALESCE(EquipmentDescription, '')) LIKE CONCAT('%', LOWER('__SEARCH_TEXT__'), '%')
+        )
+        AND
+        (
+            '__EQUIPMENT_TYPE__' = ''
+            OR LOWER(COALESCE(EquipmentType, '')) = LOWER('__EQUIPMENT_TYPE__')
+        )
+        AND
+        (
+            '__COMMODITY_CODE__' = ''
+            OR LOWER(COALESCE(CommodityCode, '')) = LOWER('__COMMODITY_CODE__')
+        )
+),
+numbered AS
+(
+    SELECT
+        *,
+        ROW_NUMBER() OVER
+        (
+            ORDER BY
+                COALESCE(EquipmentId, ''),
+                COALESCE(TagNumber, ''),
+                COALESCE(EquipmentType, ''),
+                COALESCE(CommodityCode, '')
+        ) AS RowNumber
+    FROM filtered
 )
 SELECT
     ProjectCode,
@@ -177,133 +222,339 @@ SELECT
     Discipline,
     RevisionNumber,
     Quantity,
-    'NOT_ENRICHED' AS FamilyResolutionState,
-    RowNumber
-FROM SourceRows
-WHERE RowNumber BETWEEN <RowFrom> AND <RowTo>
+    CAST('NOT_ENRICHED' AS STRING) AS FamilyResolutionState
+FROM numbered
+WHERE RowNumber BETWEEN __ROW_FROM__ AND __ROW_TO__
 ORDER BY RowNumber
-```
+\`\`\`
 
-En la expresión `concat()`, cada marcador debe sustituirse por:
+### 4.2 Sustitución de tokens
 
-| Marcador | Acción |
-|---|---|
-| `<ProjectCode>` | `outputs('Compose_ProjectCode')` |
-| `<SearchText>` | `outputs('Compose_SearchTextSql')` |
-| `<EquipmentType>` | `outputs('Compose_EquipmentTypeSql')` |
-| `<CommodityCode>` | `outputs('Compose_CommodityCodeSql')` |
-| `<RowFrom>` | `outputs('Compose_RowFrom')` |
-| `<RowTo>` | `outputs('Compose_RowTo')` |
+Agregar un **Compose** llamado \`Compose_AssetsPageQuery\` con esta expresión completa:
 
-No pongas las marcas angulares en la consulta final.
-
-### 4. Ejecutar Fabric
-
-Añade la acción Fabric existente que ejecuta consulta SQL/Spark y llámala:
-
-`Fabric_Query_AssetsPage`
-
-En el campo Query usa:
-
-```text
-outputs('Compose_AssetsPageQuery')
-```
-
-Debe ser una acción del conector Fabric. No uses la acción de Azure SQL.
-
-### 5. Crear y ejecutar el count
-
-Añade `Compose_AssetsCountQuery` con los mismos filtros y esta consulta:
-
-```sql
-SELECT COUNT(*) AS TotalRows
-FROM ops_ing_trd277.FAC_ALEP_EQ_EXPORT_OFFICIAL_CURRENT
-WHERE CAST(ID_COD_PROJECT AS STRING) = '<ProjectCode>'
-  AND (
-      '<SearchText>' = ''
-      OR CAST(ID_TAG_NUMBER AS STRING) LIKE CONCAT('%', '<SearchText>', '%')
-      OR DS_EQUIPMENT_TYPE LIKE CONCAT('%', '<SearchText>', '%')
-      OR DS_DESCRIPTION LIKE CONCAT('%', '<SearchText>', '%')
-      OR CAST(ID_COMMODITY_CODE AS STRING) LIKE CONCAT('%', '<SearchText>', '%')
-  )
-  AND ('<EquipmentType>' = '' OR DS_EQUIPMENT_TYPE = '<EquipmentType>')
-  AND (
-      '<CommodityCode>' = ''
-      OR CAST(ID_COMMODITY_CODE AS STRING) = '<CommodityCode>'
-  )
-```
-
-Sustituye los mismos seis marcadores de la tabla anterior. Ejecuta el Compose con la misma acción Fabric y llama la acción:
-
-`Fabric_Query_AssetsCount`
-
-### 6. Preparar respuesta
-
-Extrae el primer valor `TotalRows` de la respuesta count. Si el conector devuelve un wrapper `fields/rows`, usa el primer objeto de `rows`; no envíes el wrapper entero al cliente.
-
-Calcula `hasNextPage` con:
-
-```text
-less(
-  mul(
-    outputs('Compose_PageNumber'),
-    outputs('Compose_PageSize')
+\`\`\`
+replace(
+  replace(
+    replace(
+      replace(
+        replace(
+          replace(
+            outputs('Compose_PageSqlTemplate'),
+            '__PROJECT_CODE__',
+            string(outputs('Compose_ProjectCode'))
+          ),
+          '__SEARCH_TEXT__',
+          outputs('Compose_SearchTextSql')
+        ),
+        '__EQUIPMENT_TYPE__',
+        outputs('Compose_EquipmentTypeSql')
+      ),
+      '__COMMODITY_CODE__',
+      outputs('Compose_CommodityCodeSql')
+    ),
+    '__ROW_FROM__',
+    string(outputs('Compose_RowFrom'))
   ),
-  int(outputs('Compose_TotalRows'))
+  '__ROW_TO__',
+  string(outputs('Compose_RowTo'))
 )
-```
+\`\`\`
 
-La respuesta debe conservar únicamente:
+### 4.3 Ejecución Fabric
 
-- `ok`
-- `status`
-- `projectCode`
-- `pageNumber`
-- `pageSize`
-- `totalRows`
-- `hasNextPage`
-- `items`
+Agregar la acción de ejecución de consulta Fabric disponible en el entorno y nombrarla:
 
-No uses `Apply to each` para paginar.
+\`Fabric_Query_AssetsPage\`
 
-## Validación obligatoria
+En el campo de consulta, usar:
 
-Ejecutar el flow manualmente con:
+\`\`\`
+outputs('Compose_AssetsPageQuery')
+\`\`\`
 
-| Input | Valor |
+La acción debe ejecutar la consulta contra el workspace/lakehouse que contiene \`ops_ing_trd277.FAC_ALEP_EQ_EXPORT_OFFICIAL_CURRENT\`.
+
+No sustituyas esta acción por SQL Server ni por una tabla cacheada.
+
+## 5. Consulta de total
+
+La paginación necesita el total filtrado para que la pantalla pueda mostrar \`hasNextPage\`.
+
+### 5.1 Plantilla
+
+Agregar un **Compose** llamado \`Compose_CountSqlTemplate\`:
+
+\`\`\`sql
+SELECT
+    COUNT(*) AS TotalRows
+FROM ops_ing_trd277.FAC_ALEP_EQ_EXPORT_OFFICIAL_CURRENT
+WHERE CAST(ID_COD_PROJECT AS STRING) = '__PROJECT_CODE__'
+  AND
+  (
+      '__SEARCH_TEXT__' = ''
+      OR LOWER(COALESCE(CAST(ID_EQUIPMENT AS STRING), '')) LIKE CONCAT('%', LOWER('__SEARCH_TEXT__'), '%')
+      OR LOWER(COALESCE(CAST(ID_TAG_NUMBER AS STRING), '')) LIKE CONCAT('%', LOWER('__SEARCH_TEXT__'), '%')
+      OR LOWER(COALESCE(CAST(DS_EQUIPMENT_TYPE AS STRING), '')) LIKE CONCAT('%', LOWER('__SEARCH_TEXT__'), '%')
+      OR LOWER(COALESCE(CAST(ID_COMMODITY_CODE AS STRING), '')) LIKE CONCAT('%', LOWER('__SEARCH_TEXT__'), '%')
+      OR LOWER(COALESCE(CAST(DS_DESCRIPTION AS STRING), '')) LIKE CONCAT('%', LOWER('__SEARCH_TEXT__'), '%')
+  )
+  AND
+  (
+      '__EQUIPMENT_TYPE__' = ''
+      OR LOWER(COALESCE(CAST(DS_EQUIPMENT_TYPE AS STRING), '')) = LOWER('__EQUIPMENT_TYPE__')
+  )
+  AND
+  (
+      '__COMMODITY_CODE__' = ''
+      OR LOWER(COALESCE(CAST(ID_COMMODITY_CODE AS STRING), '')) = LOWER('__COMMODITY_CODE__')
+  )
+\`\`\`
+
+### 5.2 Sustitución
+
+Agregar un **Compose** llamado \`Compose_AssetsCountQuery\`:
+
+\`\`\`
+replace(
+  replace(
+    replace(
+      replace(
+        outputs('Compose_CountSqlTemplate'),
+        '__PROJECT_CODE__',
+        string(outputs('Compose_ProjectCode'))
+      ),
+      '__SEARCH_TEXT__',
+      outputs('Compose_SearchTextSql')
+    ),
+    '__EQUIPMENT_TYPE__',
+    outputs('Compose_EquipmentTypeSql')
+  ),
+  '__COMMODITY_CODE__',
+  outputs('Compose_CommodityCodeSql')
+)
+\`\`\`
+
+Agregar una segunda acción Fabric llamada:
+
+\`Fabric_Query_AssetsCount\`
+
+Consulta:
+
+\`\`\`
+outputs('Compose_AssetsCountQuery')
+\`\`\`
+
+## 6. Normalización de la respuesta Fabric
+
+La respuesta esperada de ambas acciones Fabric es un array de filas en la propiedad \`rows\`.
+
+Agregar:
+
+**Compose_PageRows**
+
+\`\`\`
+coalesce(
+  body('Fabric_Query_AssetsPage')?['rows'],
+  body('Fabric_Query_AssetsPage')?['resultSets']?['Table1']?['rows'],
+  body('Fabric_Query_AssetsPage')
+)
+\`\`\`
+
+Agregar:
+
+**Compose_CountRows**
+
+\`\`\`
+coalesce(
+  body('Fabric_Query_AssetsCount')?['rows'],
+  body('Fabric_Query_AssetsCount')?['resultSets']?['Table1']?['rows'],
+  body('Fabric_Query_AssetsCount')
+)
+\`\`\`
+
+Agregar:
+
+**Compose_TotalRows**
+
+\`\`\`
+int(first(outputs('Compose_CountRows'))?['TotalRows'])
+\`\`\`
+
+Si el conector Fabric configurado en el entorno devuelve otro envoltorio, conserva la consulta y cambia únicamente las rutas de estas dos acciones después de inspeccionar la primera ejecución. Ese es un gate de conexión, no una razón para volver al cache.
+
+## 7. Proyección para Power Apps
+
+Agregar una acción **Select** llamada \`Select_Assets\`.
+
+**From**
+
+\`\`\`
+outputs('Compose_PageRows')
+\`\`\`
+
+Mapeo:
+
+| Campo | Expresión |
 |---|---|
-| ProjectCode | 10230 |
-| PageNumber | 1 |
-| PageSize | 50 |
-| SearchText | vacío |
-| EquipmentType | vacío |
-| CommodityCode | vacío |
+| ProjectCode | \`item()?['ProjectCode']\` |
+| EquipmentId | \`item()?['EquipmentId']\` |
+| TagNumber | \`item()?['TagNumber']\` |
+| EquipmentType | \`item()?['EquipmentType']\` |
+| CommodityCode | \`item()?['CommodityCode']\` |
+| EquipmentDescription | \`item()?['EquipmentDescription']\` |
+| Discipline | \`item()?['Discipline']\` |
+| RevisionNumber | \`item()?['RevisionNumber']\` |
+| Quantity | \`item()?['Quantity']\` |
+| FamilyResolutionState | \`item()?['FamilyResolutionState']\` |
 
-Debe comprobarse:
+Agregar:
 
-1. `items` contiene assets de la fuente Fabric.
-2. Los tipos `Booster`, `Internal`, `Oil Skimmer` y `Purifier` no desaparecen.
-3. La segunda página no repite la primera.
-4. `totalRows` coincide con el count usando los mismos filtros.
-5. El mismo `EquipmentId` no se duplica dentro del resultado.
-6. La respuesta no contiene datos de `AlepAssetProjectCache`.
-7. El estado de familia es `NOT_ENRICHED`, no una resolución inventada.
+**Compose_HasNextPage**
 
-Segundo caso:
+\`\`\`
+less(
+  mul(outputs('Compose_PageNumber'), outputs('Compose_PageSize')),
+  outputs('Compose_TotalRows')
+)
+\`\`\`
 
-| Input | Valor |
+## 8. Respuesta al canvas app
+
+Agregar **Respond to a PowerApp or flow** con estos campos:
+
+| Campo | Expresión |
 |---|---|
-| ProjectCode | 10610 |
-| PageNumber | 1 |
-| PageSize | 50 |
-| SearchText | MOTOR |
-| EquipmentType | vacío |
-| CommodityCode | vacío |
+| Items | \`body('Select_Assets')\` |
+| TotalRows | \`outputs('Compose_TotalRows')\` |
+| PageNumber | \`outputs('Compose_PageNumber')\` |
+| PageSize | \`outputs('Compose_PageSize')\` |
+| HasNextPage | \`outputs('Compose_HasNextPage')\` |
 
-Debe aparecer `MOTOR SPACE HEATER`.
+Si el diseñador exige tipos, configura:
 
-## Gates
+- Items: Text/JSON
+- TotalRows: Number
+- PageNumber: Number
+- PageSize: Number
+- HasNextPage: Boolean
 
-- **Gate técnico cerrado:** la arquitectura live, la identidad y el contrato están decididos.
-- **Gate de ejecución:** requiere una ejecución real del flow con el conector Fabric configurado. Esta guía no afirma que el runtime esté validado hasta ver esa ejecución.
-- **Intervención del usuario:** solo es necesaria para crear/guardar el flow en el entorno Power Automate y ejecutar los dos casos de prueba; no hay que tocar Technical Fields ni cargar unresolved.
+La llamada desde Power Apps debe enviar:
+
+\`\`\`
+AssetPlan_GetAlepAssetsPaged.Run(
+    Value(varProjectCode),
+    varAssetPage,
+    varAssetPageSize,
+    Coalesce(txtAssetSearch.Text, ""),
+    Coalesce(ddEquipmentType.Selected.Value, ""),
+    Coalesce(ddCommodity.Selected.Value, "")
+)
+\`\`\`
+
+## 9. Encaje con el árbol de Assets
+
+La pantalla usará un árbol como Technical Fields:
+
+\`Project → Area → System → Equipment Family → Asset\`
+
+El árbol es navegación de la UI. Este flow es la lectura live paginada de assets y acepta el contexto que actualmente está definido: proyecto y filtros de equipment type/commodity. No se debe inventar una jerarquía desde cache ni clasificar unresolved durante la carga.
+
+Mientras el modelo de nodos no esté conectado a columnas live equivalentes, el árbol puede seleccionar el proyecto y aplicar los filtros disponibles; la familia se muestra como estado no enriquecido hasta que el usuario decida en Technical Fields.
+
+## 10. Pruebas mínimas
+
+Ejecutar el flow en este orden.
+
+### Caso A — proyecto 10230
+
+Inputs:
+
+\`\`\`json
+{
+  "ProjectCode": 10230,
+  "PageNumber": 1,
+  "PageSize": 50,
+  "SearchText": "",
+  "EquipmentType": "",
+  "CommodityCode": ""
+}
+\`\`\`
+
+Verificar:
+
+- La acción Fabric consulta \`ops_ing_trd277.FAC_ALEP_EQ_EXPORT_OFFICIAL_CURRENT\`.
+- Hay filas si existen assets live para el proyecto.
+- \`TotalRows\` coincide con el count.
+- \`HasNextPage\` es verdadero solo si hay más de 50 filas.
+- No se crea ni actualiza ningún \`EquipmentTypeResolutionCase\`.
+- No se usa \`AlepAssetProjectCache\`.
+
+### Caso B — proyecto 10610
+
+Inputs:
+
+\`\`\`json
+{
+  "ProjectCode": 10610,
+  "PageNumber": 1,
+  "PageSize": 50,
+  "SearchText": "MOTOR",
+  "EquipmentType": "",
+  "CommodityCode": ""
+}
+\`\`\`
+
+Verificar:
+
+- El filtro se aplica en Fabric.
+- Los resultados conservan el tipo live.
+- \`FamilyResolutionState\` sigue siendo \`NOT_ENRICHED\`.
+- No se bootstrappea ningún unresolved.
+
+### Caso C — paginación
+
+Usar un proyecto con más de una página:
+
+\`\`\`json
+{
+  "ProjectCode": 10230,
+  "PageNumber": 2,
+  "PageSize": 10,
+  "SearchText": "",
+  "EquipmentType": "",
+  "CommodityCode": ""
+}
+\`\`\`
+
+Verificar que no haya duplicados entre páginas y que el orden sea estable.
+
+## 11. Gates de entrega
+
+| Gate | Estado | Evidencia |
+|---|---|---|
+| Fuente live decidida | PASS | Fuente y anti-cache fijados arriba |
+| Identidad del asset | PASS | ProjectCode + EquipmentId |
+| Contrato del flow | PASS | Inputs, filtros y respuesta definidos |
+| SQL paginado/count | PASS | Plantillas y sustituciones completas |
+| Documentación GitHub | PASS | Este documento |
+| Flow creado y guardado | GATED | Requiere acceso al tenant Power Platform |
+| Conexión Fabric ejecutada | GATED | Requiere una ejecución real |
+| Pruebas 10230/10610 | GATED | Requiere run history del entorno |
+| Integración final de pantalla | GATED | Depende de la respuesta real del conector |
+
+## 12. Única intervención necesaria
+
+Para cerrar los gates restantes, debes hacer exactamente esto:
+
+1. Crear o abrir \`AssetPlan_GetAlepAssetsPaged\` en Power Automate.
+2. Copiar las acciones y expresiones de este documento.
+3. Seleccionar la conexión Fabric ya autorizada y apuntarla al objeto live indicado.
+4. Guardar el flow.
+5. Ejecutar los tres casos de prueba.
+6. Compartir el resultado de estas acciones:
+   - \`Fabric_Query_AssetsPage\`
+   - \`Fabric_Query_AssetsCount\`
+   - \`Compose_PageRows\`
+   - respuesta final del flow
+
+Con esas cuatro evidencias se puede cerrar el gate de ejecución y continuar con la pantalla sin volver a experimentar con cache, procedimientos antiguos ni resolución automática.
